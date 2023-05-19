@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f1f1f1;
+    background: linear-gradient(135deg, #f76c6c, #ffa07a); /* Gradient background */
 }
 
 .container {
@@ -13,7 +13,8 @@ body {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 48px;
     font-weight: bold;
-    color: #333;
+    color: #fff; /* Font color */
+    font-family: 'Roboto', sans-serif; /* Custom font family */
 }
