@@ -8,17 +8,15 @@
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <title>Cagann.dev</title>
         <meta name="description" content="cagann.dev : Çağan Efe Çalıdağ's CV, Portfolio of a full stack web developer.">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-
-
-        <!-- all meta tags for seo -->
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="favicon.png">
+        <!-- all meta tags I could find for SEO -->
         <meta name='subject' content="Çağan Efe Çalıdağ's Portfolio site">
         <meta name='copyright' content='Çağan Efe Çalıdağ'>
         <meta name='revised' content='Sunday, January 28th, 2024, 9:15 pm'>
-        <!-- <meta name='abstract' content=''> -->
         <meta name='topic' content='Home'>
-        <!-- <meta name='summary' content=''> -->
         <meta name='author' content='Çağan Efe Çalıdağ, efecalidag@gmail.com'>
         <meta name='designer' content='Çağan Efe Çalıdağ'>
         <meta name='owner' content='Çağan Efe Çalıdağ'>
@@ -48,7 +46,6 @@
         <meta name="author" content="Çağan Efe Çalıdağ" >
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <meta name="ROBOTS" content="INDEX, FOLLOW">
-        <meta name="revisit-after" content="1 days">
         <meta name="language" content="Turkish, English, French">
         <meta name="distribution" content="global">
         <meta name="google" content="translate">
@@ -56,68 +53,76 @@
         <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
         <script defer src="js/main.js"></script>
         <script defer src="js/scrollReveal.js"></script>
+        <script defer src="js/fixAnchor.js"></script>
         <script defer src="https://kit.fontawesome.com/09fb08f3d8.js" crossorigin="anonymous"></script>
     </head>
     <body class="body">
-        <div class="header">
+        <div class="header" id="header">
             <div class="header-image">
-                <img src="files/images/header-image.jpeg" alt="Header-cagan">
+                <img src="files/images/icon-192.png" alt="Header-cagan">
             </div>
             <!-- <div class="header-text">
                 <h1>Çağan Efe Çalıdağ</h1>
-                <div class="header-seperator-horizontal"><hr></div>
+                <div class="welcome-seperator-horizontal"><hr></div>
                 <h2>Full Stack Developer</h2>
             </div> -->
             <div class="header-nav">
                 <nav>
-                    <a href="#about">About</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#contact">Contact</a>
+                    <a onclick="goToAnchor('about')" class="anchor">About</a>
+                    <a onclick="goToAnchor('skills')" class="anchor" >Skills</a>
+                    <a onclick="goToAnchor('projects')" class="anchor" >Projects</a>
+                    <a class="anchor" href="/pages/contact.html">Contact</a>
                 </nav>
             </div>
         </div>
-        <section class="welcome">
-            <div class="welcome-text">
-                <h1>Çağan Efe Çalıdağ</h1>
-                <div class="welcome-seperator-horizontal"><hr></div>
-                <h2>Full Stack Developer</h2>
+        <section>
+            <div class="welcome-bg">
+                <div class="welcome">
+                    <div class="welcome-text">
+                        <div class="wt-text">
+                            <h1>Çağan Efe Çalıdağ</h1>
+                            <div class="welcome-seperator-horizontal"><hr></div><>
+                            <h2>Full Stack Developer, Designer. </h2>
+                        </div>
+                    </div>
+                    <div class="welcome-image">
+                        <img src="files/images/nehirçaansvgaspng.png" alt="welcome-cagan">
+                    </div>
+                </div>
             </div>
-            <div class="welcome-image">
-                <img src="files/images/header-image.jpeg" alt="welcome-cagan">
-            </div>
+            
         </section>
         <div class="general-container">
             <h1>Hello</h1>
-            <div class="reveal">
-                <div class="container">
+            <div class="reveal anchor">
+                <div class="container" id="about">
                     <div class="general-container-text">
                         <h1>selamlar</h1>
                         <h2>memeler</h2>
                     </div>
-                    <div class="general-container-right-image">
+                    <!-- <div class="container-image">
                         <img src="files/images/header-image.jpeg" alt="Header-cagan">
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="reveal">
-                <div class="container">
+            <div class="reveal anchor">
+                <div class="container" id="skills">
                     <div class="general-container-text">
                         <h1>lorem</h1>
                         <h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis?</h2>
                     </div>
-                    <div class="general-container-right-image">
+                    <div class="container-image">
                         <img src="files/images/header-image.jpeg" alt="Header-cagan">
                     </div>
                 </div>
             </div>
-            <div class="reveal">
-                <div class="container">
+            <div class="reveal anchor">
+                <div class="container" id="projects">
                     <div class="general-container-text">
                         <h1>lorem</h1>
                         <h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam odio quod illum sapiente accusantium assumenda ducimus velit sequi inventore delectus? Autem ad ratione veniam facere eos esse nostrum ipsum sit.</h2>
                     </div>
-                    <div class="general-container-right-image">
+                    <div class="container-image">
                         <img src="files/images/header-image.jpeg" alt="Header-cagan">
                     </div>
                 </div>

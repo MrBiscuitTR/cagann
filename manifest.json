@@ -1,0 +1,20 @@
+{
+    "short_name": "Cagann.dev",
+    "name": "Çağan Efe Çalıdağ's personal website.",
+    "icons": [
+      {
+        "src": "/files/images/icon-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#fff",
+    "display": "minimal-ui",
+    "scope": "/",
+    "theme_color": "#313169",
+    "shortcuts": [
+      
+    ],
+    "description": "Personal website of Çağan Efe Çalıdağ. Portfolio, CV, and more."
+  }
