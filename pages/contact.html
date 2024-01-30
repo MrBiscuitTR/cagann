@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="../css/style-main.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script defer src="../js/fixAnchor.js"></script>
 </head>
 <body>
     <div class="header">
         <div class="header-image">
-            <img src="../files/images/icon-192.png" alt="Header-cagan">
+            <a href="/"><img src="../files/images/icon-192.png" alt="Header-cagan"></a>
         </div>
         <!-- <div class="header-text">
             <h1>Çağan Efe Çalıdağ</h1>
@@ -18,17 +20,15 @@
         </div> -->
         <div class="header-nav">
             <nav>
-                <a href="../index.html#about">About</a>
-                <a href="../index.html#skills">Skills</a>
-                <a href="../index.html#projects">Projects</a>
-                <a href="/pages/contact.html">Contact</a>
+                <a onclick="goToAnchor('/-about')">About</a>
+                <a onclick="goToAnchor('/-skills')">Skills</a>
+                <a onclick="goToAnchor('/-projects')">Projects</a>
+                <a href="#contactform">Contact</a>
             </nav>
         </div>
     </div>
     <div style="align-self: auto; margin: auto; text-align: center;">
-        <h1>Çağan Efe Çalıdağ</h1>
-        <h2>Full Stack Web Developer</h2>
-        <h3> Contact Page </h3>
+        <h1> Contact Me </h1>
     </div>
 </body>
 </html>
