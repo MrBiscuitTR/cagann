@@ -54,6 +54,10 @@ a {
     margin: 1vh 0 1vh 0;
 }
 
+.header-image a {
+    display: contents;
+}
+
 .header-text {
     height: 100%;
     max-width: 40%;
@@ -100,7 +104,7 @@ a {
     align-items: center;
     text-align: center;
     max-width: 60%;
-    font-size: calc(10px + 2vmin);
+    font-size: 1em;
     color: #313131;
 }
 
@@ -111,14 +115,14 @@ a {
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    font-size: calc(10px + 2vmin);
+    font-size: 1em;
     list-style-type: none;
 }
 
 .header-nav nav a {
     margin: 0 1vw 0 1vw;
     padding: 0 0 0 0;
-    font-size: calc(10px + 1vmin);
+    font-size: 0.8em;
     font-weight: 500;
     line-height: 1;
     color: inherit;
@@ -232,12 +236,13 @@ a {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    height: auto;
     width: 100%;
     max-width: 100vw;
     /* background-color: #f1f1f1; */
-    padding: 30px 0 30px 0;
+    padding: 3vh 0 10vh 0;
     text-align: center;
-    font-size: 35px;
+    font-size: calc(10px + 2vmin);
 }
 
 .general-container h1 {
@@ -277,15 +282,25 @@ a {
     justify-content: center;
     align-items: center;
     min-height: auto;
-    max-width: 80%;
+    max-width: 80vw;
     background-color: #313131;
     padding: 2vh 0 2vh 0;
     text-align: center;
-    font-size: 3em;
+    font-size: 1em;
     border-radius: 10px;
     margin: auto;
 }
-
+.container .container-text {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: auto;
+    width: auto;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1em;
+    margin: auto;
+}
 .container-image {
     display: flex;
     flex-direction: column;
@@ -294,25 +309,25 @@ a {
     min-height: auto;
     width: auto;
     max-width: 80%;
-    background-color: #313131;
+    background-color: transparent;
     padding: 0.1em 0 0.1em 0;
     text-align: center;
-    font-size: 3em;
+    font-size: 0.6em;
     border-radius: 10px;
     margin: auto;
 }
 
-.general-container .container h1 {
+.general-container .container .container-text h1 {
     margin: 0;
-    font-size: calc(10px + 4vmin);
+    font-size: 2em;
     font-weight: 300;
     line-height: 1;
     color: #fff;
 }
 
-.general-container .container h2 {
+.general-container .container .container-text h2 {
     margin: 0;
-    font-size: calc(10px + 2vmin);
+    font-size: 1em;
     font-weight: 300;
     line-height: 1;
     color: #fff;
@@ -325,6 +340,135 @@ a {
     width: 10%;
     height: auto;
 }
+/* responsive good looking grid to display my projects as widgets. on mobile devices it should be displayed as a single column. widgets are squares with images fitting in them. */
+.projects-grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 1em;
+    justify-items: center;
+    align-items: center;
+    margin: 0 0 0 0;
+    padding: 1em 0 1em 0;
+    width: 100%;
+    max-width: 100vw;
+    min-height: auto;
+    height: auto;
+    background-color: #313131;
+    text-align: center;
+    font-size: 1em;
+    color: #fff;
+}
+
+.projects-grid-responsive .project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    width: auto;
+    max-width: 80%;
+    background-color: transparent;
+    box-shadow: #fff 0px 0px 0.5em 0px;
+    padding: 0.1em 0 0.1em 0;
+    text-align: center;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.projects-grid-responsive .project .project-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    width: auto;
+    max-width: 80%;
+    background-color: transparent;
+    padding: 0.1em 0 0.1em 0;
+    text-align: center;
+    font-size: 0.6em;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.projects-grid-responsive .project .project-text h1 {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 300;
+    line-height: 1;
+    color: #fff;
+    text-shadow: #a1d9ff 2px 2px 2px;
+}
+
+.projects-grid-responsive .project .project-text h2 {
+    margin: 0;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1;
+    color: #fff;
+}
+
+.projects-grid-responsive .project .project-text p {
+    margin: 0;
+    font-size: 0.8em;
+    font-weight: 300;
+    line-height: 1;
+    color: #fff;
+}
+
+.projects-grid-responsive .project .project-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    width: auto;
+    max-width: 80%;
+    background-color: transparent;
+    padding: 0.1em 0 0.1em 0;
+    text-align: center;
+    font-size: 0.6em;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.projects-grid-responsive .project .project-image img {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.projects-grid-responsive .project .project-image a {
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.projects-grid-responsive .project .project-image a:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.projects-grid-responsive .project .project-image img:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
 
 .footer {
     position: static;

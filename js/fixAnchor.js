@@ -10,3 +10,8 @@ const goToAnchor = (anchor) => {
         });
     }
 }
+window.addEventListener('load', () => {
+    if (window.location.hash) {
+        goToAnchor(window.location.hash.substring(1));
+    }
+});

@@ -20,15 +20,24 @@
         </div> -->
         <div class="header-nav">
             <nav>
-                <a onclick="goToAnchor('/-about')">About</a>
-                <a onclick="goToAnchor('/-skills')">Skills</a>
-                <a onclick="goToAnchor('/-projects')">Projects</a>
+                <a href="/#about">About</a>
+                <a href="/#skills">Skills</a>
+                <a href="/#projects">Projects</a>
                 <a href="#contactform">Contact</a>
             </nav>
         </div>
     </div>
     <div style="align-self: auto; margin: auto; text-align: center;">
         <h1> Contact Me </h1>
+    </div>
+    <div class="contact-form-cool">
+        <form action="contactform.php" method="post">
+            <input type="text" name="name" placeholder="Full name or Company name" required>
+            <input type="email" name="mail" placeholder="Your e-mail" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button type="submit" name="submit">Send me your message!</button>
+        </form>
     </div>
 </body>
 </html>

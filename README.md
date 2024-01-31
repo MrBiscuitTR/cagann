@@ -1,2 +1,5 @@
 # cagann
-CV website of Author.
+## Personal website of Author.
+
+### CV, Portfolio, Skills & More.
+
