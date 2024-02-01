@@ -14,4 +14,12 @@ window.addEventListener('load', () => {
     if (window.location.hash) {
         goToAnchor(window.location.hash.substring(1));
     }
+    window.addEventListener('hashchange', (e) => {
+        e.preventDefault();
+        goToAnchor(window.location.hash.substring(1));
+    });
+});
+window.addEventListener('hashchange', (e) => {
+    e.preventDefault();
+    goToAnchor(window.location.hash.substring(1));
 });
