@@ -8,18 +8,17 @@ const goToAnchor = (anchor) => {
             top: targetRect.top + window.scrollY - headerHeight - 50,
             behavior: 'smooth'
         });
+    } else {
+        console.log('targetDiv not found');
     }
 }
 window.addEventListener('load', () => {
     if (window.location.hash) {
         goToAnchor(window.location.hash.substring(1));
+        window.location.clearHash = () => {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+        window.location.clearHash();
     }
-    window.addEventListener('hashchange', (e) => {
-        e.preventDefault();
-        goToAnchor(window.location.hash.substring(1));
-    });
-});
-window.addEventListener('hashchange', (e) => {
-    e.preventDefault();
-    goToAnchor(window.location.hash.substring(1));
+    
 });

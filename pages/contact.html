@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="stylesheet" href="../css/contact.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <script defer src="../js/fixAnchor.js"></script>
 </head>
 <body>
     <div class="header">
         <div class="header-image">
-            <a href="/"><img src="../files/images/icon-192.png" alt="Header-cagan"></a>
+            <a href="/"><img src="https://cagann.dev/files/images/icon-192.png" alt="Cagann Dev"></a>
         </div>
-        <!-- <div class="header-text">
-            <h1>Çağan Efe Çalıdağ</h1>
-            <div class="welcome-seperator-horizontal"><hr></div>
-            <h2>Full Stack Developer</h2>
-        </div> -->
         <div class="header-nav">
             <nav>
                 <a href="/#about">About</a>
@@ -27,17 +23,21 @@
             </nav>
         </div>
     </div>
-    <div style="align-self: auto; margin: auto; text-align: center;">
-        <h1> Contact Me </h1>
-    </div>
-    <div class="contact-form-cool">
-        <form action="contactform.php" method="post">
-            <input type="text" name="name" placeholder="Full name or Company name" required>
-            <input type="email" name="mail" placeholder="Your e-mail" required>
-            <input type="text" name="subject" placeholder="Subject" required>
-            <textarea name="message" placeholder="Message" required></textarea>
-            <button type="submit" name="submit">Send me your message!</button>
-        </form>
+    <div class="contact-wrapper">
+        <div class="contact-text">
+            <h1> Contact Me </h1>
+            <p> You can contact me by filling the form below or emailing <a href="mailto:efecalidag@gmail.com">efecalidag@gmail.com</a> </p>
+        </div>
+            <div class="contact-form-cool">
+                <form action="contactform.php" method="post">
+                    <input type="text" name="name" placeholder="Full name or Company name" required> <br>
+                    <input type="email" name="mail" placeholder="Your e-mail" required> <br>
+                    <input type="text" name="subject" placeholder="Subject" required> <br>
+                    <textarea name="message" placeholder="Message" required></textarea> <br>
+                    <button type="submit" name="submit">Send me your message!</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

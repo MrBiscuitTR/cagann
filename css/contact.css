@@ -1,0 +1,91 @@
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #313131;
+    font-size: calc(10px + 2vmin);
+    text-align: center;
+}
+
+.contact-text {
+    max-width: 90vw;
+    height: auto;
+    line-height: 1em;
+    margin: 0 auto 0 auto;
+    border-radius: 5px;
+    font-size: 0.6em;
+}
+
+.contact-form-cool {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70vw;
+    max-width: 90vw;
+    height: auto;
+    margin: 0 auto 5vh auto;
+    padding: 30px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.13);
+    font-size: 0.5em;
+}
+
+.contact-form-cool form {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    max-width: 90vw;
+    width: 100%;
+    height: 100%;
+}
+
+.contact-form-cool form input{
+    width: 90%;
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 2%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+.contact-form-cool form input:focus{
+    border: 1px solid #6FB7B7;
+    outline: none;
+}
+
+.contact-form-cool form textarea{
+    width: 90%;
+    margin-bottom: 15px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: none;
+    font-size: 1em;
+    height: 10vh;
+    padding: 0px 2% 0 2%;
+}
+
+.contact-form-cool form button {
+    width: 94%;
+    margin: auto;
+    margin-top: 20px;
+    padding: 2%;
+    border: none;
+    border-radius: 3px;
+    background-color: #693169;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+}
+
+
