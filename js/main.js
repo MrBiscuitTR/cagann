@@ -1,7 +1,8 @@
 //server request template test
 const rq = new XMLHttpRequest();
 function serverRequest() {
-  rq.open("GET", "http://92.44.187.183");
+  const url = new URL("http://92.44.187.183/")
+  rq.open("GET", url);
   rq.send();
     rq.onload = () => {
         if (rq.status === 200) {
