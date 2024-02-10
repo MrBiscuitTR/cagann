@@ -1,19 +1,19 @@
 //server request template test
-const rq = new XMLHttpRequest();
-function serverRequest() {
-  const url = new URL("http://92.44.187.183/")
-  rq.open("GET", url);
-  rq.send();
-    rq.onload = () => {
-        if (rq.status === 200) {
-        console.log(rq.responseText);
-        const data = JSON.parse(rq.responseText);
-        const aboutdiv = document.getElementById("about");
-        aboutdiv.appendChild(document.createTextNode(data.name));
-        } else {
-        console.log("Error: " + rq.status);
-        }
-    };
-}
+// const rq = new XMLHttpRequest();
+// function serverRequest() {
+//   const url = new URL("http://92.44.187.183:8080/");
+//   rq.open("GET", url, true);
+//   rq.send();
+//     rq.onload = () => {
+//         if (rq.status === 200) {
+//         console.log(rq.responseText);
+//         const data = JSON.parse(rq.responseText);
+//         const aboutdiv = document.getElementById("about");
+//         aboutdiv.appendChild(document.createTextNode(data.name));
+//         } else {
+//         console.log("Error: " + rq.status);
+//         }
+//     };
+// }
 
-window.onload = serverRequest;
+// window.onload = serverRequest;

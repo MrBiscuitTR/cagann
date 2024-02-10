@@ -6,8 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=7">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-        <title>Çağan Efe Çalıdağ | Full-Stack Developer, Designer & Technology Enthusiast</title>
-        <meta name="description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer, Designer, Technology Enthusiast.">
+        <title>Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast</title>
+        <meta name="description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer & Technology Enthusiast.">
         <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="192x192">
         <link rel="apple-touch-icon" type="image/png" href="/files/images/icon-192.png" sizes="192x192">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -33,7 +33,7 @@
         <meta name='date' content='Jan. 28, 2024'>
         <meta name='DC.title' content='Cagann Dev'>
 
-        <meta name='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer, Designer & Technology Enthusiast'>
+        <meta name='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast'>
         <meta name='og:type' content='website'>
         <meta name='og:url' content='https://cagann.dev/'>
         <meta name='og:image' content="/files/images/og-image.png">
@@ -54,9 +54,9 @@
             {
               "@context" : "https://schema.org",
               "@type" : "WebSite",
-              "name" : "Çağan Efe Çalıdağ | Full-Stack Developer, Designer & Technology Enthusiast",
+              "name" : "Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast",
               "url" : "https://cagann.dev/",
-              "alternateName": ["Çağan Efe Çalıdağ", "cagann dev", "caganndev","cagandev", "cagan dev"]
+              "alternateName": ["Çağan Efe Çalıdağ", "cagann dev", "cagan dev","cagandev", "caganndev"]
             }
         </script>
         <link rel="stylesheet" href="css/bulma-grid-customized.css">
@@ -66,6 +66,7 @@
         <script defer src="js/scrollReveal.js"></script>
         <script defer src="js/fixAnchor.js"></script>
         <script defer src="https://kit.fontawesome.com/09fb08f3d8.js" crossorigin="anonymous"></script>
+        <script defer src="js/coolbg.js"></script>
         <noscript>Please enable javascript for the best user experience!</noscript>
         
     </head>
@@ -76,36 +77,42 @@
             </div>
             <div class="header-nav">
                 <nav>
-                    <a onclick="goToAnchor('about')" >About</a>
-                    <a onclick="goToAnchor('skills')" >Skills</a>
-                    <a onclick="goToAnchor('projects')" >Projects</a>
-                    <a class="anchor" href="/pages/contact.html">Contact</a>
+                    <a data-value="About" onclick="goToAnchor('about')" >About</a>
+                    <a data-value="Skills" onclick="goToAnchor('skills')" >Skills</a>
+                    <a data-value="Projects" onclick="goToAnchor('projects')" >Projects</a>
+                    <a data-value="Contact" class="anchor" href="/pages/contact.html">Contact</a>
                 </nav>
             </div>
         </div>
         <section>
             <div class="welcome-bg">
-                <div class="welcome">
-                    <div class="welcome-text">
-                        <div class="wt-text">
-                            <h1>Çağan Efe Çalıdağ</h1>
-                            <div class="welcome-seperator-horizontal"><hr></div><>
-                            <h2>Full Stack Developer, Designer. </h2>
+                <!-- <div class="background-container"> -->
+                    <div class="raining-text"></div>
+                    <div class="content">
+                        <div class="welcome">
+                            <div class="welcome-text">
+                                <div class="wt-text">
+                                    <h1 data-value="Çağan Efe Çalıdağ">Çağan Efe Çalıdağ</h1>
+                                    <div class="welcome-seperator-horizontal"><hr></div>
+                                    <h2>Full-Stack Developer, <br> Technology Enthusiast. </h2>
+                                </div>
+                            </div>
+                            <div class="welcome-image">
+                                <img src="files/images/nehirçaansvgaspng.png" alt="Çağan Efe Çalıdağ ve Nehir">
+                            </div>
                         </div>
                     </div>
-                    <div class="welcome-image">
-                        <img src="files/images/nehirçaansvgaspng.png" alt="Çağan Efe Çalıdağ ve Nehir">
-                    </div>
-                </div>
+                <!-- </div> -->
+                
             </div>
             
         </section>
         <div class="general-container">
-            <h1>Welcome. Scroll <i class="fas fa-angle-down"></i></h1>
+            <i class="fas fa-angle-down"></i>
             <div class="reveal">
                 <div class="container" id="about">
                     <div class="container-text">
-                        <h1>About me</h1>
+                        <h2 data-value="About Me">About me</h2>
                     </div>
                 </div>
             </div>
@@ -115,7 +122,7 @@
                         <img src="files/images/header-image.jpeg" alt="Çağan Efe Çalıdağ Profile Close">
                     </div>
                     <div class="container-text">
-                        <h2>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a 
+                        <p>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a 
                             <script>
                             var birthDate = new Date("2006-10-12");
                             var today = new Date();
@@ -128,7 +135,7 @@
                             I have been "programming" since the age of 10, but I started taking it serious when I was 12. I have been learning and developing my skills ever since.
                             I am currently working on a few projects, and I am looking for a job to gain experience and improve my skills. I am also open to freelance work.
                             I am a very curious person, and I love learning new things. Being a very hard-working person, I love taking on challenges and solving problems.
-                        </h2>
+                        </p>
                         <!-- <h2>
                             
                         </h2> -->
@@ -138,14 +145,14 @@
             <div class="reveal">
                 <div class="container" id="skills">
                     <div class="container-text">
-                        <h1>Skills</h1>
+                        <h2 data-value="Skills">Skills</h2>
                     </div>
                 </div>
             </div>
             <div class="reveal">
                 <div class="container">
                     <div class="container-text">
-                        <h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis?</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis?</p>
                     </div>
                     <!-- <div class="container-image">
                         <img src="files/images/icon-192.svg" alt="Header-cagan">
@@ -155,28 +162,28 @@
             <div class="reveal">
                 <div class="container" id="skills">
                     <div class="container-text">
-                        <h1>Certifications</h1>
+                        <h2 data-value="Certifications">Certifications</h2>
                     </div>
                 </div>
             </div>
             <div class="reveal">
                 <div class="container">
                     <div class="container-text">
-                        <h2>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis?</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus dolore obcaecati suscipit aut dolores laudantium a commodi hic. Vel ea illum saepe voluptatibus sed tenetur aut ab, voluptates eligendi perferendis?</p>
                     </div>
                 </div>
             </div>
             <div class="reveal">
                 <div class="container" id="projects">
                     <div class="container-text">
-                        <h1>Some of My Projects</h1>
+                        <h2 data-value="Some of My Projects">Some of My Projects</h2>
                     </div>
                 </div>
             </div>
             <div class="reveal">
                 <div class="container">
                     <div class="container-text">
-                        <h2>Click on a project to give it a look!</h2>
+                        <p>Click on a project to give it a look!</p>
                     </div>
                 </div>
             </div>
@@ -190,11 +197,11 @@
                                         <img src="https://sjmetaapp.me/logo192.png" alt="Metaclass Education">
                                     </div>
                                 </a>
-                                    <div class="project-text">
-                                        <h1>Metaclass</h1>
-                                        <h2>Organized Education App</h2>
-                                        <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
-                                    </div>
+                                <div class="project-text">
+                                    <h2>Metaclass</h2>
+                                    <h3>Organized Education App</h3>
+                                    <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
+                                </div>
                                 
                             </div>
                         </div>
@@ -206,11 +213,11 @@
                                         <img src="https://album.hanimcilar.com/logo192.png" alt="Hanımcılar Logo">
                                     </div>
                                 </a>
-                                    <div class="project-text">
-                                        <h1>Hanımcılar</h1>
-                                        <h2>Polaroid Photograph Album</h2>
-                                        <p>Hanımcılar is a website (I made for my gf) where you can create collaborative polaroid photo albums with changeable themes.</p>
-                                    </div>
+                                <div class="project-text">
+                                    <h2>Hanımcılar</h2>
+                                    <h3>Polaroid Photograph Album</h3>
+                                    <p>Hanımcılar is a website (I made for my gf) where you can create collaborative polaroid photo albums with changeable themes.</p>
+                                </div>
                                 
                             </div>
                         </div>
@@ -222,18 +229,19 @@
                                         <img src="https://amcilar.com/img/amcilar-logo.png" alt="Amcılar Logo">
                                     </div>
                                 </a>
-                                    <div class="project-text">
-                                        <h1>Amcılar</h1>
-                                        <h2>Satire Shopping Platform</h2>
-                                        <p>Amcılar is a mockery shopping site on which I was planning on selling a very specific merchandise. Currently it is out of service.</p>
-                                    </div>
+                                <div class="project-text">
+                                    <h2>Amcılar</h2>
+                                    <h3>Satire Shopping Platform</h3>
+                                    <p>Amcılar is a mockery shopping site on which I was planning on selling a very specific merchandise. Currently it is out of service.</p>
+                                </div>
                                 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div >
+            <br>
+            <div>
                 <div class="container">
                     <div class="columns">
                         <div class="column reveal">
@@ -243,106 +251,44 @@
                                         <img src="https://sjmetaapp.me/logo192.png" alt="Metaclass Education">
                                     </div>
                                 </a>
-                                    <div class="project-text">
-                                        <h1>Metaclass</h1>
-                                        <h2>Organized Education App</h2>
-                                        <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                        <br>
-                        <div class="column reveal">
-                            <div class="project">
-                                <a href="/pages/projects/hanimcilar.html">
-                                    <div class="project-image">
-                                        <img src="https://album.hanimcilar.com/logo192.png" alt="Hanımcılar Logo">
-                                    </div>
-                                </a>
-                                    <div class="project-text">
-                                        <h1>Hanımcılar</h1>
-                                        <h2>Polaroid Photograph Album</h2>
-                                        <p>Hanımcılar is a website (I made for my gf) where you can create collaborative polaroid photo albums with changeable themes.</p>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                        <br>
-                        <div class="column reveal">
-                            <div class="project">
-                                <a href="/pages/projects/amcilar.html">
-                                    <div class="project-image">
-                                        <img src="https://amcilar.com/img/amcilar-logo.png" alt="Amcılar Logo">
-                                    </div>
-                                </a>
-                                    <div class="project-text">
-                                        <h1>Amcılar</h1>
-                                        <h2>Satire Shopping Platform</h2>
-                                        <p>Amcılar is a mockery shopping site on which I was planning on selling a very specific merchandise. Currently it is out of service.</p>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                    
-                    </div>
-                    <!-- <div class="projects-grid-responsive">
-                        <div class="project">
-                            <a href="/pages/projects/metaclass.html">
-                                <div class="project-image">
-                                    <img src="https://sjmetaapp.me/logo192.png" alt="Metaclass Education">
-                                </div>
-                            </a>
                                 <div class="project-text">
-                                    <h1>Metaclass</h1>
-                                    <h2>Organized Education App</h2>
+                                    <h2>Metaclass</h2>
+                                    <h3>Organized Education App</h3>
                                     <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
                                 </div>
-                            
+                                
+                            </div>
                         </div>
-                        <div class="project">
-                            <a href="/pages/projects/hanimcilar.html">
-                                <div class="project-image">
-                                    <img src="https://album.hanimcilar.com/logo192.png" alt="Hanımcılar Logo">
-                                </div>
-                            </a>
+                        <br>
+                        <div class="column reveal">
+                            <div class="project">
+                                <a onclick="goToAnchor('projects')">
+                                    <div class="project-image">
+                                        <img src="/files/images/question-mark-circle-outline-192.png" alt="Incoming project">
+                                    </div>
+                                </a>
                                 <div class="project-text">
-                                    <h1>Hanımcılar</h1>
-                                    <h2>Polaroid Photograph Album</h2>
-                                    <p>Hanımcılar is a website (I made for my gf) where you can create collaborative polaroid photo albums with changeable themes.</p>
-                                </div>
-                            
+                                    <h2>Coming Soon!</h2>
+                                    <h3>Other Projects are on the way.</h3>
+                                    <p>I will add my other projects here as soon as I see they are worth showing the world.</p>
+                                </div> 
+                            </div>
                         </div>
-                        <div class="project">
-                            <a href="/pages/projects/amcilar.html">
-                                <div class="project-image">
-                                    <img src="https://amcilar.com/img/amcilar-logo.png" alt="Amcılar Logo">
-                                </div>
-                            </a>
+                        <br>
+                        <div class="column reveal">
+                            <div class="project">
+                                <a onclick="goToAnchor('projects')">
+                                    <div class="project-image">
+                                        <img src="/files/images/question-mark-circle-outline-192.png" alt="Incoming project">
+                                    </div>
+                                </a>
                                 <div class="project-text">
-                                    <h1>Amcılar</h1>
-                                    <h2>Satire Shopping Platform</h2>
-                                    <p>Amcılar is a mockery shopping site on which I was planning on selling a very specific merchandise. Currently it is out of service.</p>
+                                    <h2>Coming Soon!</h2>
+                                    <h3>Other Projects are on the way.</h3>
+                                    <p>I will add my other projects here as soon as I see they are worth showing the world.</p>
                                 </div>
-                            
+                            </div>
                         </div>
-                        <div class="project">
-                            <a href="/pages/projects/amcilar.html">
-                                <div class="project-image">
-                                    <img src="https://amcilar.com/img/amcilar-logo.png" alt="Amcılar Logo">
-                                </div>
-                            </a>
-                                <div class="project-text">
-                                    <h1>Amcılar</h1>
-                                    <h2>Satire Shopping Platform</h2>
-                                    <p>Amcılar is a mockery shopping site on which I was planning on selling a very specific merchandise. Currently it is out of service.</p>
-                                </div>
-                            
-                        </div>
-                        
-                    </div> -->
-                    
-                    <div class="container-image">
-                        <!-- <img src="files/images/header-image.jpeg" alt="Header-cagan"> -->
                     </div>
                 </div>
             </div>

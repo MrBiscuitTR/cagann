@@ -155,17 +155,18 @@ a {
     text-align: center;
     font-size: 0.8em;
     margin: 0;
-    z-index: 2;
+    z-index: 2 !important;
     min-height: 90vh;
 }
 
 .welcome-bg {
     min-height: 90vh;
     background-color: #313131;
+    z-index: 1 !important;
 }
 
 .welcome-seperator-horizontal{
-    border: 1px transparent #313131;
+    border: none;
     color: #313131;
     border-radius: 1px;
     margin: 0 0 0 0;
@@ -201,15 +202,15 @@ a {
     margin: 0;
     font-size: 2em !important;
     font-weight: 300;
-    line-height: 1.2;
+    line-height: 1.5;
     color: #fff;
 }
 
 .welcome-text h2 {
-    margin: 0;
-    font-size: 1em !important;
+    margin: 0 !important;
+    font-size: 1.4em !important;
     font-weight: 300;
-    line-height: 1;
+    line-height: 1.5;
     color: #fff;
 }
 
@@ -221,6 +222,7 @@ a {
     justify-content: flex-end;
     bottom: 0;
     margin: auto 0 0 0;
+    z-index: 6 !important;
 }
 
 .welcome-image img{
@@ -229,9 +231,41 @@ a {
     max-height: 60vh;
     width: auto;
     height: auto;
-    z-index: 3;
+    z-index: 6 !important;
     filter: drop-shadow(0.5em -0.6rem 0.5em #ca3030);
 }
+
+/* cool bg test */
+@keyframes rain {
+    from {
+      transform: translateY(-100vh);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(90vh);
+      opacity: 0;
+    }
+  }
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 90vh; /* Adjust as needed */
+    overflow: hidden;
+  }
+  
+  .raining-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    z-index: 11; /* Behind the content */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 10; /* On top of the rain */
+  }
 
 .general-container {
     display: flex;
@@ -287,7 +321,7 @@ a {
     min-height: auto;
     max-width: 90vw;
     background-color: #313131;
-    padding: 2vh 0 2vh 0;
+    padding: 0.2em 0 0.2em 0;
     text-align: center;
     font-size: 1em;
     border-radius: 10px;
@@ -313,7 +347,7 @@ a {
     width: auto;
     max-width: 80%;
     background-color: transparent;
-    padding: 0.1em 0 0.1em 0;
+    padding: 0 0 0 0;
     text-align: center;
     /* font-size: 0.6em; */
     /* border-radius: 10px; */
@@ -330,21 +364,30 @@ a {
     transition: 0.3s ease-in-out;
 }
 
-.general-container .container .container-text h1 {
+/* .general-container .container .container-text h1 {
     margin: 0;
     font-size: 2em;
     font-weight: 300;
-    line-height: 1em;
+    line-height: 1.5em;
     color: #fff;
-}
+} */
 
 .general-container .container .container-text h2 {
     margin: 0;
+    font-size: 2em;
+    font-weight: 300;
+    line-height: 1.5em;
+    color: #fff;
+    padding: 0.2em 0 0.2em 0;
+}
+
+.general-container .container .container-text p {
+    margin: 0;
     font-size: 1em;
     font-weight: 300;
-    line-height: 1.2em;
+    line-height: 1.5em;
     color: #fff;
-    padding: 0.5em 0 0.5em 0;
+    padding: 0.2em 0 0.2em 0;
 }
 
 .general-container .container img {
@@ -354,8 +397,8 @@ a {
     width: 10%;
     height: auto;
 }
-/* responsive good looking grid to display my projects as widgets. on mobile devices it should be displayed as a single column. widgets are squares with images fitting in them. */
-.projects-grid-responsive {
+/* BEGIN OLD RESPONSIVE GRID */
+/* .projects-grid-responsive {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 2em;
@@ -508,7 +551,9 @@ a {
     cursor: pointer;
     transform: scale(1.1);
     transition: all 0.3s ease-in-out;
-}
+} */
+
+/* END OLD RESPONSIVE GRID */
 
 
 .footer {
@@ -628,7 +673,7 @@ a {
     margin: auto;
 }
 
-.column .project .project-text h1 {
+.column .project .project-text h2 {
     margin: 0;
     padding: 0.3em 0 0.3em 0;
     font-size: 1.2em;
@@ -638,7 +683,7 @@ a {
     text-shadow: #a1d9ff 2px 2px 2px;
 }
 
-.column .project .project-text h2 {
+.column .project .project-text h3 {
     margin: 0;
     padding: 0.3em 0 0.3em 0;
     font-size: 0.8em;
