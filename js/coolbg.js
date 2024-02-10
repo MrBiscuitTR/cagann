@@ -11,12 +11,14 @@ function createRainingText() {
         const span = document.createElement('span');
         span.innerText = t;
         span.style.position = 'absolute';
+        span.style.fontSize = `calc(${Math.random() * 4}vmin + 16px)`; // Random font size
         span.style.color = `hsl(${Math.random() * 360}, 100%, 75%)`; // Random color
-        span.style.margin = `0px ${Math.random() * 5 +5}vw 0px ${Math.random() * 90 +5}vw`; // Random horizontal position
-        span.style.animation = `rain 3s linear ${index * 0.1}s infinite`; // Customize animation duration and delay
-        span.style.opacity = 1; // Initially invisible
+        // Random horizontal position at least 10vw from the edges
+        span.style.margin = `0 ${Math.random() * 10}vw 0 ${Math.random() * 90}vw`;
+        span.style.animation = `rain 3s linear ${index * 0.2}s infinite`; // Customize animation duration and delay
+        span.style.opacity = 0; // Initially invisible
         rainingText.appendChild(span);
-  });
+    });
 
 }
 createRainingText();
