@@ -67,7 +67,7 @@
         <script defer src="js/fixAnchor.js"></script>
         <script defer src="https://kit.fontawesome.com/09fb08f3d8.js" crossorigin="anonymous"></script>
         <script defer src="js/coolbg.js"></script>
-        <noscript>Please enable javascript for the best user experience!</noscript>
+        <noscript><span style="background-color: rgb(201, 80, 10); width: 100%; height: 100%; margin: 0 auto 0 auto; text-align: center; display: block;">Please enable javascript for the best user experience!</span></noscript>
         
     </head>
     <body class="body">
@@ -108,6 +108,7 @@
             
         </section>
         <div class="general-container">
+            <noscript>Content will not be visible unless you turn on Javascript.</noscript>
             <i class="fas fa-angle-down"></i>
             <div class="reveal">
                 <div class="container" id="about">
@@ -163,6 +164,24 @@
                 <div class="container" id="skills">
                     <div class="container-text">
                         <h2 data-value="Certifications">Certifications</h2>
+                        <!-- <div class="cert">
+                            <div class="certimg">
+                                <img src="files/images/certificates/x.png" alt="HTML, CSS, JS Certificate">
+                                <div class="certtext">
+                                    <h3>HTML, CSS, JS Certificate</h3>
+                                    <p>Issued by <a href="https://www.sololearn.com" target="_blank">SoloLearn</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cert">
+                            <div class="certpdf"> 
+                                <iframe src="files/pdfs/20240329_GAEL_attestation_réussite_CALIDAG_Cagan Efe.pdf" width="100%" height="100%" ></iframe>
+                                <div class="certtext">
+                                    <h3>Delf B2 Diplome</h3>
+                                    <p>Issued by <a href="https://www.france-education-international.fr/" target="_blank">France Éducation international</a></p>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -194,7 +213,7 @@
                             <div class="project">
                                 <a href="/pages/projects/metaclass.html">
                                     <div class="project-image">
-                                        <img src="https://sjmetaapp.me/logo192.png" alt="Metaclass Education">
+                                        <img src="https://metaclass.cagann.dev/logo192.png" alt="Metaclass Education">
                                     </div>
                                 </a>
                                 <div class="project-text">
@@ -223,7 +242,7 @@
                         </div>
                         <br>
                         <div class="column reveal">
-                            <div class="project">
+                            <div class="project censor-blur">
                                 <a href="/pages/projects/amcilar.html">
                                     <div class="project-image">
                                         <img src="https://amcilar.com/img/amcilar-logo.png" alt="Amcılar Logo">
@@ -248,7 +267,7 @@
                             <div class="project">
                                 <a href="/pages/projects/metaclass.html">
                                     <div class="project-image">
-                                        <img src="https://sjmetaapp.me/logo192.png" alt="Metaclass Education">
+                                        <img src="https://metaclass.cagann.dev/logo192.png" alt="Metaclass Education">
                                     </div>
                                 </a>
                                 <div class="project-text">
@@ -301,7 +320,7 @@
                     Çağan Efe Çalıdağ
                 </div> -->
                 <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/çağan-efe-çalıdağ-12aa96210" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a> &nbsp;&nbsp;
+                    <a href="https://www.linkedin.com/in/çağanefeçalıdağ" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a> &nbsp;&nbsp;
                     <a href="https://github.com/MrBiscuitTR" target="_blank"><i class="fa fa-github"></i> GitHub</a> &nbsp;&nbsp;
                     <a href="https://www.instagram.com/cagancalidag/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a> &nbsp;&nbsp;
                     <a href="https://www.twitter.com/Caganefe1" target="_blank"><i class="fa fa-twitter-square"></i> Twitter</a>
@@ -309,7 +328,9 @@
             </div>
             
             <div class="copyright-bottom">
-                <p>© 2024 Çağan Efe Çalıdağ, All rights reserved.</p>
+                <p>© 2023<script>
+                    document.write("-", new Date().getFullYear());
+                </script> <noscript>2024</noscript> Çağan Efe Çalıdağ, All rights reserved.</p>
             </div>
         </div>
     </body>

@@ -314,6 +314,16 @@ a {
     opacity: 1;
 }
 
+.censor-blur {
+    filter: blur(5px);
+    transition: all 0.3s ease-in-out;
+}
+
+.censor-blur:hover {
+    transition: all 0.3s ease-in-out;
+    filter: blur(0px);
+}
+
 
 .general-container .container {
     display: flex;
@@ -322,6 +332,7 @@ a {
     justify-content: center;
     align-items: center;
     min-height: auto;
+    width: 90vw;
     max-width: 90vw;
     background-color: #313131;
     padding: 0.2em 0 0.2em 0;
@@ -335,12 +346,40 @@ a {
     align-items: center;
     text-align: center;
     min-height: auto;
-    width: auto;
+    width: 90vw;
     text-align: center;
     font-size: 1em;
     line-height: 1em;
     margin: auto;
 }
+
+.cert , .cert *{
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    min-height: auto;
+    width: auto;
+    max-width: 90vw;
+    background-color: #313131;
+    padding: 0.2em 0 0.2em 0;
+    text-align: center;
+    font-size: 1em;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.cert iframe , .cert img {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+}
+
 .container-image {
     display: flex;
     flex-direction: column;
