@@ -155,14 +155,15 @@ a {
     text-align: center;
     font-size: 0.8em;
     margin: 0;
-    z-index: 2 !important;
+    z-index: 2;
     min-height: 90vh;
 }
 
 .welcome-bg {
     min-height: 90vh;
     background-color: #313131;
-    z-index: 1 !important;
+    z-index: 1;
+    position: relative;
 }
 
 .welcome-seperator-horizontal{
@@ -172,6 +173,7 @@ a {
     margin: 0 0 0 0;
     min-width: 100%;
     max-width: 90vw;
+    backdrop-filter: drop-shadow(0.5em 0.5em 0.5em #ca3030);
 }
 
 .welcome-text {
@@ -185,6 +187,7 @@ a {
     max-width: 80vw;
     padding: 2em 0 2em 0;
     text-align: center;
+    z-index: 15;
 }
 
 .wt-text {
@@ -196,6 +199,8 @@ a {
     width: auto;
     text-align: center;
     margin: 0 1em 0 1em;
+    filter: drop-shadow(2px 4px 6px black);
+    z-index: 15;
 }
 
 .welcome-text h1 {
@@ -215,6 +220,7 @@ a {
 }
 
 .welcome-image {
+    position: relative;
     max-height: 60vh;
     height: 60vh;
     display: flex;
@@ -222,16 +228,17 @@ a {
     justify-content: flex-end;
     bottom: 0;
     margin: auto 0 0 0;
-    z-index: 6 !important;
+    z-index: 19 !important;
 }
 
 .welcome-image img{
+    position: relative;
     margin: 0 0 0 0;
     max-width: 100%;
     max-height: 60vh;
     width: auto;
     height: auto;
-    z-index: 6 !important;
+    z-index: 20 !important;
     filter: drop-shadow(0.5em -0.6rem 0.5em #ca3030);
 }
 
@@ -262,12 +269,13 @@ a {
     max-width: 90vw;
     width: 90%;
     height: 90vh;
-    z-index: 11; /* Behind the content */
+    z-index: 9; /* Behind the content */
+    pointer-events: none; /* Add this to prevent clicks on the raining text */
   }
   
   .content {
     position: relative;
-    z-index: 10; /* On top of the rain */
+    z-index: 8; /* On top of the rain */
   }
 
 .general-container {
