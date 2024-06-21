@@ -26,15 +26,20 @@
     <div class="contact-wrapper">
         <div class="contact-text">
             <h1> Contact Me </h1>
-            <p> You can contact me by filling the form below or emailing <a href="mailto:efecalidag@gmail.com">efecalidag@gmail.com</a> </p>
+            <p> You can contact me by filling the form below or emailing <a style="color: cadetblue;" href="mailto:efecalidag@gmail.com">efecalidag@gmail.com</a> (recommended) </p>
         </div>
             <div class="contact-form-cool">
-                <form action="contactform.php" method="post">
-                    <input type="text" name="name" placeholder="Full name or Company name" required> <br>
-                    <input type="email" name="mail" placeholder="Your e-mail" required> <br>
-                    <input type="text" name="subject" placeholder="Subject" required> <br>
-                    <textarea name="message" placeholder="Message" required></textarea> <br>
-                    <button type="submit" name="submit">Send me your message!</button>
+                <form action="https://formspree.io/f/manwwqko" method="POST">
+                        <label for="full-name">Full Name or Organization Name</label>
+                        <input type="text" name="name" id="full-name" placeholder="Ex : Nancy Smith from Google LLC." required="">
+                        <label for="email-address">Email Address</label>
+                        <input type="email" name="_replyto" id="email-address" placeholder="email@domain.tld" required="">
+                        <label for="subject">Subject</label>
+                        <input name="subject" type="text" placeholder="Ex : Collaboration Opportunity" />
+                        <label for="message">Message</label>
+                        <textarea rows="10" name="message" id="message" placeholder="Your message to me. Do not write confidential or private information here." required=""></textarea>
+                        <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission"> <br>
+                        <button type="submit" value="Submit"> Send Mail </button>
                 </form>
             </div>
         </div>

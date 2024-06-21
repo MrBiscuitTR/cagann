@@ -1,4 +1,5 @@
 .contact-wrapper {
+    font-family: Montserrat, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +20,12 @@
     margin: 0 auto 0 auto;
     border-radius: 5px;
     font-size: 0.6em;
+}
+
+.contact-form-cool label {
+    color: #000000;
+    font-size: 1.5em;
+    margin: 1vh auto 1vh auto;
 }
 
 .contact-form-cool {
@@ -67,12 +74,16 @@
     width: 90%;
     margin-bottom: 15px;
     margin: auto;
-    border: 1px solid #ccc;
+    border: 1px solid #6FB7B7;
     border-radius: 3px;
     resize: none;
     font-size: 1em;
     height: 10vh;
     padding: 0px 2% 0 2%;
+}
+
+.contact-form-cool form textarea:focus{
+    border: 1px solid #6FB7B7;
 }
 
 .contact-form-cool form button {
@@ -82,10 +93,11 @@
     padding: 2%;
     border: none;
     border-radius: 3px;
-    background-color: #693169;
-    font-size: 1em;
+    background-color:cadetblue;
+    font-size: 2em;
     color: #fff;
     cursor: pointer;
+    height: 10vh;
 }
 
 
