@@ -2,7 +2,7 @@
 function createRainingText() {
     const text = [
         "<HTML>", "Artificial Intelligence", "Machine Learning", "TensorFlow", "Matplotlib", "PyTorch", "Computer Vision", "OpenCV","JavaScript", "Python", "Java","TypeScript","React.JS", "Node.JS", "MongoDB", "SQL", "TSX", "CSS",
-        "Git", "Responsive design", "REST API", "Database", "Server", "Client", "Frontend", "Backend", "Full-Stack", "Web development", "Software development", "Computer Science", "Algorithms", "Data Structures", "Collaboration", "Problem Solving", "Debugging", "Testing", "Code review", "Optimization", "Integration", "Automation", "Cyber Security", "Performance", "Efficiency", "Flexibility", "Innovation", "Productivity"
+        "Git", "Kali Linux","Responsive design", "REST API", "Database", "Frontend", "Backend", "Full-Stack", "Web development", "Software development", "Computer Science", "Algorithms", "Data Structures", "Collaboration", "Problem Solving", "Debugging", "Testing", "Code review", "Optimization", "Automation", "Cyber Security", "Performance", "Efficiency", "Flexibility", "Innovation", "Productivity"
     ];
     const rainingText = document.querySelector('.raining-text');
     const textrandom = text.sort(() => Math.random() - 0.5); // Randomize

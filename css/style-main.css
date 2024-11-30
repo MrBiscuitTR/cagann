@@ -349,44 +349,187 @@ a {
     border-radius: 10px;
     margin: auto;
 }
+
+/* General Styling for Container */
+
+/* Styling for Skills Section */
 .container .container-text {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: auto;
-    width: 90vw;
-    text-align: center;
-    font-size: 1em;
-    line-height: 1em;
-    margin: auto;
-}
-
-.cert , .cert *{
     display: flex;
-    flex-direction: row;
-    justify-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.8em;
     justify-content: center;
-    align-items: center;
-    min-height: auto;
-    width: auto;
-    max-width: 90vw;
-    background-color: #313131;
-    padding: 0.2em 0 0.2em 0;
-    text-align: center;
-    font-size: 1em;
-    border-radius: 10px;
-    margin: auto;
+    align-items: flex-start;
+    width: 100%;
+    padding: 1em;
 }
 
-.cert iframe , .cert img {
-    margin: auto;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    transition: 0.3s ease-in-out;
+/* Individual Skill Styling */
+.skill {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #424242;
+    color: #f1f1f1;
+    padding: 0.5em 1em;
+    border: 1px solid #616161;
+    border-radius: 8px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;;
+    cursor: pointer;
 }
+
+.skill:hover {
+    background-color: #505050;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Expandable Skills */
+.expandable {
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.expands {
+    display: none;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-top: 0.5em;
+}
+
+.expanded .expands {
+    display: flex !important;
+}
+
+/* animation */
+@keyframes slideDown {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 500px;
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        max-height: 500px;
+        opacity: 1;
+    }
+    to {
+        max-height: 0;
+        opacity: 0;
+    }
+}
+
+.expanded .expands {
+    animation: slideDown 0.1s ease-in-out;
+}
+
+.collapsed .expands {
+    animation: slideUp 0.1s ease-in-out;
+}
+
+
+
+/* Certificates Section */
+/* General Styling for Certifications */
+.cert {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 1em;
+    width: 100%;
+}
+
+.cert-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 35vw;
+    background-color: #424242;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cert-item:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.cert-item img {
+    width: auto !important;
+    max-height: 8vh;
+    border-radius: 8px;
+    margin-bottom: 0.5em;
+    transition: transform 0.3s ease;
+}
+
+.cert-item:hover img {
+    transform: scale(1.05);
+}
+
+.cert-text {
+    text-align: center;
+    color: #f1f1f1;
+}
+
+.cert-text h3 {
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+.cert-text p {
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.cert-text a {
+    color: #61dafb;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.cert-text a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .general-container .container {
+        padding: 1em 0.5em;
+    }
+
+    .skill {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+    }
+
+    .cert iframe, .cert img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .skill {
+        font-size: 0.75em;
+        padding: 0.3em 0.6em;
+    }
+}
+
 
 .container-image {
     display: flex;
@@ -731,6 +874,8 @@ a {
     line-height: 1;
     color: #fff;
     text-shadow: #a1d9ff 2px 2px 2px;
+    text-overflow: ellipsis;
+    text-wrap: pretty;
 }
 
 .column .project .project-text h3 {
@@ -769,6 +914,7 @@ a {
 
 .column .project .project-image img {
     margin: auto;
+    top: 0;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 80%;
