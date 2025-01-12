@@ -1021,14 +1021,14 @@ a {
 .column .project .project-text p {
     margin: 0;
     padding: 0.3em 0 0.3em 0;
-    font-size: 0.6em;
+    font-size: 10px;
     font-weight: 300;
-    line-height: 1em;
+    line-height: 10px;
     color: #fff;
     display: -webkit-box;
     overflow: hidden; /* Ensure overflow content is clipped */
     text-overflow: ellipsis; /* Add ellipsis for clipped content */
-    height: 4.2em;
+    height: 43px;
     -webkit-line-clamp: 4; /* Default number of lines */
     -webkit-box-orient: vertical;
     max-width: 90%;
