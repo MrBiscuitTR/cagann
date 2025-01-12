@@ -4,5 +4,9 @@
     margin-bottom: -1.9vh !important;
 }
 
-
+/* @media screen and (orientation:landscape) and (max-width: 768px) {
+    .columns .column{
+        width: 90vw !important;
+    }
+} */
 /* mostly use for grids */
