@@ -1,7 +1,7 @@
 @import "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css";
 .columns {
     max-width: 90vw !important;
-    margin-bottom: 0.1vh !important;
+    margin-bottom: -1.9vh !important;
 }
 
 

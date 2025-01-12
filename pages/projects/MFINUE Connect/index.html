@@ -24,34 +24,42 @@
             </nav>
         </div>
     </div>
-    <h1><script>document.write("Project: "+decodeURI(window.location.pathname.split("/")[3].replace(".html","")))</script></h1>
-    <div class="screenshot-slider">
-        <h2>Screenshots</h2>
-        <div class="screenshots">
-            <img src="/images/projects/1.png" alt="">
-            <img src="/images/projects/2.png" alt="">
-            <img src="/images/projects/3.png" alt="">
+    <div class="project-page-container">
+        <h1><script>document.write("Project: "+decodeURI(window.location.pathname.split("/")[3].replace(".html","")))</script></h1>
+        <div class="screenshot-slider">
+            <h2>Screenshots</h2>
+            <div class="screenshots">
+                <img src="/images/projects/1.png" alt="">
+                <img src="/images/projects/2.png" alt="">
+                <img src="/images/projects/3.png" alt="">
+            </div>
+        </div>
+        <div class="project-description">
+            <h2>Description</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur us. Donec euismod, nunc nec vehicula </p>
+        </div>
+        <div class="technical-info">
+            <h2>Technical Information</h2>
+            <ul>
+                <li>Language(s): TypeScript, JavaScript, CSS</li>
+                <li>Framework(s):  React (TSX)</li>
+                <li>Database(s):  Firebase - Cloud Firestore & Storage</li>
+                <li>Hosting:  Firebase</li>
+            </ul>
+            &nbsp;&nbsp;Other:
+            <ul>
+                <li>Authentication - Firebase Email & Password, Google OAuth (For GAPI token acquisition) </li>
+                <li>APIs - Google Drive Picker</li>
+            </ul>
+        </div>
+        <div class="project-links">
+            <h2>Links</h2>
+            <ul>
+                <li><a href="">Live Demo</a></li>
+                <li><a href="">GitHub Repository</a></li>
+            </ul>
         </div>
     </div>
-    <div class="project-description">
-        <h2>Description</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur us. Donec euismod, nunc nec vehicula </p>
-    </div>
-    <div class="technical-info">
-        <h2>Technical Information</h2>
-        <ul>
-            <li>Language(s): <script>document.write(languages)</script></li>
-            <li>Framework(s):  <script>document.write(frameworks)</script></li>
-            <li>Database(s):  <script>document.write(databases)</script></li>
-            <li>Hosting:  <script>document.write(hosting)</script></li>
-            <li>Other:  <script>document.write(other)</script></li>
-        </ul>
-    </div>
-    <div class="project-links">
-        <h2>Links</h2>
-        <ul>
-            <li><a href="">Live Demo</a></li>
-            <li><a href="">GitHub Repository</a></li>
-        </ul>
+    
 </body>
 </html>
