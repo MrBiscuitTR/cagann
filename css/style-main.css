@@ -950,6 +950,10 @@ a {
     }
 }
 
+/* @media screen and (orientation: landscape) {
+    
+} */
+
 .column .project {
     display: flex;
     flex-direction: column;
@@ -1024,7 +1028,7 @@ a {
     display: -webkit-box;
     overflow: hidden; /* Ensure overflow content is clipped */
     text-overflow: ellipsis; /* Add ellipsis for clipped content */
-    height: 4.3em;
+    height: 4.2em;
     -webkit-line-clamp: 4; /* Default number of lines */
     -webkit-box-orient: vertical;
     max-width: 90%;
