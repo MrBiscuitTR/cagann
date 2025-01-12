@@ -364,6 +364,15 @@ a {
 }
 
 /* Individual Skill Styling */
+/* .skills {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5em;
+    width: 100%;
+} */
 .skill {
     display: inline-flex;
     flex-direction: row;
@@ -374,10 +383,11 @@ a {
     padding: 0.5em 1em;
     border: 1px solid #616161;
     border-radius: 8px;
-    font-size: 0.9em;
+    font-size: 1em;
     white-space: nowrap;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;;
     cursor: pointer;
+    margin: 10px;
 }
 
 .skill:hover {
@@ -389,17 +399,46 @@ a {
 .expandable {
     flex-direction: column;
     align-items: center;
-    position: relative;
+    justify-content: center;
+    justify-items: center;
+    position:relative;
     cursor: pointer;
-    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    font-size: 1em;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.expandable.expanded {
+    height: 100%;
+}
+
+.expanded-area-generated-under-expandable{
+    background-color:#313131;
+    border-radius: 10px;
+    width: 80vw;
+    min-height: fit-content;
+    height: 100%;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position:relative;
+    cursor: pointer;
+    overflow: wrap;
     transition: max-height 0.3s ease, padding 0.3s ease;
 }
 
-.expands {
+.skill.expands {
+    background-color:#616161;
     display: none;
     flex-wrap: wrap;
     gap: 0.5em;
     margin-top: 0.5em;
+    font-size: 0.9em;
 }
 
 .expanded .expands {
@@ -441,13 +480,23 @@ a {
 
 /* Certificates Section */
 /* General Styling for Certifications */
+.certifications {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1em;
+    justify-content: center;
+    margin-top: 1em;
+    width: 100%;
+}
+
 .cert {
     display: flex;
     flex-wrap: wrap;
     gap: 1em;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 1em;
+    margin-top: 0em;
     width: 100%;
 }
 
@@ -456,13 +505,39 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 35vw;
     background-color: #424242;
     padding: 1em;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 30vh;
+    width: 100%;
+    max-width: 70vw;
+}
+
+@media screen and (min-width: 768px) {
+    .certifications {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em;
+    }
+    .cert-item {
+        max-width: none;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .certifications {
+        grid-template-columns: 1fr;
+    }
+    .cert-item {
+        max-width: 100%;
+        width: 100%;
+        min-height: min-content !important;
+    }
 }
 
 .cert-item:hover {
@@ -472,8 +547,8 @@ a {
 
 .cert-item img {
     width: auto !important;
-    max-height: 8vh;
-    border-radius: 8px;
+    height: 6vh !important;
+    border-radius: 2px;
     margin-bottom: 0.5em;
     transition: transform 0.3s ease;
 }
@@ -485,11 +560,13 @@ a {
 .cert-text {
     text-align: center;
     color: #f1f1f1;
+    text-wrap:pretty;
 }
 
 .cert-text h3 {
     font-size: 1.1em;
     margin-bottom: 0.5em;
+    height: 4em;
 }
 
 .cert-text p {
@@ -521,6 +598,25 @@ a {
     .cert iframe, .cert img {
         max-width: 100%;
     }
+}
+
+/* portrait mode */
+@media screen and (orientation: portrait) {
+    .general-container .container {
+        padding: 1em 0.5em;
+    }
+
+    .skill {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+    }
+
+    .cert iframe, .cert img , .cert-item{
+        max-width: 100%;
+        width: 100%;
+        min-height: min-content !important;
+    }
+    
 }
 
 @media (max-width: 480px) {
