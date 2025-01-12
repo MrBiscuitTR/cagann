@@ -273,7 +273,7 @@ a {
     pointer-events: none; /* Add this to prevent clicks on the raining text */
   }
   
-  .content {
+  .contentwelcome {
     position: relative;
     z-index: 8; /* On top of the rain */
   }
@@ -388,6 +388,7 @@ a {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;;
     cursor: pointer;
     margin: 10px;
+    height: 2em;
 }
 
 .skill:hover {
@@ -396,87 +397,38 @@ a {
 }
 
 /* Expandable Skills */
-.expandable {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    position:relative;
-    cursor: pointer;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+
+.collapsible {
     font-size: 1em;
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-}
-
-.expandable.expanded {
-    height: 100%;
-}
-
-.expanded-area-generated-under-expandable{
-    background-color:#313131;
-    border-radius: 10px;
-    width: 80vw;
-    min-height: fit-content;
-    height: 100%;
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    position:relative;
+    /* margin-left: 20%;
+    margin-right: 20%; */
     cursor: pointer;
-    overflow: wrap;
-    transition: max-height 0.3s ease, padding 0.3s ease;
+    width: 20%;
+    text-align: left;
+    outline: none;
 }
 
-.skill.expands {
-    background-color:#616161;
-    display: none;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    margin-top: 0.5em;
-    font-size: 0.9em;
+.expanded, .collapsible:hover {
+    background-color: #505050;
 }
 
-.expanded .expands {
-    display: flex !important;
+.collapsible:after {
+    content: '\002B';
 }
 
-/* animation */
-@keyframes slideDown {
-    from {
-        max-height: 0;
-        opacity: 0;
-    }
-    to {
-        max-height: 500px;
-        opacity: 1;
-    }
+.expanded:after {
+    content: "\2212";
 }
 
-@keyframes slideUp {
-    from {
-        max-height: 500px;
-        opacity: 1;
-    }
-    to {
-        max-height: 0;
-        opacity: 0;
-    }
+.content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #424242;
+    border-radius: 10px;
+    margin-bottom: 0 !important;
 }
-
-.expanded .expands {
-    animation: slideDown 0.1s ease-in-out;
-}
-
-.collapsed .expands {
-    animation: slideUp 0.1s ease-in-out;
-}
-
-
 
 /* Certificates Section */
 /* General Styling for Certifications */
