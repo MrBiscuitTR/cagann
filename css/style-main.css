@@ -1013,7 +1013,8 @@ a {
     top: 0;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 80%;
+    max-height: 7.8em;
+    width: auto;
     height: auto;
     border-radius: 10px;
     transition: 0.3s ease-in-out;
