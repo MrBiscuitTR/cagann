@@ -5,20 +5,63 @@ body {
     padding: 0;
     min-height: 100vh;
     height: fit-content;
+    
+}
+
+h1.projectname {
+    color: #ffffff;
+    font-size: 2em;
+    text-align: center;
+    margin: 1.2em;
+    text-decoration: none !important;
+    /* shadow the same text in rainbow colors */
+    text-shadow:#316969 0 0 5px, #316969 0 0 10px, #316969 0 0 15px, #316969 0 0 20px, #316969 0 0 25px, #316969 0 0 30px, #316969 0 0 35px;
+}
+span.projectname {
+    color: #ffffff;
+    font-size: 1.2em;
+    text-align: center;
+    margin: auto;
+    text-decoration: underline !important;
+    /* shadow the same text in rainbow colors */
+    text-shadow:#316969 0 0 5px, #316969 0 0 10px, #316969 0 0 15px, #316969 0 0 20px, #316969 0 0 25px, #316969 0 0 30px, #316969 0 0 35px;
 }
 
 .project-page-container {
-    display: column;
+    display: flexbox;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2em;
+}
+
+@media screen and (orientation: portrait) and (max-width: 600px) {
+    .project-page-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
 }
 
 .screenshot-slider {
     display: flex;
     flex-direction: column;
     justify-content: left;
-    /* align-items: center; */
-    margin: 1rem;
+    align-items:flex-start;
+    /* margin: 2vw; */
+    max-width: 100%;
+    overflow-x: hidden;
+
+}
+
+.screenshot-slider h2 {
+    /* margin-left: 2vw; */
+}
+
+.screenshotswithbuttons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }
 
 .screenshots {
@@ -26,8 +69,41 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin: 1rem;
+    border-radius: 10px;
+    border: #424242 1px solid;
     overflow-x: scroll;
+    scrollbar-width: 10px;
+    scrollbar-color: #316969 #000000;
+    cursor:grab;
+    max-width: 100%;
+}
+
+button.prev {
+    background-color: #424242;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    max-width: 5%;
+    cursor: pointer;
+}
+button.next{
+    background-color: #424242;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    max-width: 5%;
+    cursor: pointer;
+}
+
+button.prev:hover, button.next:hover {
+    background-color: #505050;
+}
+
+@media screen and (orientation: portrait) {
+    .prev , .next {
+        display: none;
+    }
+    
 }
 
 .screenshots img {
@@ -43,12 +119,13 @@ body {
 
 .screenshot {
     max-width: 25vw;
+    border: none;
 }
 
 @media screen and (orientation: portrait) {
     .screenshots img{
-        min-width: 33vw;
-        height: 20vw;
+        min-width: 38vw;
+        height: 25vw;
     }
     
 }
@@ -69,3 +146,87 @@ body {
     justify-content: center;
     text-align: center;
 }
+
+.project-infos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    margin: 0;
+}
+
+.info-panel a{
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+@media screen and (orientation: portrait) {
+    .info-panel {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
+
+.info-panel h2 {
+    margin: 0.5em auto 0.5em 0;
+}
+
+.projectpreview {
+    height: 30vh;
+    width: 100%;
+}
+
+.projectpreview iframe {
+    display: block; width: 100%; border: none; overflow-y: auto; overflow-x: hidden;
+}
+
+.projectpreviewbutton {
+    width: 100% !important;
+    border-radius: 10px;
+    border: 1px solid #696969;
+    text-align: center !important;
+}
+
+/* collapsible */
+.collapsible {
+    font-size: 1em;
+    /* margin-left: 20%;
+    margin-right: 20%; */
+    cursor: pointer;
+    width: 20%;
+    text-align: left;
+    outline: none;
+}
+
+.expanded, .collapsible:hover {
+    background-color: #505050;
+}
+
+.collapsible:after {
+    content: '\002B';
+}
+
+.expanded:after {
+    content: "\2212";
+}
+
+.content {
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #424242;
+    border-radius: 10px;
+    margin-bottom: 0 !important;
+}
+/* collapsible end */

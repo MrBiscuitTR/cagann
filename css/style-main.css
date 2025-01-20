@@ -356,7 +356,7 @@ a {
 .container .container-text {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.8em;
+    /* gap: 0.8em; */
     justify-content: center;
     align-items: flex-start;
     width: 100%;
@@ -403,7 +403,7 @@ a {
     /* margin-left: 20%;
     margin-right: 20%; */
     cursor: pointer;
-    width: 20%;
+    width: 30%;
     text-align: left;
     outline: none;
 }
@@ -896,6 +896,7 @@ a {
         text-align: center;
         font-size: 1em;
         color: #fff;
+        margin: 0 auto 0 auto;
     }
     .columns .column{
         width: 90%;

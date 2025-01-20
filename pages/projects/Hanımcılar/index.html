@@ -1,23 +1,14 @@
+<!-- Default template for all project presentation pages. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project: Hanımcılar</title>
-
-    <link rel="icon" type="image/x-icon" href="/files/images/favicon.ico" sizes="192x192">
-    <link rel="apple-touch-icon" type="image/png" href="/files/images/favicon-192.png" sizes="192x192">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="/files/images/icon-192.png">
-
-    <link rel="stylesheet" href="/css/style-main.css">
+    <script>document.title = decodeURI(window.location.pathname.split("/")[3].replace(".html",""))</script>
     <link rel="stylesheet" href="/css/projects.css">
-    <script defer src="js/scrollReveal.js"></script>
-    <script defer src="js/fixAnchor.js"></script>
-    <script defer src="https://kit.fontawesome.com/09fb08f3d8.js" crossorigin="anonymous"></script>
-    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
-    <noscript>Please enable javascript for the best user experience!</noscript>
+    <link rel="stylesheet" href="/css/style-main.css">
+    <script defer src="../dynamicLoader.js"></script>
+    <noscript><span style="background-color: rgb(201, 80, 10); width: 100%; height: 100%; margin: 0 auto 0 auto; text-align: center; display: block;">Please enable javascript for the best user experience! Most of the content will be invisible to you unless you enable it.</span></noscript>
 </head>
 <body>
     <div class="header">
@@ -29,14 +20,50 @@
                 <a href="/#about">About</a>
                 <a href="/#skills">Skills</a>
                 <a href="/#projects">Projects</a>
-                <a href="#contactform">Contact</a>
+                <!-- <a href="/cv">CV</a> -->
+                <a href="/contact">Contact</a>
             </nav>
         </div>
     </div>
-    <div class="general-container">
-        <div class="container">
-            <h1>Hanımcılar: <a href="https://album.hanimcilar.com">album.hanimcilar.com</a></h1>
+    <div class="project-page-container">
+        <h1 class="projectname"><span>Project: </br></span><script>document.write(decodeURI(window.location.pathname.split("/")[3].replace(".html","")))</script></h1>
+        <div class="modal"></div>
+        <div class="screenshot-slider">
+            <h2>Screenshots</h2>
+            <div class="screenshots">
+                <img class="screenshot" src="/files/images/MFINUE1-300x300.png" alt="connect-img1">
+                <img class="screenshot" src="/files/images/icon-192.png" alt="connect-img2">
+                <img class="screenshot" src="/files/images/projects/connect/img3" alt="connect-img3">
+                <img class="screenshot" src="/files/images/icon-192.png" alt="connect-img4">
+                <img class="screenshot" src="/files/images/icon-192.png" alt="connect-img2">
+            </div>
+        </div>
+        <div class="project-description">
+            <h2>Description</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec pur us. Donec euismod, nunc nec vehicula </p>
+        </div>
+        <div class="technical-info">
+            <h2>Technical Information</h2>
+            <ul>
+                <li>Language(s): TypeScript, JavaScript, CSS</li>
+                <li>Framework(s):  React (TSX)</li>
+                <li>Database(s):  Firebase - Cloud Firestore & Storage</li>
+                <li>Hosting:  Firebase</li>
+            </ul>
+            &nbsp;&nbsp;Other:
+            <ul>
+                <li>Authentication - Firebase Email & Password, Google OAuth (For GAPI token acquisition) </li>
+                <li>APIs - Google Drive Picker</li>
+            </ul>
+        </div>
+        <div class="project-links">
+            <h2>Links</h2>
+            <ul>
+                <li><a target="_blank" href="https://github.com/MrBiscuitTR/hanimcilar.com">GitHub Repository</a></li>
+                <li><a target="_blank" href="https://album.hanimcilar.com/">Live Demo</a></li>
+            </ul>
         </div>
     </div>
+    
 </body>
 </html>
