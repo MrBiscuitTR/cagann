@@ -88,12 +88,12 @@ function showScreenshot(index) {
 
 
 document.addEventListener('click', function(e) {
-    e.preventDefault();
     if (e.target.classList.contains('prev')) {
         scrollSlider('left');
     } else if (e.target.classList.contains('next')) {
         scrollSlider('right');
     } else if (e.target.classList.contains('screenshot')) {
+        e.preventDefault();
         openModal(e.target.src);
     } else if (e.target.classList.contains('modal')) {
         closeModal();
