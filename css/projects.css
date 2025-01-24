@@ -55,7 +55,13 @@ span.projectname {
 }
 
 .screenshot-slider h2 {
-    /* margin-left: 2vw; */
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+.screenshot-slider h3 {
+    /* margin-top: 0.2em; */
+    margin-top: 0;
+    margin-bottom: 0.9em;
 }
 
 .screenshotswithbuttons {
@@ -69,12 +75,13 @@ span.projectname {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 0.7em;
     border: #424242 1px solid;
     overflow-x: scroll;
     scrollbar-width: 10px;
-    scrollbar-color: #316969 #000000;
-    cursor:grab;
+    scrollbar-color: #316969 #00000000;
+    /* cursor:grab; */
+    cursor: pointer;
     max-width: 100%;
 }
 
@@ -192,7 +199,7 @@ button.prev:hover, button.next:hover {
 
 .projectpreviewbutton {
     width: 100% !important;
-    border-radius: 10px;
+    border-radius: 0.7em;
     border: 1px solid #696969;
     text-align: center !important;
 }
@@ -226,7 +233,7 @@ button.prev:hover, button.next:hover {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: #424242;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin-bottom: 0 !important;
 }
 /* collapsible end */

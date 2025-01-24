@@ -346,7 +346,7 @@ a {
     padding: 0.2em 0 0.2em 0;
     text-align: center;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -382,7 +382,7 @@ a {
     color: #f1f1f1;
     padding: 0.5em 1em;
     border: 1px solid #616161;
-    border-radius: 8px;
+    border-radius: 0.7em;
     font-size: 1em;
     white-space: nowrap;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;;
@@ -426,7 +426,7 @@ a {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: #424242;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin-bottom: 0 !important;
 }
 
@@ -459,7 +459,7 @@ a {
     align-items: center;
     background-color: #424242;
     padding: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -591,7 +591,7 @@ a {
     padding: 0 0 0 0;
     text-align: center;
     /* font-size: 0.6em; */
-    /* border-radius: 10px; */
+    /* border-radius: 0.7em; */
     margin: auto;
 }
 
@@ -601,7 +601,7 @@ a {
     margin-bottom: 10px;
     width: 50vw;
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.7em;
     transition: 0.3s ease-in-out;
 }
 
@@ -693,7 +693,7 @@ a {
     padding: 0.1em 0 0.1em 0;
     text-align: center;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -709,7 +709,7 @@ a {
     padding: 0.2em 0 0.2em 0;
     text-align: center;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -754,7 +754,7 @@ a {
     padding: 0.1em 0 0.1em 0;
     text-align: center;
     font-size: 0.6em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -764,7 +764,7 @@ a {
     margin-bottom: 10px;
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.7em;
     transition: 0.3s ease-in-out;
 }
 
@@ -776,7 +776,7 @@ a {
     margin-bottom: 10px;
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.7em;
     transition: 0.3s ease-in-out;
 }
 
@@ -923,7 +923,7 @@ a {
     padding: 0.1em 0 0.1em 0;
     text-align: center;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -939,7 +939,7 @@ a {
     padding: 0.2em 0 0.2em 0;
     text-align: center;
     font-size: 1em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -999,7 +999,7 @@ a {
     padding: 0.1em 0 0.1em 0;
     text-align: center;
     font-size: 0.6em;
-    border-radius: 10px;
+    border-radius: 0.7em;
     margin: auto;
 }
 
@@ -1011,7 +1011,7 @@ a {
     max-height: 7.8em;
     width: auto;
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.7em;
     transition: 0.3s ease-in-out;
 }
 
@@ -1023,7 +1023,7 @@ a {
     margin-bottom: 10px;
     width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 0.7em;
     transition: 0.3s ease-in-out;
 }
 
