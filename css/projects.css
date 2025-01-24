@@ -117,7 +117,7 @@ button.prev:hover, button.next:hover {
     width: 100%;
     min-width: 25vw;
     height: 200px;
-    object-fit:scale-down;
+    object-fit: fill;
     border: 1px solid #000000;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -152,6 +152,18 @@ button.prev:hover, button.next:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.modal img{
+    margin: auto;
+    display: block;
+    width: auto;
+    height: auto;
+    scale: auto;
+    max-width: 90%;
+    max-height: 70vh;
+    border-radius: 0.7em;
+    object-fit: contain;
 }
 
 .project-infos {
