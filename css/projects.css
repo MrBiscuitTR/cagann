@@ -141,7 +141,7 @@ button.prev:hover, button.next:hover {
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 12vh; /* 12% of the viewport height */
     left: 0;
     top: 0;
     width: 100%;
@@ -163,7 +163,7 @@ button.prev:hover, button.next:hover {
     max-width: 90%;
     max-height: 70vh;
     border-radius: 0.7em;
-    object-fit: contain;
+    object-fit: scale-down;
 }
 
 .project-infos {

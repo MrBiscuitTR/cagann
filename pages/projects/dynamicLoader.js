@@ -3,9 +3,12 @@
 // if the url is not empty but not found, redirect to 404 page
 
 // image slider. buttons on the right and left of the slider (both sides of the page), and the images are in the middle. images dont fit the screen -> scroll with buttons or with mouse/hand. images will have a modal window to show the full image.
-
+var scrollY = 100;
 const modal = document.querySelector('.modal');
 function openModal(src) {
+    //get distance scrolled from the top   
+    
+    console.log(scrolledAt);
     // creates a modal window with the image that was clicked
     const img = document.createElement('img');
     img.src = src;
@@ -17,16 +20,19 @@ function openModal(src) {
     modal.style.height = '100vh';
     modal.classList.add('modal');
 
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${window.scrollY}px`;
+    document.body.style.position = 'fixed'; // prevent scrolling
+    document.body.style.top = `-${scrolledAt}px`; // prevent scrolling
 }
 
 function closeModal() {
     modal.style.display = 'none';
     modal.innerHTML = '';
 
-    document.body.style.position = '';
-    // document.body.style.top = '';
+    document.body.style.position = ''; // remove the fixed position
+    document.body.style.top = ''; // remove the top style to allow scrolling
+    // prevent going to the top of the page when closing the modal
+    window.scrollTo(0, scrolledAt);
+
 }
 
 // END MODAL
@@ -94,6 +100,7 @@ document.addEventListener('click', function(e) {
         scrollSlider('right');
     } else if (e.target.classList.contains('screenshot')) {
         e.preventDefault();
+        scrolledAt = window.pageYOffset;
         openModal(e.target.src);
     } else if (e.target.classList.contains('modal')) {
         closeModal();
