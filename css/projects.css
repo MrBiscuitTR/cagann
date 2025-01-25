@@ -140,7 +140,9 @@ button.prev:hover, button.next:hover {
 @media screen and (orientation: portrait) {
     .screenshots img{
         min-height: 30vw;
-        aspect-ratio: 16/9;
+        max-height: 40vh;
+        aspect-ratio: 16/9 !important;
+        min-width: 35vw;
         max-width: 100%;
         width: auto;
     }
