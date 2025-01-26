@@ -54,34 +54,34 @@ function scrollSlider(direction) {
     }
 }
 // scroll with mouse drag. when mouse is up, no longer drag the slider, and dont open modal.
-// let isDown = false;
-// screenshotSlider.addEventListener('mousedown', function(e) {
-//     e.preventDefault();
-//     isDown = true;
-//     let startX = e.pageX - screenshotSlider.offsetLeft;
-//     let scrollLeft = screenshotSlider.scrollLeft;
+let isDown = false;
+screenshotSlider.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    isDown = true;
+    let startX = e.pageX - screenshotSlider.offsetLeft;
+    let scrollLeft = screenshotSlider.scrollLeft;
 
-//     screenshotSlider.addEventListener('mouseleave', function(e) {
-//         e.preventDefault();
-//         // wait 0.02s before setting isDown to false, so the mouseup event can be triggered
-//         setTimeout(() => {
-//             isDown = false;
-//         }, 20);
-//     });
-//     screenshotSlider.addEventListener('mouseup', function(e) {
-//         e.preventDefault();
-//         setTimeout(() => {
-//             isDown = false;
-//         }, 20);
-//     });
-//     screenshotSlider.addEventListener('mousemove', function(e) {
-//         if (!isDown) return;
-//         e.preventDefault();
-//         const x = e.pageX - screenshotSlider.offsetLeft;
-//         const walk = (x - startX) * 2; //scroll-fast
-//         screenshotSlider.scrollLeft = scrollLeft - walk;
-//     });
-// });
+    screenshotSlider.addEventListener('mouseleave', function(e) {
+        e.preventDefault();
+        // wait 0.02s before setting isDown to false, so the mouseup event can be triggered
+        setTimeout(() => {
+            isDown = false;
+        }, 20);
+    });
+    screenshotSlider.addEventListener('mouseup', function(e) {
+        e.preventDefault();
+        setTimeout(() => {
+            isDown = false;
+        }, 20);
+    });
+    screenshotSlider.addEventListener('mousemove', function(e) {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - screenshotSlider.offsetLeft;
+        const walk = (x - startX) * 2; //scroll-fast
+        screenshotSlider.scrollLeft = scrollLeft - walk;
+    });
+});
 
 var screenshots = document.querySelectorAll('.screenshot');
 var current = 0;
