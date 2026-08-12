@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Non-ASCII paths must be percent-encoded here (Hanımcılar -> Han%C4%B1mc%C4%B1lar,
-     spaces -> %20) or Search Console rejects the entry.
-     /pages/projects/n8n/uni-grades is deliberately absent — robots.txt disallows it.
-     /pages/projects/Amcılar is also absent: nothing links to it. -->
+<!--
+  MAINTENANCE — read before editing:
+
+  * Non-ASCII paths MUST be percent-encoded (Hanımcılar -> Han%C4%B1mc%C4%B1lar,
+    spaces -> %20). Search Console rejects the whole file otherwise, silently.
+  * Only list pages that return 200 AND are indexable. Never list a redirect or
+    anything carrying noindex — Bing in particular reports those as errors and
+    trusts the rest of the file less.
+  * lastmod should be a real date. Faking "today" on every page trains crawlers
+    to ignore the field. Ask git for the true one with a "git log" one liner
+    (the exact command is in docs/seo.md; I can't write the flags in here,
+    see the last bullet).
+  * After editing this, ping IndexNow (see docs/seo.md) so Bing/Yandex/Brave
+    pick it up in hours rather than weeks. Google just re-reads it on its own.
+  * Careful: an XML comment can never contain two dashes in a row. Pasting a
+    shell command with a long flag in here silently breaks the entire file,
+    and the only symptom is Search Console rejecting the sitemap.
+
+  Deliberately NOT here:
+    /pages/projects/            -> redirects to /#projects
+    /pages/projects/n8n/        -> noindex, still a stub
+    /pages/projects/Amcılar/    -> noindex, still a stub, nothing links to it
+    /pages/projects/TwoPlace/   -> redirect to twoplace.cagancalidag.com
+    /pages/projects/Utilities/  -> redirect to utilities.cagancalidag.com
+    /pages/projects/n8n/uni-grades -> disallowed in robots.txt
+  When any of those becomes a real page, drop its noindex and add it here.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://cagancalidag.com/</loc>
@@ -10,38 +33,22 @@
   </url>
   <url>
     <loc>https://cagancalidag.com/pages/contact.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://cagancalidag.com/pages/cv.html</loc>
-    <lastmod>2026-04-02</lastmod>
-  </url>
-  <url>
-    <loc>https://cagancalidag.com/pages/projects/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://cagancalidag.com/pages/projects/Metaclass/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://cagancalidag.com/pages/projects/Han%C4%B1mc%C4%B1lar/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-08-12</lastmod>
   </url>
   <url>
     <loc>https://cagancalidag.com/pages/projects/MFINUE%20Connect/</loc>
-    <lastmod>2026-04-02</lastmod>
-  </url>
-  <url>
-    <loc>https://cagancalidag.com/pages/projects/TwoPlace/</loc>
-    <lastmod>2026-03-16</lastmod>
-  </url>
-  <url>
-    <loc>https://cagancalidag.com/pages/projects/Utilities/</loc>
-    <lastmod>2025-12-27</lastmod>
-  </url>
-  <url>
-    <loc>https://cagancalidag.com/pages/projects/n8n/</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-08-12</lastmod>
   </url>
 </urlset>

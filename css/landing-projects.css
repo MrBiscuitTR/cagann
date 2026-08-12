@@ -1,3 +1,14 @@
+/* ORPHANED as of Aug 2026 -- nothing loads this any more.
+   Its only consumer was /pages/projects/index.html, which is now a redirect to
+   /#projects instead of a half-built hub page. Keeping the file around in case I
+   ever do build a proper projects hub, but if I do, note the two bugs below
+   before reusing any of it. Safe to delete otherwise.
+
+   BUG 1: this @font-face points src at a *stylesheet* URL, not a font file, so
+   it never loaded anything -- Montserrat below always fell through to system-ui.
+   If I want a webfont here, use the local subset like style-main.css does.
+   BUG 2: .project below uses https://source.unsplash.com for a background.
+   Unsplash shut that endpoint down, so it resolves to nothing. */
 @font-face {
     font-family: Montserrat;
     src: url("https://fonts.googleapis.com/css?family=Montserrat");

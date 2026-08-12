@@ -1,0 +1,31 @@
+# GitHub Pages runs Jekyll over this branch by default (there's no .nojekyll
+# here). Adding this file doesn't turn anything on -- it just lets me tell the
+# build which paths NOT to publish.
+#
+# Why this matters more than a robots.txt line: robots.txt is a *request*, and
+# it's a public file, so listing a path in it actually advertises that path to
+# anyone curious. Excluding it here means GitHub never copies it into the
+# published site at all, so those URLs 404 for everyone, bots included.
+#
+# docs/ is the important one -- docs/subdomain-audit.md lists my infrastructure
+# and which bits of it are weak. That must not be on the public internet.
+# Deliberately NOT mirrored into robots.txt for the reason above.
+#
+# Jekyll also turns loose .md files into .html pages, so README.md would
+# otherwise show up at /README.html. Excluded for the same reason.
+#
+# VERIFY AFTER DEPLOY (this is the whole point, don't skip it):
+#   curl -o /dev/null -w '%{http_code}\n' https://cagancalidag.com/docs/security-headers.html
+#   curl -o /dev/null -w '%{http_code}\n' https://cagancalidag.com/tools/subset-font.py
+# Both should be 404. If they're 200, Pages isn't building with Jekyll for this
+# repo and I need to move docs/ and tools/ onto the main branch instead.
+
+exclude:
+  - docs
+  - tools
+  - README.md
+  - .vscode
+
+# Don't let Jekyll try to be clever with the hand-written HTML.
+# Every page here is plain static markup; there are no layouts or posts.
+plugins: []

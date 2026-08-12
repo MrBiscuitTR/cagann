@@ -4,16 +4,19 @@
         <meta charset="UTF-8">
         <script>document.documentElement.classList.add("js");</script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Content-Security-Policy.
-             GitHub Pages can't send response headers, so this meta tag is the
-             only way to enforce a CSP from the repo. It covers this page only —
-             see docs/security-headers.md for the Cloudflare rules that apply
-             CSP, HSTS, COOP and X-Frame-Options across the whole site.
-             The script hash below is for the one-line inline script above; if
-             you edit that line you must recompute it (docs has the command).
-             img-src is left as a broad `https:` on purpose: project icons are
-             hotlinked from subdomains so they stay current, and an enumerated
-             allowlist would silently break each time one is added. -->
+        <!-- CSP. GitHub Pages can't send real response headers, so a meta tag is
+             the only way to get one from the repo, and it only covers THIS page.
+             The proper site-wide version (plus HSTS, COOP, X-Frame-Options) is a
+             Cloudflare rule -- see docs/security-headers.md.
+
+             The sha256 below is the hash of that one-line inline script above.
+             If I ever touch that line, even the whitespace, this stops matching
+             and the script silently gets blocked. Recompute with:
+               printf '%s' 'document.documentElement.classList.add("js");' | openssl dgst -sha256 -binary | openssl base64
+
+             img-src is a broad `https:` deliberately. I hotlink project icons off
+             my own subdomains so they update when I rebrand something; an
+             enumerated allowlist would break every time I add one, silently. -->
         <meta http-equiv="Content-Security-Policy" content="
             default-src 'self';
             base-uri 'self';
@@ -40,7 +43,28 @@
              swap to Inter happens before first paint rather than after it. -->
         <link rel="preload" href="/css/fonts/Inter/Inter-Regular-subset.ttf" as="font" type="font/ttf" crossorigin>
 
-        <!-- all meta tags I could find for SEO -->
+        <!-- ============ SEO. READ THIS BEFORE CHANGING MY BIO ============
+             The point of all this is that searching "cagan calidag", "cagan efe
+             calidag" or "Çağan Efe Çalıdağ" lands here. What keeps that true:
+
+             1. BOTH spellings must exist in machine-readable form. The Turkish one
+                is in <title> and the <h1>; the ASCII one only lives in the JSON-LD
+                "alternateName" list below. If I rewrite the bio, DON'T delete
+                those -- it's the only place a crawler sees "Cagan Calidag".
+             2. og:* and twitter:* are what Discord/WhatsApp/LinkedIn/Slack show
+                when someone pastes the link. They do NOT fall back to <title>.
+                Change one, change all three (title, description, image).
+             3. og:image must be an absolute https URL, at least 1200x628, under
+                ~1 MB, or the preview renders blank. Currently og-image-1200.jpg.
+             4. New page? Add it to /sitemap.xml with a real lastmod, and give it
+                its own <link rel="canonical">. Bing and Brave lean on the sitemap
+                far more than Google does.
+             5. After a real edit, ping IndexNow so Bing/Yandex/Brave recrawl in
+                hours instead of weeks -- command is in docs/seo.md. The key file
+                is /482d0d93180e15d7286fd2a71b6b775b.txt and it must contain
+                exactly that key as its entire contents.
+             6. Never add noindex here, and never Disallow /css/ or /js/ in
+                robots.txt -- Google renders the page before it ranks it. ======= -->
         <meta property='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast'>
         <meta property='og:type' content='website'>
         <meta property="og:url" content="https://cagancalidag.com/">
@@ -91,7 +115,7 @@
                 "name": "Université Paris-Saclay",
                 "url": "https://www.universite-paris-saclay.fr/en"
               },
-              "knowsAbout": ["Full-Stack Development", "Automation", "Artificial Intelligence", "Self-Hosting", "Data Privacy", "Web Development"],
+              "knowsAbout": ["Full-Stack Development", "Automation", "Artificial Intelligence", "Self-Hosting", "Data Privacy", "Web Development, Cybersecurity", "Ethical Hacking", "Network Security", "Penetration Testing", "Software Development"],
               "sameAs": [
                 "https://github.com/MrBiscuitTR",
                 "https://www.linkedin.com/in/çağanefeçalıdağ",
@@ -112,6 +136,7 @@
         </script>
         <link rel="stylesheet" href="css/style-main.css">
         <script defer src="js/scrollReveal.js"></script>
+        <script defer src="js/scramble.js"></script>
         <script defer src="js/coolbg.js"></script>
         <script defer src="js/main.js"></script>
         <script defer src="js/dynamic-text.js"></script>
@@ -130,8 +155,8 @@
                     <a data-value="About" href="#about">About</a>
                     <a data-value="Skills" href="#skills">Skills</a>
                     <a data-value="Projects" href="#projects">Projects</a>
-                    <!-- <a data-value="CV" class="anchor" href="/pages/cv.html">CV</a> -->
-                    <a data-value="Contact" class="anchor" href="/pages/contact.html">Contact</a>
+                    <!-- <a data-value="CV" href="/pages/cv.html">CV</a> -->
+                    <a data-value="Contact" href="/pages/contact.html">Contact</a>
                 </nav>
             </div>
         </header>
@@ -154,7 +179,9 @@
                                 </div>
                             </div>
                             <div class="welcome-image">
-                                <!-- LCP element: WebP + srcset + fetchpriority. Was a 745 KB PNG. -->
+                                <!-- biggest image on the page, so it's what the LCP score gets measured on.
+                                 was a 745 KB PNG rendering into a ~400px box.
+                                 keep the width/height attributes or the layout jumps while it loads. -->
                                 <img src="/files/images/welcomeimage-880.webp"
                                      srcset="/files/images/welcomeimage-880.webp 880w,
                                              /files/images/welcomeimage-1175.webp 1175w"
@@ -173,7 +200,7 @@
         </section>
         <div class="general-container">
             <noscript>JavaScript is disabled. Content is visible without animated reveal effects.</noscript>
-            <svg class="scroll-cue" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            <svg class="scroll-cue" aria-hidden="true" focusable="false"><use href="/files/icons.svg#chevron-down"></use></svg>
             <div class="reveal">
                 <div class="container" id="about">
                     <div class="container-text">
@@ -188,7 +215,7 @@
                     </div> -->
                     <div class="container-text aboutme">
                         <p>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a <span id="age">19</span>
-                            year old full-stack developer, designer and technology enthusiast. I am currently a Math-Info (Mathematics &amp; Computer Science) undergraduate student at <a href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener noreferrer">Université Paris-Saclay. </a> (You can also browse <a href="/pages/projects/n8n/uni-grades" target="_blank" rel="noopener noreferrer">my university grades, updated automatically through n8n every few days</a>.)
+                            year old full-stack developer, designer and technology enthusiast. I am currently a Math-Info (Mathematics &amp; Computer Science) undergraduate student at <a href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener noreferrer">Université Paris-Saclay. </a> (You can also browse <a href="/pages/projects/n8n/uni-grades" target="_blank" rel="noopener noreferrer nofollow">my university grades, updated automatically through n8n every few days</a>.)
                             I have been "programming" since the age of 10, but I started taking it more seriously when I was 12 and I have been learning and developing my skills ever since.
                             I have experience in various programming languages, frameworks and tools. I am also familiar with some design tools to help me with web development.
                             I am currently working on numerous projects, and I am looking for a potential collaboration or internship opportunities to gain experience and improve my skills.
@@ -344,52 +371,69 @@
 
                         <br>
                         <div class="certifications">
-                            <!-- These were divs with onclick="window.open(...)": not keyboard
-                                 reachable and invisible to crawlers. Now real links. -->
-                            <div class="reveal cert">
-                                <a class="cert-item" href="/files/pdfs/TI MFINUE 2023 Certificat.pdf" target="_blank" rel="noopener noreferrer">
-                                    <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
-                                    <div class="cert-text">
+                            <!-- Card shape, copy this when adding one:
+                                   .cert-item  = the card, spans 4 grid rows
+                                     a.cert-main = icon + title + optional note -> the PDF
+                                     p.cert-by   = "By <issuer>" -> the issuer's site
+                                 Two SEPARATE links on purpose. It used to be one <a>
+                                 wrapping everything, so hovering anywhere underlined the
+                                 whole card and the issuer wasn't reachable at all.
+                                 Leave out .cert-note entirely if there's no sub-line --
+                                 don't put an empty one in, the subgrid handles the gap.
+                                 Order here = order on the page. CyberExam ones are first
+                                 on purpose; move the blocks to reorder, nothing else. -->
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/CyberExam-Certificate-Certified-Ethical-Pentester-1.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="https://certs.cyberexam.io/icon.png" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <h3>Certified Ethical Pentester</h3>
+                                    </a>
+                                    <p class="cert-note"><i>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer">Besim Altınok</a> — offensive security researcher and speaker, founder of CyberExam &amp; CyberPath</i></p>
+                                    <p class="cert-by">By <a href="https://certs.cyberexam.io/" target="_blank" rel="noopener noreferrer">CyberExam</a></p>
+                            </div>
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/CyberExam-Certificate-Certified-Mobile-Application-Pentester.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="https://certs.cyberexam.io/icon.png" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <h3>Certified Mobile Application Pentester</h3>
+                                    </a>
+                                    <p class="cert-note"><i>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer">Besim Altınok</a> — offensive security researcher and speaker, founder of CyberExam &amp; CyberPath</i></p>
+                                    <p class="cert-by">By <a href="https://certs.cyberexam.io/" target="_blank" rel="noopener noreferrer">CyberExam</a></p>
+                            </div>
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/TI MFINUE 2023 Certificat.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
                                         <h3>MFINUE 2023 IT Team Member</h3>
-                                        <p>By MFINUE</p>
-                                    </div>
-                                </a>
+                                    </a>
+                                    <p class="cert-by">By <a href="https://mfinue.org" target="_blank" rel="noopener noreferrer">MFINUE</a></p>
                             </div>
-                            <div class="reveal cert">
-                                <a class="cert-item" href="/files/pdfs/TI MFINUE 2024.pdf.pdf" target="_blank" rel="noopener noreferrer">
-                                    <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
-                                    <div class="cert-text">
-                                        <h3>MFINUE 2024 IT Team Member <span class="cert-note"><i>Further Developed and Led Development of MFINUE Connect</i></span></h3>
-                                        <p>By MFINUE</p>
-                                    </div>
-                                </a>
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/TI MFINUE 2024.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
+                                        <h3>MFINUE 2024 IT Team Member</h3>
+                                    </a>
+                                    <p class="cert-note"><i>Further Developed and Led Development of MFINUE Connect</i></p>
+                                    <p class="cert-by">By <a href="https://mfinue.org" target="_blank" rel="noopener noreferrer">MFINUE</a></p>
                             </div>
-                            <div class="reveal cert">
-                                <a class="cert-item" href="/files/pdfs/20241128_GAEL_attestation_réussite_CALIDAG_Cagan Efe.pdf" target="_blank" rel="noopener noreferrer">
-                                    <img src="/files/images/France_Éducation_international_logo_2024.svg" alt="France Éducation international logo" width="48" height="48" loading="lazy" decoding="async">
-                                    <div class="cert-text">
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/20241128_GAEL_attestation_réussite_CALIDAG_Cagan Efe.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="/files/images/France_Éducation_international_logo_2024.svg" alt="France Éducation international logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>DALF C1 Level French</h3>
-                                        <p>By France Éducation international</p>
-                                    </div>
-                                </a>
+                                    </a>
+                                    <p class="cert-by">By <a href="https://www.france-education-international.fr/" target="_blank" rel="noopener noreferrer">France Éducation international</a></p>
                             </div>
-                            <div class="reveal cert">
-                                <a class="cert-item" href="/files/pdfs/Cagan_Efe_Calidag_IELTS_TRF_noid_censored.pdf" target="_blank" rel="noopener noreferrer">
-                                    <img src="/files/images/IELTS_logo.svg" alt="IELTS logo" width="48" height="48" loading="lazy" decoding="async">
-                                    <div class="cert-text">
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/Cagan_Efe_Calidag_IELTS_TRF_noid_censored.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="/files/images/IELTS_logo.svg" alt="IELTS logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>IELTS C1+ Level English</h3>
-                                        <p>By British Council</p>
-                                    </div>
-                                </a>
+                                    </a>
+                                    <p class="cert-by">By <a href="https://www.britishcouncil.org" target="_blank" rel="noopener noreferrer">British Council</a></p>
                             </div>
-                            <div class="reveal cert">
-                                <a class="cert-item" href="/files/pdfs/AP_Scholar_with_honor.pdf" target="_blank" rel="noopener noreferrer">
-                                    <img src="https://atlas.collegeboard.org/apricot/prod/4.7.1/assets/apple-touch-icon.png" alt="College Board logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
-                                    <div class="cert-text">
-                                        <h3>AP® Scholar with Honor Award <span class="cert-note"><i>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</i></span></h3>
-                                        <p>By College Board</p>
-                                    </div>
-                                </a>
+                            <div class="cert-item reveal">
+                                    <a class="cert-main" href="/files/pdfs/AP_Scholar_with_honor.pdf" target="_blank" rel="noopener noreferrer">
+                                        <img src="https://atlas.collegeboard.org/apricot/prod/4.7.1/assets/apple-touch-icon.png" alt="College Board logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <h3>AP® Scholar with Honor Award</h3>
+                                    </a>
+                                    <p class="cert-note"><i>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</i></p>
+                                    <p class="cert-by">By <a href="https://www.collegeboard.org/" target="_blank" rel="noopener noreferrer">College Board</a></p>
                             </div>
                         </div>
                     </div>
@@ -504,9 +548,11 @@
                             </div>
                         </a>
                     </div>
-                    <!-- No page to link to yet, so these three are plain cards rather than
-                         links back to "/" — several self-referencing links with different
-                         labels are what tripped the "identical links" audit. -->
+                    <!-- no project page for these yet, so they're plain divs rather than links.
+                     they used to point at "/", and several links to the same URL with different
+                     labels is what Lighthouse flagged -- clicking one just reloaded the homepage.
+                     when I write a page for one: swap the div back to
+                     <a class="project-link" href="...">, nothing else changes. -->
                     <div class="project reveal">
                         <div class="project-link">
                             <div class="project-image">
@@ -568,8 +614,8 @@
                         </div>
                     </div>
                     <div class="project reveal">
-                        <!-- The card text used to link to "/" while only the icon linked to
-                             the blog — both go to the blog now. -->
+                        <!-- was linking the icon to the blog but the card text to "/". both go to the
+                         blog now. -->
                         <a class="project-link" href="https://blogs.cagancalidag.com" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
                                 <img src="https://blogs.cagancalidag.com/favicon.ico" alt="Blogs" width="120" height="120" loading="lazy" decoding="async" referrerpolicy="no-referrer">
@@ -589,10 +635,10 @@
         <footer class="footer">
             <div class="footer-row">
                 <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/çağanefeçalıdağ" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg> LinkedIn</a> &nbsp;&nbsp;
-                    <a href="https://github.com/MrBiscuitTR" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 496 512" aria-hidden="true" focusable="false"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> GitHub</a> &nbsp;&nbsp;
-                    <a href="https://www.instagram.com/cagancalidag/" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg> Instagram</a> &nbsp;&nbsp;
-                    <a href="https://www.twitter.com/Caganefe1" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-98.8-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.8 34z"/></svg> Twitter</a>
+                    <a href="https://www.linkedin.com/in/çağanefeçalıdağ" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#linkedin"></use></svg> LinkedIn</a>
+                    <a href="https://github.com/MrBiscuitTR" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#github"></use></svg> GitHub</a>
+                    <a href="https://www.instagram.com/cagancalidag/" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#instagram"></use></svg> Instagram</a>
+                    <a href="https://www.twitter.com/Caganefe1" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#twitter"></use></svg> Twitter</a>
                 </div>
             </div>
 

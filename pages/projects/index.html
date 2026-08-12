@@ -1,43 +1,40 @@
-<!-- standalone page for projects grid -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <script>if(location.protocol==="http:"&&!/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)&&location.hostname!=="localhost")location.replace("https:"+location.href.slice(5));</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Çağan Efe Çalıdağ</title>
+
+    <!-- This used to be a half-built "projects hub" with two placeholder cards
+         ("Project 1", "Project 2") pointing at images that don't exist, plus a
+         nav link to /cv which 404s. I'd have had to keep it in sync with the
+         projects grid on the homepage by hand, forever, for no benefit.
+         So: it redirects to the real list instead. One less thing to maintain.
+
+         SEO note -- this is the bit that matters:
+         canonical points at the homepage anchor, so any link equity that ever
+         went to /pages/projects/ gets folded into "/" rather than splitting
+         between two pages competing for the same terms. It's deliberately NOT
+         in sitemap.xml (never list a redirect in a sitemap; Search Console
+         reports it as an error). The meta refresh is the redirect itself, and
+         the JS line is just belt-and-braces for anything that ignores it.
+         GitHub Pages can't do a real 301, which would be the proper answer. -->
+
+    <link rel="canonical" href="https://cagancalidag.com/#projects">
+    <meta http-equiv="refresh" content="0; url=/#projects">
+    <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" href="/css/style-main.css">
-    <link rel="stylesheet" href="/css/landing-projects.css">
-    <script src="./dynamicLoader.js"></script>
+    <script>location.replace("/#projects");</script>
 </head>
 <body>
-    <div class="header">
-        <div class="header-image">
-            <a href="/"><img src="/files/images/icon-192.png" alt="cagancalidag icon"></a>
+    <main class="general-container">
+        <div class="container">
+            <div class="container-text">
+                <h2>Redirecting…</h2>
+                <p>My projects live on the home page. If nothing happens,
+                   <a href="/#projects">open the projects list</a>.</p>
+            </div>
         </div>
-        <div class="header-nav">
-            <nav>
-                <a href="/#about">About</a>
-                <a href="/#skills">Skills</a>
-                <a href="/#projects">Projects</a>
-                <a href="/cv">CV</a>
-                <a href="/pages/contact.html">Contact</a>
-            </nav>
-        </div>
-    </div>
-    <div class="projects">
-        <div class="project">
-            <a href="/">
-                <img src="/images/projects/1.png" alt="">
-                <h3>Project 1</h3>
-            </a>
-        </div>
-        <div class="project">
-            <a href="/">
-                <img src="/images/projects/2.png" alt="">
-                <h3>Project 2</h3>
-            </a>
-        </div>
-    </div>
+    </main>
 </body>
+</html>

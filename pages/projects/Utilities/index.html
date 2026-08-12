@@ -1,8 +1,33 @@
-<!-- redirect to utilities.cagancalidag.com -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="refresh" content="0; url=https://utilities.cagancalidag.com">
-    <link rel="canonical" href="https://utilities.cagancalidag.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting to Utilities</title>
-    
+
+    <!-- Straight redirect to utilities.cagancalidag.com.
+         The old version of this file was missing </head>, </body> and <body>
+         entirely -- browsers papered over it, but it wasn't valid HTML.
+
+         canonical points at the destination so the subdomain gets the ranking
+         rather than this stub competing with it. noindex keeps the stub itself
+         out of results. Same pattern as the TwoPlace redirect next door. -->
+
+    <link rel="canonical" href="https://utilities.cagancalidag.com">
+    <meta http-equiv="refresh" content="0; url=https://utilities.cagancalidag.com">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style-main.css">
+    <script>location.replace("https://utilities.cagancalidag.com");</script>
+</head>
+<body>
+    <main class="general-container">
+        <div class="container">
+            <div class="container-text">
+                <h2>Redirecting…</h2>
+                <p>Taking you to <a href="https://utilities.cagancalidag.com">utilities.cagancalidag.com</a>.</p>
+            </div>
+        </div>
+    </main>
+</body>
 </html>

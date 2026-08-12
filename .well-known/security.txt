@@ -1,0 +1,11 @@
+# RFC 9116. Standard place for someone to tell me they found a hole in one of my
+# things. Costs nothing and it's the first thing a researcher looks for.
+#
+# MAINTENANCE: Expires is mandatory and browsers/scanners treat an expired file
+# as invalid. Push the date out once a year -- put a calendar reminder on it.
+
+Contact: mailto:contact@cagancalidag.com
+Contact: https://cagancalidag.com/pages/contact.html
+Expires: 2027-08-12T00:00:00.000Z
+Preferred-Languages: en, tr, fr
+Canonical: https://cagancalidag.com/.well-known/security.txt
