@@ -254,33 +254,83 @@ a {
 .header-nav {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     text-align: center;
-    max-width: 60%;
+    /* was max-width: 60%, and nav below was max-width: 40% OF THAT -- so the nav
+       box could never be wider than ~24% of the header. Four links don't fit in
+       24% of a phone screen, so they wrapped onto a second line, which is the
+       "header line breaks and un-breaks" jitter. Let it size to its content. */
+    min-width: 0;
     font-size: 1em;
     color: #292929;
 }
 
 .header-nav nav {
-    max-width: 40%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* nowrap + gap instead of per-link margins: the links now sit on one line at
+       any width, and gap shrinks before anything is allowed to wrap. */
+    flex-wrap: nowrap;
+    gap: clamp(0.55em, 1.6vw, 1.6em);
     align-items: center;
     text-align: center;
+    max-width: 100%;
     font-size: 1em;
     list-style-type: none;
 }
 
 .header-nav nav a {
-    margin: 0 1vw 0 1vw;
-    padding: 0 0 0 0;
+    margin: 0;
+    padding: 0;
     font-size: clamp(13px, 1.2vw, 18px);
     font-weight: 500;
     line-height: 1;
     color: inherit;
     cursor: pointer; /* they're real links now, not onclick handlers */
+    white-space: nowrap;   /* never break "Projects" across two lines */
+}
+
+/* ---- keeping the scramble from resizing anything ----
+   The effect swaps letters, and random letters aren't the same width as the
+   real ones ("W" vs "i"), so the element kept resizing 30 times a second.
+   On the nav that meant horizontal jitter on desktop and line-wrapping on
+   mobile; on a heading it could reflow onto a second line.
+
+   Fix: scramble.js splits the element into two spans. The ghost is the real
+   text, invisible but still taking up space -- that's what sizes the box, and
+   it never changes. The animating copy is absolutely positioned on top of it,
+   so whatever width it happens to be, it can't push anything around.
+
+   .scramble-lock is added by JS, so with JS off none of this applies and the
+   plain text renders normally. */
+.scramble-lock {
+    position: relative;
+    display: inline-block;
+}
+
+.scramble-lock > .scramble-ghost {
+    visibility: hidden;
+}
+
+.scramble-lock > .scramble-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Must not wrap. The box is sized by the ghost (the real text), but random
+       capitals like W and M are wider than the letters they stand in for, so the
+       animating copy can outgrow that box -- and if it's allowed to wrap it drops
+       onto a second line mid-animation and the heading visibly jumps.
+       nowrap means it just overhangs the box by a few px instead, which nobody
+       notices because it's absolutely positioned over empty space.
+       The nav never showed this because .header-nav nav a already sets nowrap and
+       white-space inherits; the h2 headings didn't, so they wrapped.
+       "Certifications" looked fine only because it's one word with nowhere to
+       break -- it was overflowing too, just invisibly. */
+    white-space: nowrap;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -558,19 +608,27 @@ a {
     color: var(--selected-brighter);
     text-decoration: none;
     font-weight: bold;
-    display: inline-block; /* allows transform to work reliably */
-    transition: color 100ms ease, transform 100ms ease;
+    /* THIS WAS display: inline-block, "so transform works".
+       It does -- but an inline-block is one unbreakable box, so a link longer
+       than the space left on the line can't wrap. It gets bumped onto a line of
+       its own and the sentence after it starts on another, which is exactly why
+       the grades link looked like its own paragraph.
+       A link inside a sentence has to be display: inline. That rules out
+       transform (it doesn't apply to non-replaced inline boxes), so the hover is
+       colour + underline instead, which suits body text better anyway. */
+    display: inline;
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+    transition: color 120ms ease;
 }
 
-.container-text a:focus {
+.container-text a:focus-visible {
     color: #21a1f1;
-    transform: scale(1.01);
     text-decoration: underline #90b4d8 solid 1px;
 }
 @media (hover: hover) and (pointer: fine) {
     .container-text a:hover {
         color: #21a1f1;
-        transform: scale(1.01);
         text-decoration: underline #90b4d8 solid 1px;
     }
 }
@@ -588,20 +646,20 @@ a {
 
 .aboutme a {
     color: rgb(201, 238, 255);
-    display: inline-block; /* allows transform to work reliably */
-    transition: color 100ms ease, transform 100ms ease;
+    /* inline, not inline-block -- see the note on .container-text a above.
+       These sit mid-sentence in the bio, so they have to be able to wrap. */
+    display: inline;
+    transition: color 120ms ease;
 }
 
 /* on hover/focus change color a bit and grow slightly */
-.aboutme a:focus {
+.aboutme a:focus-visible {
     color: #51d9ff;
-    transform: scale(1.01);
     text-decoration: underline #90b4d8 solid 1px;
 }
 @media (hover: hover) and (pointer: fine) {
     .aboutme a:hover {
         color: #51d9ff;
-        transform: scale(1.01);
         text-decoration: underline #90b4d8 solid 1px;
     }
 }
@@ -870,7 +928,7 @@ a {
 /* the small italic sub-line. it used to be a <p> nested inside the <h3>, which
    isn't legal HTML -- a heading can't contain a paragraph. */
 .cert-note {
-    font-size: 12px;
+    font-size: 12px !important;
     font-weight: 300;
     line-height: 1.45;
     color: #cfd6d5;
