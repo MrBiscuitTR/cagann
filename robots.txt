@@ -1,6 +1,7 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /pages/projects/n8n/uni-grades/
+Disallow: /cdn-cgi/
 
 #        _
 #       [ ]
