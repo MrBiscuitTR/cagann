@@ -1,23 +1,35 @@
-<!-- redirect to twoplace.cagancalidag.com -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>if(location.protocol==="http:"&&!/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)&&location.hostname!=="localhost")location.replace("https:"+location.href.slice(5));</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TwoPlace</title>
-    <link rel="stylesheet" href="/files/css/style.css">
-    <link rel="icon" href="/files/images/favicon.ico" type="image/x-icon">
+    <title>Redirecting to TwoPlace</title>
+
+    <!-- Redirect stub for twoplace.cagancalidag.com. Cleaned up:
+         - dropped the http->https script (Cloudflare already 301s port 80)
+         - dropped <link href="/files/css/style.css"> and /files/images/favicon.ico,
+           neither of which exists -- both were 404ing on every load
+         - the old setTimeout waited 5s before redirecting *after* a meta refresh
+           of 0s, so it was either dead code or a 5s stall. location.replace()
+           fires immediately and doesn't leave this page in session history.
+         canonical + noindex so the subdomain ranks, not this stub. -->
+
+    <link rel="canonical" href="https://twoplace.cagancalidag.com">
     <meta http-equiv="refresh" content="0; url=https://twoplace.cagancalidag.com">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style-main.css">
+    <script>location.replace("https://twoplace.cagancalidag.com");</script>
 </head>
 <body>
-    <h1>Redirecting to TwoPlace...</h1>
-    <p>If you are not redirected automatically, follow this <a href="https://twoplace.cagancalidag.com">link</a>.</p>
-    <script>
-        // Optional: Add a script to handle the redirect if meta refresh fails
-        setTimeout(function() {
-            window.location.href = "https://twoplace.cagancalidag.com";
-        }, 5000); // Redirect after 5 seconds
-    </script>
+    <main class="general-container">
+        <div class="container">
+            <div class="container-text">
+                <h2>Redirecting to TwoPlace…</h2>
+                <p>If you are not redirected automatically, follow
+                   <a href="https://twoplace.cagancalidag.com">this link</a>.</p>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

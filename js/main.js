@@ -1,20 +1,42 @@
-// on click on any "expandable" element, toggle the class "expanded" or "collapsed"
+// Expandable skill groups.
+// The triggers are plain divs in the markup, so we promote them to real
+// buttons here (role/tabindex/aria-expanded + Enter & Space) rather than
+// leaving them mouse-only.
 
-var coll = document.getElementsByClassName("collapsible");
-var i;
+(() => {
+  const triggers = document.querySelectorAll(".collapsible");
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("expanded");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-      content.style.border = null;
-      content.style.padding = null;
-    } else {
-      content.style.maxHeight = "fit-content";
-      content.style.border = "var(--widget-border)"
-      content.style.padding = "0.5em";
-    } 
+  triggers.forEach((trigger) => {
+    const content = trigger.nextElementSibling;
+    if (!content) return;
+
+    trigger.setAttribute("role", "button");
+    trigger.setAttribute("tabindex", "0");
+    trigger.setAttribute("aria-expanded", "false");
+
+    const toggle = () => {
+      const isOpen = trigger.classList.toggle("expanded");
+      trigger.setAttribute("aria-expanded", String(isOpen));
+
+      if (isOpen) {
+        // An explicit pixel height lets the max-height transition actually run;
+        // `fit-content` would snap open with no animation.
+        content.style.maxHeight = `${content.scrollHeight}px`;
+        content.style.border = "var(--widget-border)";
+        content.style.padding = "0.5em";
+      } else {
+        content.style.maxHeight = null;
+        content.style.border = null;
+        content.style.padding = null;
+      }
+    };
+
+    trigger.addEventListener("click", toggle);
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggle();
+      }
+    });
   });
-}
+})();

@@ -1,9 +1,31 @@
 @font-face {
     font-family: Inter;
-    src: url("fonts/Inter/static/Inter_18pt-Regular.ttf") format('truetype');
+    /* trimmed copy of Inter_18pt-Regular.ttf -- 335 KB down to 62 KB, since the
+       original hauls around Greek and Cyrillic I never type.
+       if I ever add a language or a weird symbol: python tools/subset-font.py
+       it rebuilds this AND tells me if anything on the site would fall back. */
+    src: url("fonts/Inter/Inter-Regular-subset.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;   /* show fallback text right away, don't block paint */
 }
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat'); /*original one*/
+/* dropped the Google Fonts @import that used to be here. it was render-blocking,
+   pulled from a third party, and only ever served as a fallback *behind* Inter,
+   so it basically never painted. no loss. */
+
+/* one place to change the header height.
+   IMPORTANT: this is in svh, not vh, on purpose -- see the note by .welcome-bg.
+   the 8vh line is the fallback for browsers without svh; @supports overrides it. */
+:root {
+    --header-h: 8vh;
+}
+
+@supports (height: 1svh) {
+    :root {
+        --header-h: clamp(52px, 8svh, 84px);
+    }
+}
 
 :root{
     --body-bg-color: #111d1d;
@@ -20,10 +42,59 @@
     --widget-border: 1px solid teal;
     --header-footer-bg: #defdff;
     --border-radius-global: 0.7em;
+
+    /* ONE set of numbers for skills / certifications / projects.
+       They used to each have their own width, padding and min-card-width, which
+       is why the three sections didn't line up and why certs fitted 4 across
+       while projects fitted 3. Change them here, all three stay in step.
+       --content-w is capped so a line of text doesn't stretch to 2000px on a
+       big monitor, and so the cap is what decides the column count: at 1180px
+       with a 300px minimum you get 3 across, then 2, then 1. */
+    --content-w: min(90vw, 1180px);
+    --card-min: 300px;
+    --grid-gap: 1.2em;
 }
 
 html {
     background-color: var(--header-footer-bg);
+    /* has to be on the scrolling element. it was on `body`, where it does
+       precisely nothing for document scrolling. that's why my anchor jumps
+       never animated and I ended up writing goToAnchor(). */
+    scroll-behavior: smooth;
+}
+
+/* anchor targets land below the sticky header instead of under it.
+   this is what replaced goToAnchor() -- the old JS measured the header and
+   did the maths itself, which meant the nav links had onclick and no href,
+   so Google couldn't crawl them. one line of CSS does the same job. */
+#about,
+#skills,
+#projects,
+#certifications {
+    scroll-margin-top: calc(var(--header-h) + 60px);
+}
+
+/* the certifications grid lives inside .container-text, which pads 1em each
+   side. skills and projects don't. that 2em difference is exactly why the cert
+   cards sat inset from the project cards -- kill the side padding just here so
+   all three grids share one left and right edge. */
+#certifications > .container-text {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 /* general */
 
@@ -35,9 +106,14 @@ html::before{
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    background: radial-gradient(circle at center, #1467d452, #03030400 70%);
+    height: 100svh;
+    /* used to have filter: blur(100px) on here. dropped it -- blurring a radial
+       gradient does basically nothing visually (it's already a smooth fade) but
+       it forces a full-screen offscreen buffer that the GPU repaints on scroll.
+       it was a big chunk of the jank on my phone. pushed the fade out to 80%
+       instead, which gets the same soft look for free. */
+    background: radial-gradient(circle at center, #1467d452, #03030400 80%);
     pointer-events: none;
-    filter: blur(100px);
     z-index: 0;
 }
 body {
@@ -50,13 +126,39 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    min-height: 100svh;
     height: auto;
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
+
+/* No scrollbar. I tried a slim teal one and the track read as a light blue
+   stripe down the edge -- that's `html { background-color: #defdff }` showing
+   through a transparent track, since the dark gradient is on <body>, not <html>.
+   Not worth fixing properly; I'd rather it just wasn't there.
+   scrollbar-width covers Firefox/LibreWolf + modern Chrome, the ::-webkit rule
+   covers Safari and older Chrome. Scrolling itself is unaffected. */
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+/* one visible focus ring for everything keyboard-reachable. there wasn't one
+   anywhere before, so tabbing through the site was invisible. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--selected-brighter);
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 a {
@@ -71,7 +173,13 @@ a {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    height: 8vh;
+    /* THIS is the mobile Edge bug. it used to be plain `8vh`, and on Edge the
+       URL bar collapses/expands as you scroll, which changes what a vh is, which
+       resized the header mid-scroll and shoved the whole page around. svh is
+       locked to the *small* viewport (chrome fully visible) so it never changes.
+       iOS Safari happened to be fine because it doesn't recompute vh the same
+       way -- that's why I could never reproduce it there. */
+    height: var(--header-h);
     max-width: 100vw;
     /* background-color: #ffffffe2; */
     background-color: var(--header-footer-bg);
@@ -79,11 +187,13 @@ a {
     text-align: center;
     font-size: 1em;
     z-index: 100;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* had backdrop-filter: blur(10px) here, but the background above it is fully
+       opaque so there was nothing to blur -- it just forced the compositor to
+       keep a live snapshot of the page behind a sticky element on every frame.
+       if I ever want the frosted look for real, make the bg translucent
+       (e.g. #defdffe6) and put the blur back. */
     border-bottom: 1px solid #c4cecd;
 }
-/* header background blurry */
 
 .header-image {
     display: flex;
@@ -92,8 +202,8 @@ a {
     align-items: center;
     background-color: transparent;
     text-align: center;
-    max-height: 8vh;
-    margin: 1vh 0 1vh 0;
+    max-height: var(--header-h);
+    margin: 0;
 }
 
 .header-image a {
@@ -130,10 +240,14 @@ a {
 }
 
 .header img {
+    /* same deal as the header itself -- was 6vh, which jittered with the URL bar.
+       tied to the header height instead so it always sits proportionally. */
     margin: auto 0 auto 0;
-    max-width: 6vh;
+    height: calc(var(--header-h) * 0.72);
+    width: calc(var(--header-h) * 0.72);
     min-height: 30px;
-    height: 6vh;
+    min-width: 30px;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -166,7 +280,7 @@ a {
     font-weight: 500;
     line-height: 1;
     color: inherit;
-    cursor: default;
+    cursor: pointer; /* they're real links now, not onclick handlers */
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -196,10 +310,19 @@ a {
     margin: 0;
     z-index: 2;
     min-height: 92vh;
+    min-height: 92svh;
 }
 
+/* every vh in the hero is doubled up with an svh version below it.
+   reason: on Android Edge (and Chrome) the URL bar shrinks when you scroll down
+   and grows when you scroll up. with vh, the hero resized every time that
+   happened, so scrolling up felt like the page was fighting me.
+   svh = "small viewport height" = the height with browser chrome fully shown, so
+   it's computed once and never moves. the plain vh line above each one is just
+   the fallback for old browsers -- leave both, order matters. */
 .welcome-bg {
     min-height: 92vh;
+    min-height: 92svh;
     /* background-color: #292929; */
     z-index: 1;
     position: relative;
@@ -212,7 +335,11 @@ a {
     margin: 0 0 0 0;
     min-width: 100%;
     max-width: 90vw;
-    backdrop-filter: drop-shadow(0.5em 0.5em 0.5em #ca3131);
+    /* dropped backdrop-filter: drop-shadow(...) from here. this element has no
+       background and border:none, so the filter was shadowing the gradient
+       behind it -- invisible in practice, but it promoted the separator to its
+       own GPU layer right in the middle of the hero. the real blurs on the
+       project-page modals in projects.css are doing actual work; this wasn't. */
 }
 
 .welcome-text {
@@ -262,7 +389,9 @@ a {
 .welcome-image {
     position: relative;
     max-height: 60vh;
+    max-height: 60svh;
     height: 60vh;
+    height: 60svh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -276,6 +405,7 @@ a {
     margin: 0 0 0 0;
     max-width: 100%;
     max-height: 60vh;
+    max-height: 60svh;
     width: auto;
     height: auto;
     z-index: 20 !important;
@@ -289,7 +419,7 @@ a {
       opacity: 0.7;
     }
     to {
-      transform: translateY(70vh);
+      transform: translateY(70svh);
       opacity: 0;
     }
   }
@@ -299,6 +429,7 @@ a {
     justify-content: center;
     width: 100%;
     height: 92vh; /* Adjust as needed */
+    height: 92svh;
     overflow: hidden;
   }
   
@@ -309,10 +440,17 @@ a {
     max-width: 90vw;
     width: 90%;
     height: 90vh;
+    height: 90svh;
     z-index: 9; /* Behind the content */
     pointer-events: none; /* Add this to prevent clicks on the raining text */
   }
-  
+
+  /* Set by coolbg.js once the hero scrolls out of view — no point animating
+     44 elements nobody can see. */
+  .raining-text.paused .rain-text {
+    animation-play-state: paused;
+  }
+
   .contentwelcome {
     position: relative;
     z-index: 8; /* On top of the rain */
@@ -324,6 +462,7 @@ a {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    min-height: 100svh;
     height: auto;
     width: 100%;
     max-width: 100vw;
@@ -383,8 +522,8 @@ a {
     justify-content: center;
     align-items: center;
     min-height: auto;
-    width: 90vw;
-    max-width: 90vw;
+    width: var(--content-w);
+    max-width: var(--content-w);
     /* background-color: #292929; */
     padding: 0.2em 0 0.2em 0;
     text-align: center;
@@ -404,6 +543,15 @@ a {
     align-items: flex-start;
     width: 100%;
     padding: 0.5em 1em;
+    /* THIS is what caused the horizontal scroll on phones.
+       Without border-box, `width: 100%` means 100% of .container *plus* the
+       2em of side padding on top -- so this box stuck 32px out past its own
+       parent. You couldn't see it (the text sits inside the padding) but the
+       page still scrolled sideways by the amount it poked past the viewport.
+       Rule of thumb: any time I set a width AND a padding on the same element,
+       it needs this line. */
+    box-sizing: border-box;
+    min-width: 0;
 }
 
 .container-text a {
@@ -543,10 +691,14 @@ a {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2em;
-    width: 90vw;
-    max-width: 90vw;
+    /* auto-fit instead of a hardcoded 3 columns: the browser works out how many
+       fit and reflows on its own. means I can keep adding skill categories (and
+       the cybersecurity ones I want) without touching any breakpoints.
+       the min() stops it overflowing on very narrow phones. */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min)), 1fr));
+    gap: var(--grid-gap);
+    width: var(--content-w);
+    max-width: var(--content-w);
     margin: 0 auto;
     padding: 0.5em 0 1.5em;
     box-sizing: border-box;
@@ -611,49 +763,70 @@ a {
 
 @media screen and (max-width: 694px) {
     .skills-grid {
-        grid-template-columns: 1fr;
-        width: 90vw;
-        max-width: 90vw;
         gap: 0.9em;
     }
 }
 
-@media screen and (min-width: 694px) and (max-width: 1024px) { /*960 1024 1302*/
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 /* Certificates Section */
-/* General Styling for Certifications */
+
 .certifications {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1em;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min)), 1fr));
+    gap: var(--grid-gap);
     margin-top: 1em;
     width: 100%;
 }
 
-/* .cert is the grid item — must fill row height */
-.cert {
-    display: flex;
-    flex-direction: column;
-}
-
+/* THE ALIGNMENT THING.
+   Every card spans 4 rows of the grid: icon / title / note / "By X". Because
+   the cards are subgrids of those same 4 tracks, row 3 is one shared height
+   across the whole row -- so if ONE card in a row has an <i> note, every other
+   card in that row gets an equally tall (empty) gap there, and all the "By X"
+   lines start at exactly the same y. That's what I wanted, and what
+   margin-top:auto could never do (that bottom-aligns them, which drifts apart
+   the moment one issuer name wraps onto two lines).
+   A card with no note just leaves row 3 empty -- don't add an empty element. */
 .cert-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;                          /* fill the .cert height */
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    justify-items: center;
     background: var(--widget-bg);
     padding: 1.2em 1em;
     border: var(--widget-border);
     border-radius: var(--border-radius-global);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
     box-sizing: border-box;
+}
+
+/* the clickable part: icon + title -> the PDF.
+   The note deliberately sits OUTSIDE this link, as a sibling. It has to: the
+   CyberExam note contains a link of its own, and an <a> inside an <a> is
+   invalid HTML that browsers silently unnest into something I didn't write. */
+.cert-main {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    justify-items: center;
+    text-align: center;
+    width: 100%;
+    color: inherit;
+    cursor: pointer;
+}
+
+.cert-main img  { grid-row: 1; }
+.cert-main h3   { grid-row: 2; }
+.cert-note      { grid-row: 3; }   /* shared height across the row, see above */
+.cert-by        { grid-row: 4; }
+
+/* Browsers without subgrid fall back to the old bottom-aligned layout.
+   Less tidy, nothing broken. */
+@supports not (grid-template-rows: subgrid) {
+    .cert-item { display: flex; flex-direction: column; align-items: center; }
+    .cert-main { display: flex; flex-direction: column; align-items: center; flex: 1; }
+    .cert-by   { margin-top: auto; }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -668,7 +841,7 @@ a {
     height: 48px !important;
     border-radius: 2px;
     margin-bottom: 0.7em;
-    flex-shrink: 0;
+    align-self: center;
     transition: transform 0.3s ease;
 }
 
@@ -678,54 +851,55 @@ a {
     }
 }
 
-.cert-text {
-    text-align: center;
-    color: #f1f1f1;
-    text-wrap: pretty;
-    flex: 1;
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
+.cert-main:focus-visible,
+.cert-by a:focus-visible {
+    outline: 2px solid var(--selected-brighter);
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
-.cert-text h3 {
+.cert-main h3 {
     font-size: 18px;
     font-weight: 400;
-    margin-bottom: 0.4em;
+    margin: 0 0 0.4em;
     line-height: 1.4;
-    min-height: 2.8em;
+    color: #f1f1f1;
+    text-wrap: pretty;
 }
 
-.cert-text p {
+/* the small italic sub-line. it used to be a <p> nested inside the <h3>, which
+   isn't legal HTML -- a heading can't contain a paragraph. */
+.cert-note {
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.45;
+    color: #cfd6d5;
+    margin: 0 0 0.4em;
+    text-wrap: pretty;
+}
+
+/* "By <issuer>". Deliberately OUTSIDE the card's main link so the issuer is its
+   own separate link -- the whole card used to be a single <a>, so hovering
+   anywhere underlined the lot and there was no way to reach the issuer's site. */
+.cert-by {
     font-size: 13px;
-    margin-top: auto;       /* push to bottom of card */
-    margin-bottom: 0;
     line-height: 1.5;
     font-style: italic;
     color: #aaa;
+    margin: 0;
+    align-self: end;
+    text-align: center;
 }
 
-.cert-text a {
+.cert-by a {
     color: var(--selected-brighter);
-    text-decoration: none;
     font-weight: bold;
+    font-style: normal;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .cert-text a:hover {
+    .cert-by a:hover {
         text-decoration: underline;
-    }
-}
-
-@media screen and (max-width: 694px) {
-    .certifications {
-        grid-template-columns: repeat(1, 1fr);
-    }
-}
-
-@media screen and (min-width: 694px) and (max-width: 1024px) { /*960 1024 1302*/
-    .certifications {
-        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -740,7 +914,7 @@ a {
         padding: 0.4em 0.8em;
     }
 
-    .cert iframe, .cert img {
+    .cert-item img {
         max-width: 100%;
     }
 }
@@ -756,7 +930,7 @@ a {
         padding: 0.4em 0.8em;
     }
 
-    .cert iframe, .cert img , .cert-item{
+    .cert-item img, .cert-item {
         max-width: 100%;
         width: 100%;
         /* min-height: min-content !important; */
@@ -839,19 +1013,27 @@ a {
     position: static;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    /* dropped `max-height: 8vh`. on a narrow phone the four social links wrap to
+       a second line and the copyright went with them, so the whole lot got
+       clipped by the max-height. let it size to its content instead. */
     min-height: 8vh;
-    max-height: 8vh;
+    gap: 0.4em;
     max-width: 100vw;
     background: var(--header-footer-bg) !important;
-    padding: 0;  /* Updated padding property */
+    padding: 0.9em 1em;
     margin: 0;
+    box-sizing: border-box;
     text-align: center;
     color: #292929;
     border-top: 1px solid #c4cecd;
 }
 
+/* NOTE to self: this selector never matches anything. `.footer.footer-row` means
+   one element with BOTH classes, but .footer-row is a child div of .footer.
+   leaving it because I clearly meant something by it -- if I ever want it, it
+   should be `.footer .footer-row`. applying it as-is would restyle the footer. */
 .footer.footer-row {
     display: flex;
     flex-direction: row;
@@ -883,17 +1065,15 @@ a {
 }
 
 .footer .copyright-bottom p {
-    margin: 0 auto 1vh auto;
-    max-height: 10vh;
+    margin: 0 auto;
     font-size: 0.5em;
     font-weight: 300;
-    line-height: 1;
+    line-height: 1.4;
     color: inherit;
 }
 
 .footer-text {
     margin: 0 0 0 2vw;
-    max-height: 10vh;
     font-size: 0.8em;
     font-weight: 300;
     line-height: 1;
@@ -903,16 +1083,52 @@ a {
 .footer-social {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* wrap + gap so the four links stack neatly on a phone instead of running
+       off the side. this replaced the &nbsp;&nbsp; I used to put between them. */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em 1.2em;
     align-items: center;
     text-align: center;
     font-size: 0.8em;
     color: #292929;
-    padding: 0 0 0 0;
+    padding: 0;
 }
 
 .fa.fa-instagram{
     font-weight: 600 !important;
+}
+
+/* icons.
+   the home page used to load the whole Font Awesome kit (JS loader + 4
+   stylesheets + ~272 KB of webfonts) just to draw five glyphs. now they come
+   from /files/icons.svg via <use>, which is one small cached file shared by
+   every page. to add an icon: drop a new <symbol id="..."> in that file. */
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    white-space: nowrap;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.scroll-cue {
+    width: 1.6em;
+    height: 1.6em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    color: var(--selected-brighter);
+    margin-bottom: 0.4em;
 }
 
 /* ── Projects grid ────────────────────────────────────────────────── */
@@ -924,16 +1140,18 @@ a {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.2em;
-    width: 90vw;
-    max-width: 90vw;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--card-min)), 1fr));
+    gap: var(--grid-gap);
+    width: var(--content-w);
+    max-width: var(--content-w);
     margin: 0 auto;
     padding: 0.5em 0 1.5em;
     box-sizing: border-box;
 }
 
-/* single card — fixed height keeps all cards equal on any layout including single-column mobile */
+/* was `height: 270px` to force every card equal. grid already stretches items in
+   a row to match, so min-height does the same job but lets a row grow if one
+   description runs long instead of clipping it. */
 .project {
     display: flex;
     flex-direction: column;
@@ -944,12 +1162,31 @@ a {
     overflow: hidden;
     transition: opacity 1s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
     cursor: default;
-    height: 270px;
+    min-height: 270px;
 }
 
 .project a {
     cursor: pointer;
     text-decoration: none;
+}
+
+/* One anchor wraps the whole card. Previously the image and the text were two
+   separate links to the same URL, which is a duplicate-link a11y/SEO smell and
+   doubles the tab stops. */
+.project-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: inherit;
+}
+
+.project-link:focus-visible {
+    outline: 2px solid var(--selected-brighter);
+    outline-offset: -4px;
+    border-radius: var(--border-radius-global);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -983,17 +1220,8 @@ a {
     display: block;
 }
 
-.project .project-image a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-}
-
 @media (hover: hover) and (pointer: fine) {
-    .project .project-image a:hover img,
-    .project .project-image img:hover {
+    .project-link:hover .project-image img {
         opacity: 0.75;
         transform: scale(1.08);
     }
@@ -1055,17 +1283,6 @@ a {
 /* ── responsive tweaks ───────────────────────────────────────────── */
 @media screen and (max-width: 600px) {
     .projects-grid {
-        grid-template-columns: 1fr;
-        /* width: 92vw;
-        max-width: 92vw; */
-        width: calc(90vw - 4px);
-        max-width: 90vw;
         gap: 0.9em;
-    }
-}
-
-@media screen and (min-width: 601px) and (max-width: 1024px) {
-    .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
     }
 }

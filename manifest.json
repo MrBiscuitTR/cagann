@@ -1,4 +1,5 @@
 {
+    "id": "/",
     "name": "Cagan Efe Calidag's Personal Website",
     "short_name": "Cagan Calidag",
     "description": "Personal website of Çağan Efe Çalıdağ. Portfolio, CV, and more.",
@@ -7,6 +8,8 @@
     "display": "standalone",
     "orientation": "any",
     "lang": "en",
+    "dir": "ltr",
+    "categories": ["portfolio", "personal"],
     "background_color": "#111d1d",
     "theme_color": "#defdff",
     "icons": [
@@ -14,6 +17,11 @@
             "src": "/files/images/icon-192.png",
             "type": "image/png",
             "sizes": "192x192"
+        },
+        {
+            "src": "/files/images/icon-192.svg",
+            "type": "image/svg+xml",
+            "sizes": "any"
         }
     ]
 }

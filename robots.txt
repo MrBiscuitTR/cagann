@@ -1,7 +1,21 @@
+# Everything is open to every crawler on purpose -- I want this page ranking for
+# my name. Don't add blanket Disallow rules here without thinking, and never
+# block /css/ or /js/: Google renders the page before it ranks it, and if it
+# can't fetch the stylesheet it judges the page as if it were unstyled.
+
 User-agent: *
 Disallow: /admin/
-Disallow: /pages/projects/n8n/uni-grades/
+# no trailing slash, so it covers /uni-grades AND /uni-grades/ -- the home page
+# links to the extensionless one
+Disallow: /pages/projects/n8n/uni-grades
 Disallow: /cdn-cgi/
+Disallow: /tools/
+
+# docs/ and tools/ are also excluded from the build in _config.yml, so they 404
+# outright. docs/ is intentionally NOT listed here -- this file is public, and
+# naming a sensitive path in it just tells people where to look.
+
+Sitemap: https://cagancalidag.com/sitemap.xml
 
 #        _
 #       [ ]

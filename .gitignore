@@ -1,0 +1,19 @@
+# docs/ never gets committed. This repo is public (or about to be), and the
+# notes in there describe my own infrastructure and where it's weak -- that is
+# not something to publish next to my CV.
+#
+# Keep it that way. If I ever need one of those files on another machine, copy
+# it across by hand rather than "just this once" committing it.
+#
+# _config.yml also excludes docs/ from the Jekyll build, which is the belt to
+# this braces: if a file ever does slip into a commit, it still won't be served.
+docs/
+
+# scratch files from poking at the site
+audit.json
+*.log
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+desktop.ini
