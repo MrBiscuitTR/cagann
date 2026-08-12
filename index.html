@@ -2,100 +2,178 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <!-- <script>if(location.protocol==="http:"&&!/^\d+\.\d+\.\d+\.\d+$/.test(location.hostname)&&location.hostname!=="localhost")location.replace("https:"+location.href.slice(5));</script> -->
         <script>document.documentElement.classList.add("js");</script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast</title>
-        <meta name="description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer & Technology Enthusiast.">
+        <!-- Content-Security-Policy.
+             GitHub Pages can't send response headers, so this meta tag is the
+             only way to enforce a CSP from the repo. It covers this page only —
+             see docs/security-headers.md for the Cloudflare rules that apply
+             CSP, HSTS, COOP and X-Frame-Options across the whole site.
+             The script hash below is for the one-line inline script above; if
+             you edit that line you must recompute it (docs has the command).
+             img-src is left as a broad `https:` on purpose: project icons are
+             hotlinked from subdomains so they stay current, and an enumerated
+             allowlist would silently break each time one is added. -->
+        <meta http-equiv="Content-Security-Policy" content="
+            default-src 'self';
+            base-uri 'self';
+            form-action 'self';
+            object-src 'none';
+            script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk=' https://static.cloudflareinsights.com;
+            style-src 'self' 'unsafe-inline';
+            img-src 'self' data: https:;
+            font-src 'self';
+            connect-src 'self' https://cloudflareinsights.com;
+            upgrade-insecure-requests;
+        ">
+        <meta name="referrer" content="strict-origin-when-cross-origin">
+        <title>Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast</title>
+        <meta name="description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer &amp; Technology Enthusiast.">
+        <meta name="theme-color" content="#111d1d">
         <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="192x192">
         <link rel="apple-touch-icon" type="image/png" href="/files/images/icon-192.png" sizes="192x192">
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="manifest" href="/manifest.json">
         <link rel="canonical" href="https://cagancalidag.com/">
+
+        <!-- Collapses the HTML -> CSS -> font request chain by one hop, so the
+             swap to Inter happens before first paint rather than after it. -->
+        <link rel="preload" href="/css/fonts/Inter/Inter-Regular-subset.ttf" as="font" type="font/ttf" crossorigin>
+
         <!-- all meta tags I could find for SEO -->
-        <meta property='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast'>
+        <meta property='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast'>
         <meta property='og:type' content='website'>
         <meta property="og:url" content="https://cagancalidag.com/">
-        <meta property="og:image" content="https://cagancalidag.com/files/images/og-image.jpg?v=2">
+        <meta property="og:image" content="https://cagancalidag.com/files/images/og-image-1200.jpg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="628">
+        <meta property="og:image:alt" content="Çağan Efe Çalıdağ — Full-Stack Developer">
         <meta property="og:site_name" content="Çağan Efe Çalıdağ | Developer">
         <meta property="og:description" content="Portfolio of Çağan Efe Çalıdağ">
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast">
-        <meta name="twitter:description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer & Technology Enthusiast.">
-        <meta name="twitter:image" content="https://cagancalidag.com/files/images/og-image.jpg?v=2">
-        <meta name="twitter:creator" content="@Caganefe1" />
+        <meta property="og:locale" content="en_US">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast">
+        <meta name="twitter:description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer &amp; Technology Enthusiast.">
+        <meta name="twitter:image" content="https://cagancalidag.com/files/images/og-image-1200.jpg">
+        <meta name="twitter:image:alt" content="Çağan Efe Çalıdağ — Full-Stack Developer">
+        <meta name="twitter:creator" content="@Caganefe1">
 
-        <meta name="keywords" content="Çağan Efe Çalıdağ, Cagan Efe Calidag, portfolio, cv, full-stack developer, technology" >
-        <meta name="author" content="Çağan Efe Çalıdağ" >
-        <meta name="robots" content="INDEX, FOLLOW">
-        <!-- <meta name="language" content="Turkish, English, French"> -->
+        <meta name="keywords" content="Çağan Efe Çalıdağ, Cagan Efe Calidag, portfolio, cv, full-stack developer, technology">
+        <meta name="author" content="Çağan Efe Çalıdağ">
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
         <meta name="distribution" content="global">
         <meta name="google" content="translate">
         <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
             {
-              "@context" : "https://schema.org",
-              "@type" : "WebSite",
-              "name" : "Çağan Efe Çalıdağ | Developer",
-              "url" : "https://cagancalidag.com/", 
-              "alternateName": ["Çağan Efe Çalıdağ", "Cagan Efe Calidag", "cagan calidag", "Cagan Calidag", "cagan dev"]
+              "@type": "WebSite",
+              "@id": "https://cagancalidag.com/#website",
+              "name": "Çağan Efe Çalıdağ | Developer",
+              "url": "https://cagancalidag.com/",
+              "alternateName": ["Çağan Efe Çalıdağ", "Cagan Efe Calidag", "cagan calidag", "Cagan Calidag", "cagan dev"],
+              "inLanguage": "en",
+              "publisher": { "@id": "https://cagancalidag.com/#person" }
+            },
+            {
+              "@type": "Person",
+              "@id": "https://cagancalidag.com/#person",
+              "name": "Çağan Efe Çalıdağ",
+              "alternateName": ["Cagan Efe Calidag", "Cagan Calidag"],
+              "url": "https://cagancalidag.com/",
+              "image": "https://cagancalidag.com/files/images/icon-192.png",
+              "jobTitle": "Full-Stack Developer",
+              "description": "Full-stack developer, designer and technology enthusiast focused on automation, AI integration and privacy-respecting software.",
+              "knowsLanguage": ["en", "tr", "fr"],
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Université Paris-Saclay",
+                "url": "https://www.universite-paris-saclay.fr/en"
+              },
+              "knowsAbout": ["Full-Stack Development", "Automation", "Artificial Intelligence", "Self-Hosting", "Data Privacy", "Web Development"],
+              "sameAs": [
+                "https://github.com/MrBiscuitTR",
+                "https://www.linkedin.com/in/çağanefeçalıdağ",
+                "https://www.instagram.com/cagancalidag/",
+                "https://www.twitter.com/Caganefe1"
+              ]
+            },
+            {
+              "@type": "ProfilePage",
+              "@id": "https://cagancalidag.com/#profilepage",
+              "url": "https://cagancalidag.com/",
+              "name": "Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast",
+              "isPartOf": { "@id": "https://cagancalidag.com/#website" },
+              "about": { "@id": "https://cagancalidag.com/#person" }
             }
+          ]
+        }
         </script>
         <link rel="stylesheet" href="css/style-main.css">
         <script defer src="js/scrollReveal.js"></script>
-        <script defer src="js/fixAnchor.js"></script>
-        <script defer src="https://kit.fontawesome.com/09fb08f3d8.js" crossorigin="anonymous"></script>
         <script defer src="js/coolbg.js"></script>
         <script defer src="js/main.js"></script>
+        <script defer src="js/dynamic-text.js"></script>
         <noscript><span style="background-color: rgb(201, 13, 10); width: 100%; min-height: 40px; margin: 0 auto 0 auto; text-align: center; display: block; border-radius: 0;">JavaScript is disabled. Content remains visible, but animations and interactive effects are turned off.</span></noscript>
-        
+
     </head>
     <body class="body">
-        <div class="header" id="header">
+        <header class="header" id="header">
             <div class="header-image">
-                <a href="/"><img src="/files/images/icon-192.png" alt="cagancalidag icon"></a>
+                <a href="/" aria-label="Home">
+                    <img src="/files/images/icon-120.webp" alt="cagancalidag icon" width="120" height="120" fetchpriority="high" decoding="async">
+                </a>
             </div>
             <div class="header-nav">
-                <nav>
-                    <a data-value="About" onclick="goToAnchor('about')" >About</a>
-                    <a data-value="Skills" onclick="goToAnchor('skills')" >Skills</a>
-                    <a data-value="Projects" onclick="goToAnchor('projects')" >Projects</a>
+                <nav aria-label="Main">
+                    <a data-value="About" href="#about">About</a>
+                    <a data-value="Skills" href="#skills">Skills</a>
+                    <a data-value="Projects" href="#projects">Projects</a>
                     <!-- <a data-value="CV" class="anchor" href="/pages/cv.html">CV</a> -->
                     <a data-value="Contact" class="anchor" href="/pages/contact.html">Contact</a>
                 </nav>
             </div>
-        </div>
+        </header>
+        <main>
         <section>
             <div class="welcome-bg">
                 <div class="background-container">
-                    
+
                     <div class="contentwelcome">
-                        
+
                         <div class="welcome">
-                            
+
                             <div class="welcome-text">
                                 <div class="wt-text">
-                                    
+
                                     <h1 data-value="Çağan Efe Çalıdağ">Çağan Efe Çalıdağ</h1>
                                     <div class="welcome-seperator-horizontal"><hr></div>
                                     <h2>Full-Stack Developer, <br> Technology Enthusiast. </h2>
-                                    
+
                                 </div>
                             </div>
                             <div class="welcome-image">
-                                <img src="files/images/welcomeimage.png" alt="Çağan Efe Çalıdağ">
-                                
+                                <!-- LCP element: WebP + srcset + fetchpriority. Was a 745 KB PNG. -->
+                                <img src="/files/images/welcomeimage-880.webp"
+                                     srcset="/files/images/welcomeimage-880.webp 880w,
+                                             /files/images/welcomeimage-1175.webp 1175w"
+                                     sizes="(max-width: 700px) 90vw, 880px"
+                                     alt="Çağan Efe Çalıdağ"
+                                     width="1175" height="865"
+                                     fetchpriority="high" decoding="async">
+
                             </div>
-                            <div class="raining-text"></div>
+                            <div class="raining-text" aria-hidden="true"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </section>
         <div class="general-container">
             <noscript>JavaScript is disabled. Content is visible without animated reveal effects.</noscript>
-            <i class="fas fa-angle-down"></i>
+            <svg class="scroll-cue" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg>
             <div class="reveal">
                 <div class="container" id="about">
                     <div class="container-text">
@@ -109,22 +187,14 @@
                         <img src="files/images/header-image.jpeg" alt="Çağan Efe Çalıdağ Profile Close">
                     </div> -->
                     <div class="container-text aboutme">
-                        <p>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a 
-                            <script>
-                            var birthDate = new Date("2006-10-12");
-                            var today = new Date();
-                            var age = Math.floor((today-birthDate) / (365.25 * 24 * 60 * 60 * 1000));
-                            {
-                                document.write(age);
-                            }
-                            </script> 
-                            year old full-stack developer, designer and technology enthusiast. I am currently a Math-Info (Mathematics & Computer Science) undergraduate student at <a href="https://www.universite-paris-saclay.fr/en" target="_blank">Université Paris-Saclay. </a> (Click <a href="/pages/projects/n8n/uni-grades" target="_blank">here</a> to see my grades, updated automatically through n8n every few days.)
-                            I have been "programming" since the age of 10, but I started taking it more seriously when I was 12 and I have been learning and developing my skills ever since. 
+                        <p>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a <span id="age">19</span>
+                            year old full-stack developer, designer and technology enthusiast. I am currently a Math-Info (Mathematics &amp; Computer Science) undergraduate student at <a href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener noreferrer">Université Paris-Saclay. </a> (You can also browse <a href="/pages/projects/n8n/uni-grades" target="_blank" rel="noopener noreferrer">my university grades, updated automatically through n8n every few days</a>.)
+                            I have been "programming" since the age of 10, but I started taking it more seriously when I was 12 and I have been learning and developing my skills ever since.
                             I have experience in various programming languages, frameworks and tools. I am also familiar with some design tools to help me with web development.
-                            I am currently working on numerous projects, and I am looking for a potential collaboration or internship opportunities to gain experience and improve my skills. 
+                            I am currently working on numerous projects, and I am looking for a potential collaboration or internship opportunities to gain experience and improve my skills.
                             I am a very curious person, and I love learning new things. Being a very hard-working and solution-oriented person, I love taking on challenges and solving problems. My innovative and creative thinking skills help me to come up with unique solutions to problems.
                             Nowadays, I am mostly interested in automation and AI integrated full-stack and mobile app development. I also love data privacy, thus many of my recent projects (as of 2025)
-                            prioritize little to no telemetry/data collection, local deployment, self-hostability (if online) and offline use. The project I am focused on as of 2026 is <a href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank">P.O.T.A.T.O </a>, A locally running and vocal AI tool operator with a web GUI and many useful tools. 
+                            prioritize little to no telemetry/data collection, local deployment, self-hostability (if online) and offline use. The project I am focused on as of 2026 is <a href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank" rel="noopener noreferrer">P.O.T.A.T.O </a>, A locally running and vocal AI tool operator with a web GUI and many useful tools.
                             It is also open-source!
                         </p>
                         <!-- <h2> </h2> -->
@@ -138,7 +208,7 @@
                     </div>
                 </div>
             </div>
-            <section class="skills-grid-section">
+            <section class="skills-grid-section" aria-label="Skills">
                 <div class="skills-grid">
 
                     <div class="skill-category-card reveal">
@@ -194,7 +264,7 @@
                             <div class="skill">Ollama</div>
                             <div class="skill">n8n</div>
                             <div class="skill">OpenAI-compatible API</div>
-                            <div class="skill collapsible">Python AI & ML libs </div>
+                            <div class="skill collapsible">Python AI &amp; ML libs </div>
                             <div class="content">
                                 <div class="skill">transformers</div>
                                 <div class="skill">diffusers</div>
@@ -239,7 +309,7 @@
                         <div class="skill-cat-body">
                             <div class="skill">Linux</div>
                             <div class="skill">Windows</div>
-                            <div class="skill">OS Installation & Configuration</div>
+                            <div class="skill">OS Installation &amp; Configuration</div>
                             <div class="skill">Server Hardening</div>
                             <div class="skill">Networking &amp; VPNs</div>
                             <div class="skill">Firewalls (ufw, iptables)</div>
@@ -257,7 +327,7 @@
                             <div class="skill">Problem-Solving</div>
                             <div class="skill">Analytical Thinking</div>
                             <div class="skill">Innovative Thinking</div>
-                            <div class="skill"><span style="text-decoration: line-through;">Time Management</span>&nbsplmao no</div>
+                            <div class="skill"><span style="text-decoration: line-through;">Time Management</span>&nbsp;lmao no</div>
                             <div class="skill">Teamwork</div>
                             <div class="skill">Peer-to-Peer Learning</div>
                             <div class="skill">Teaching</div>
@@ -271,53 +341,55 @@
                 <div class="container" id="certifications">
                     <div class="container-text">
                         <h2 data-value="Certifications">Certifications</h2>
-                    
+
                         <br>
                         <div class="certifications">
+                            <!-- These were divs with onclick="window.open(...)": not keyboard
+                                 reachable and invisible to crawlers. Now real links. -->
                             <div class="reveal cert">
-                                <div class="cert-item" onclick="window.open('/files/pdfs/TI MFINUE 2023 Certificat.pdf', '_blank')">
-                                    <img src="/files/images/MFINUE1-300x300.png" alt="MFINUE Certificate">
+                                <a class="cert-item" href="/files/pdfs/TI MFINUE 2023 Certificat.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
                                     <div class="cert-text">
                                         <h3>MFINUE 2023 IT Team Member</h3>
-                                        <p>By <a href="https://mfinue.org" target="_blank" onclick="event.stopPropagation()">MFINUE</a></p>
+                                        <p>By MFINUE</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="reveal cert">
-                                <div class="cert-item" onclick="window.open('/files/pdfs/TI MFINUE 2024.pdf.pdf', '_blank')">
-                                    <img src="/files/images/MFINUE1-300x300.png" alt="MFINUE Certificate">
+                                <a class="cert-item" href="/files/pdfs/TI MFINUE 2024.pdf.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
                                     <div class="cert-text">
-                                        <h3>MFINUE 2024 IT Team Member <p style="font-size: 12px;"><i>Further Developed and Led Development of MFINUE Connect</i></p></h3>
-                                        <p>By <a href="https://mfinue.org" target="_blank" onclick="event.stopPropagation()">MFINUE</a></p>
+                                        <h3>MFINUE 2024 IT Team Member <span class="cert-note"><i>Further Developed and Led Development of MFINUE Connect</i></span></h3>
+                                        <p>By MFINUE</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="reveal cert">
-                                <div class="cert-item" onclick="window.open('/files/pdfs/20241128_GAEL_attestation_réussite_CALIDAG_Cagan Efe.pdf', '_blank')">
-                                    <img src="/files/images/France_Éducation_international_logo_2024.svg" alt="DALF C1 Certificate">
+                                <a class="cert-item" href="/files/pdfs/20241128_GAEL_attestation_réussite_CALIDAG_Cagan Efe.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src="/files/images/France_Éducation_international_logo_2024.svg" alt="France Éducation international logo" width="48" height="48" loading="lazy" decoding="async">
                                     <div class="cert-text">
                                         <h3>DALF C1 Level French</h3>
-                                        <p>By <a href="https://www.france-education-international.fr/" target="_blank" onclick="event.stopPropagation()">France Éducation</a></p>
+                                        <p>By France Éducation international</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="reveal cert">
-                                <div class="cert-item" onclick="window.open('/files/pdfs/Cagan_Efe_Calidag_IELTS_TRF_noid_censored.pdf', '_blank')">
-                                    <img src="/files/images/IELTS_logo.svg" alt="IELTS Certificate">
+                                <a class="cert-item" href="/files/pdfs/Cagan_Efe_Calidag_IELTS_TRF_noid_censored.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src="/files/images/IELTS_logo.svg" alt="IELTS logo" width="48" height="48" loading="lazy" decoding="async">
                                     <div class="cert-text">
                                         <h3>IELTS C1+ Level English</h3>
-                                        <p>By <a href="https://www.britishcouncil.org" target="_blank" onclick="event.stopPropagation()">British Council</a></p>
+                                        <p>By British Council</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="reveal cert">
-                                <div class="cert-item" onclick="window.open('/files/pdfs/AP_Scholar_with_honor.pdf', '_blank')">
-                                    <img src="https://atlas.collegeboard.org/apricot/prod/4.7.1/assets/apple-touch-icon.png" alt="IELTS Certificate">
+                                <a class="cert-item" href="/files/pdfs/AP_Scholar_with_honor.pdf" target="_blank" rel="noopener noreferrer">
+                                    <img src="https://atlas.collegeboard.org/apricot/prod/4.7.1/assets/apple-touch-icon.png" alt="College Board logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                                     <div class="cert-text">
-                                        <h3>AP® Scholar with Honor Award <p style="font-size: 12px;"><i>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</i></p></h3>
-                                        <p>By <a href="https://www.collegeboard.org/" target="_blank" onclick="event.stopPropagation()">College Board</a></p>
+                                        <h3>AP® Scholar with Honor Award <span class="cert-note"><i>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</i></span></h3>
+                                        <p>By College Board</p>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -326,7 +398,7 @@
             <div class="reveal">
                 <div class="container">
                     <div class="container-text">
-                        <p>I really only learn programming languages, frameworks and other technology related things in order to use them for personal or collaborative projects, rather 
+                        <p>I really only learn programming languages, frameworks and other technology related things in order to use them for personal or collaborative projects, rather
                             than use them for my <a href="/pages/cv.html">CV</a>. Therefore you won't be seeing any programming language certificates in here for a while. You can however visit the pages I made for my projects
                             where I explained which frameworks, services and languages I used, while also providing some screenshots in case you don&apos;t want to sign in to see their content.</p>
                     </div>
@@ -346,186 +418,190 @@
                     </div>
                 </div>
             </div>
-            <section class="projects-grid-section">
+            <section class="projects-grid-section" aria-label="Projects">
                 <div class="projects-grid">
                     <div class="project reveal">
-                        <a href="/pages/projects/Metaclass/index.html">
+                        <a class="project-link" href="/pages/projects/Metaclass/index.html">
                             <div class="project-image">
-                                <img src="files/images/projects/metaclass/logo192-metaclass.png" alt="Metaclass Education">
+                                <img src="https://metaclass.cagancalidag.com/favicon-96x96.png?v=20260331" alt="Metaclass Education" width="96" height="96" loading="lazy" decoding="async" referrerpolicy="no-referrer"> <!--files/images/projects/metaclass/logo192-metaclass.png-->
                             </div>
-                        </a>
-                        <a href="/pages/projects/Metaclass/index.html" class="project-text">
-                            <h2>Metaclass</h2>
-                            <h3>Organized Education App</h3>
-                            <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
+                            <div class="project-text">
+                                <h2>Metaclass</h2>
+                                <h3>Organized Education App</h3>
+                                <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="/pages/projects/Hanımcılar/index.html">
+                        <a class="project-link" href="/pages/projects/Hanımcılar/index.html">
                             <div class="project-image">
-                                <img src="/files/images/projects/hanimcilar/logo192-hanimcilar.png" alt="Hanımcılar Logo">
+                                <img src="/files/images/projects/hanimcilar/logo192-hanimcilar-120.webp" alt="Hanımcılar Logo" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="/pages/projects/Hanımcılar/index.html" class="project-text">
-                            <h2>Hanımcılar</h2>
-                            <h3>Polaroid Photo Album</h3>
-                            <p>Hanımcılar is a website (which I made for my first, now ex gf) where you can create collaborative polaroid photo albums with changeable themes. It was originally static, but I later added a backend to allow for user accounts and collaboration.</p>
+                            <div class="project-text">
+                                <h2>Hanımcılar</h2>
+                                <h3>Polaroid Photo Album</h3>
+                                <p>Hanımcılar is a website (which I made for my first, now ex gf) where you can create collaborative polaroid photo albums with changeable themes. It was originally static, but I later added a backend to allow for user accounts and collaboration.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="/pages/projects/MFINUE Connect/index.html">
+                        <a class="project-link" href="/pages/projects/MFINUE Connect/index.html">
                             <div class="project-image">
-                                <img src="/files/images/subject-connect.jpg" alt="MFINUE Connect">
+                                <img src="https://connect.mfinue.org/apple-touch-icon.png" onerror="this.onerror=null; this.src='/files/images/subject-connect-120.webp';" alt="MFINUE Connect" width="120" height="74" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="/pages/projects/MFINUE Connect/index.html" class="project-text">
-                            <h2>MFINUE Connect</h2>
-                            <h3>MUN Conference Portal</h3>
-                            <p>MFINUE Connect is a portal that all the organizers, participants and advisors of a french MUN conference use during the conference to make life easier.</p>
+                            <div class="project-text">
+                                <h2>MFINUE Connect</h2>
+                                <h3>MUN Conference Portal</h3>
+                                <p>MFINUE Connect is a portal that all the organizers, participants and advisors of a french MUN conference use during the conference to make life easier.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="/pages/projects/Utilities/index.html">
+                        <a class="project-link" href="/pages/projects/Utilities/index.html">
                             <div class="project-image">
-                                <img src="/files/images/projects/Utilities/utilities-192.png" alt="Independent Utilities">
+                                <img src="/files/images/projects/Utilities/utilities-192-120.webp" alt="Independent Utilities" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="/pages/projects/Utilities/index.html" class="project-text">
-                            <h2>Utilities</h2>
-                            <h3>Independent Utilities for Personal Use</h3>
-                            <p>I started developing these tools (more incoming!) in order to never need 3rd party websites for things that can be done independently.</p>
+                            <div class="project-text">
+                                <h2>Utilities</h2>
+                                <h3>Independent Utilities for Personal Use</h3>
+                                <p>I started developing these tools (more incoming!) in order to never need 3rd party websites for things that can be done independently.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="https://twoplace.cagancalidag.com" target="_blank" rel="noopener noreferrer">
+                        <a class="project-link" href="https://twoplace.cagancalidag.com" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
-                                <img src="/files/images/projects/TwoPlace/twoplace-192.png" alt="TwoPlace - Innovative Video Call Platform">
+                                <img src="/files/images/projects/TwoPlace/twoplace-192-120.webp" alt="TwoPlace - Innovative Video Call Platform" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="https://twoplace.cagancalidag.com" target="_blank" rel="noopener noreferrer" class="project-text">
-                            <h2>TwoPlace</h2>
-                            <h3>Innovative Video Call Platform</h3>
-                            <p>TwoPlace is a web-based video call app designed primarily for couples who want a secure, minimal, data-friendly and intimate long-distance video chat app.</p>
+                            <div class="project-text">
+                                <h2>TwoPlace</h2>
+                                <h3>Innovative Video Call Platform</h3>
+                                <p>TwoPlace is a web-based video call app designed primarily for couples who want a secure, minimal, data-friendly and intimate long-distance video chat app.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="https://consulted.cagancalidag.com/" target="_blank">
+                        <a class="project-link" href="https://consulted.cagancalidag.com/" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
-                                <img src="files/images/projects/ConsultEd/png/consulted_favicon-192.png" alt="ConsultED">
+                                <img src="/files/images/projects/ConsultEd/png/consulted_favicon-192-120.webp" alt="ConsultED" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="https://consulted.cagancalidag.com/" target="_blank" class="project-text">
-                            <h2>ConsultED</h2>
-                            <h3>Organized & AI Integrated Consultancy</h3>
-                            <p>An all-inclusive website for consulting experienced consultants to apply to EU universities, from turkey. It is supported by AI (Gemini) and is organized with subscription plans.</p>
+                            <div class="project-text">
+                                <h2>ConsultED</h2>
+                                <h3>Organized &amp; AI Integrated Consultancy</h3>
+                                <p>An all-inclusive website for consulting experienced consultants to apply to EU universities, from turkey. It is supported by AI (Gemini) and is organized with subscription plans.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank">
+                        <a class="project-link" href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
-                                <img src="/files/images/projects/POTATO/favicon.png" alt="P.O.T.A.T.O">
+                                <img src="/files/images/projects/POTATO/favicon-120.webp" alt="P.O.T.A.T.O" width="120" height="120" loading="lazy" decoding="async">
+                            </div>
+                            <div class="project-text">
+                                <h2>P.O.T.A.T.O</h2>
+                                <h3>Local AI Agent</h3>
+                                <p>A <u>local</u> and vocal AI tool operator with a GUI and many useful tools, both online and offline. Requires good hardware with high VRAM.</p>
                             </div>
                         </a>
-                        <a href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank" class="project-text">
-                            <h2>P.O.T.A.T.O</h2>
-                            <h3>Local AI Agent</h3>
-                            <p>A <u>local</u> and vocal AI tool operator with a GUI and many useful tools, both online and offline. Requires good hardware with high VRAM.</p>
+                    </div>
+                    <!-- No page to link to yet, so these three are plain cards rather than
+                         links back to "/" — several self-referencing links with different
+                         labels are what tripped the "identical links" audit. -->
+                    <div class="project reveal">
+                        <div class="project-link">
+                            <div class="project-image">
+                                <img src="/files/images/projects/n8n/n8n-120.webp" alt="n8n Workflows" width="120" height="63" loading="lazy" decoding="async">
+                            </div>
+                            <div class="project-text">
+                                <h2>Multiple n8n Workflows</h2>
+                                <h3>All of which are useful</h3>
+                                <p>All these workflows have specific use scenarios and have saved me so much time, personally. I try to stay local, and privacy-focused.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project reveal">
+                        <div class="project-link">
+                            <div class="project-image">
+                                <img src="/files/images/projects/mcserver/minecrafticon-120.webp" alt="Minecraft Server" width="120" height="120" loading="lazy" decoding="async">
+                            </div>
+                            <div class="project-text">
+                                <h2>Hosting a Minecraft Server</h2>
+                                <h3>Hardening, VPN tunnel, ufw, careful forwarding</h3>
+                                <p>I port forwarded to a Raspberry Pi, hardened it, then connected it to my laptop using a WireGuard VPN tunnel. Redirected all connections through to where the server runs. Learned a lot in the process.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project reveal">
+                        <a class="project-link" href="https://bedroc.cagancalidag.com/" target="_blank" rel="noopener noreferrer">
+                            <div class="project-image">
+                                <img src="/files/images/projects/Bedroc/apple-touch-icon-120.webp" alt="Bedroc" width="120" height="120" loading="lazy" decoding="async">
+                            </div>
+                            <div class="project-text">
+                                <h2>Bedroc</h2>
+                                <h3>E2EE, Self-hostable Synchronous Notes</h3>
+                                <p>An end-to-end encrypted, extra private and secure synchronous note taking app, that can be easily self hosted by anyone for free.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="/">
+                        <a class="project-link" href="https://games.cagancalidag.com/" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
-                                <img src="/files/images/projects/n8n/n8n.png" alt="n8n Workflows">
+                                <img src="/files/images/projects/Simple-Web-Games/favicon-games-120.webp" alt="Offline Web Games" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="/" class="project-text">
-                            <h2>Multiple n8n Workflows</h2>
-                            <h3>All of which are useful</h3>
-                            <p>All these workflows have specific use scenarios and have saved me so much time, personally. I try to stay local, and privacy-focused.</p>
+                            <div class="project-text">
+                                <h2>Offline Web Games for Hangouts</h2>
+                                <h3>Bunch of simple games, playable offline</h3>
+                                <p>This all-inclusive, no CDN website provides numerous simple games that are playable either ONLINE OR OFFLINE by adding the site to home screen as a standalone app. Site works offline after intitial load! All these games are meant to be played with friends.</p>
+                            </div>
                         </a>
                     </div>
                     <div class="project reveal">
-                        <a href="/">
+                        <div class="project-link">
                             <div class="project-image">
-                                <img src="/files/images/projects/mcserver/minecrafticon.png" alt="Minecraft Server">
+                                <img src="/files/images/question-mark-circle-outline-192-120.webp" alt="Listify" width="120" height="120" loading="lazy" decoding="async">
                             </div>
-                        </a>
-                        <a href="/" class="project-text">
-                            <h2>Hosting a Minecraft Server</h2>
-                            <h3>Hardening, VPN tunnel, ufw, careful forwarding</h3>
-                            <p>I port forwarded to a Raspberry Pi, hardened it, then connected it to my laptop using a WireGuard VPN tunnel. Redirected all connections through to where the server runs. Learned a lot in the process.</p>
-                        </a>
+                            <div class="project-text">
+                                <h2>Listify</h2>
+                                <h3>AI Playlist Organizer for Spotify</h3>
+                                <p>An app that organizes your Spotify playlists based on your specifications, using your metadata and AI to classify your favorite songs.</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="project reveal">
-                        <a href="https://bedroc.cagancalidag.com/">
+                        <!-- The card text used to link to "/" while only the icon linked to
+                             the blog — both go to the blog now. -->
+                        <a class="project-link" href="https://blogs.cagancalidag.com" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
-                                <img src="/files/images/projects/Bedroc/apple-touch-icon.png" alt="Bedroc">
+                                <img src="https://blogs.cagancalidag.com/favicon.ico" alt="Blogs" width="120" height="120" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                             </div>
-                        </a>
-                        <a href="https://bedroc.cagancalidag.com/" class="project-text">
-                            <h2>Bedroc</h2>
-                            <h3>E2EE, Self-hostable Synchronous Notes</h3>
-                            <p>An end-to-end encrypted, extra private and secure synchronous note taking app, that can be easily self hosted by anyone for free.</p>
-                        </a>
-                    </div>
-                    <div class="project reveal">
-                        <a href="https://games.cagancalidag.com/">
-                            <div class="project-image">
-                                <img src="/files/images/projects/Simple-Web-Games/favicon-games.png" alt="Bedroc">
+                            <div class="project-text">
+                                <h2>Blogs (Tech Diary)</h2>
+                                <h3>Yapping about what I've done</h3>
+                                <p>Just a personal blog where I journal my tech journey, how I set up and configure my tools, how I develop my products and what I learnt.</p>
                             </div>
-                        </a>
-                        <a href="https://games.cagancalidag.com/" class="project-text">
-                            <h2>Offline Web Games for Hangouts</h2>
-                            <h3>Bunch of simple games, playable offline</h3>
-                            <p>This all-inclusive, no CDN website provides numerous simple games that are playable either ONLINE OR OFFLINE by adding the site to home screen as a standalone app. Site works offline after intitial load! All these games are meant to be played with friends.</p>
-                        </a>
-                    </div>
-                    <div class="project reveal">
-                        <a href="/">
-                            <div class="project-image">
-                                <img src="/files/images/question-mark-circle-outline-192.png" alt="Listify">
-                            </div>
-                        </a>
-                        <a href="/" class="project-text">
-                            <h2>Listify</h2>
-                            <h3>AI Playlist Organizer for Spotify</h3>
-                            <p>An app that organizes your Spotify playlists based on your specifications, using your metadata and AI to classify your favorite songs.</p>
-                        </a>
-                    </div>
-                    <div class="project reveal">
-                        <a href="https://blogs.cagancalidag.com">
-                            <div class="project-image">
-                                <img src="https://blogs.cagancalidag.com/favicon.ico" alt="Blogs">
-                            </div>
-                        </a>
-                        <a href="/" class="project-text">
-                            <h2>Blogs (Tech Diary)</h2>
-                            <h3>Yapping about what I've done</h3>
-                            <p>Just a personal blog where I journal my tech journey, how I set up and configure my tools, how I develop my products and what I learnt.</p>
                         </a>
                     </div>
                 </div>
             </section>
 
         </div>
-        <div class="footer">
+        </main>
+        <footer class="footer">
             <div class="footer-row">
                 <div class="footer-social">
-                    <a href="https://www.linkedin.com/in/çağanefeçalıdağ" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a> &nbsp;&nbsp;
-                    <a href="https://github.com/MrBiscuitTR" target="_blank"><i class="fa fa-github"></i> GitHub</a> &nbsp;&nbsp;
-                    <a href="https://www.instagram.com/cagancalidag/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a> &nbsp;&nbsp;
-                    <a href="https://www.twitter.com/Caganefe1" target="_blank"><i class="fa fa-twitter-square"></i> Twitter</a>
+                    <a href="https://www.linkedin.com/in/çağanefeçalıdağ" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg> LinkedIn</a> &nbsp;&nbsp;
+                    <a href="https://github.com/MrBiscuitTR" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 496 512" aria-hidden="true" focusable="false"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg> GitHub</a> &nbsp;&nbsp;
+                    <a href="https://www.instagram.com/cagancalidag/" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg> Instagram</a> &nbsp;&nbsp;
+                    <a href="https://www.twitter.com/Caganefe1" target="_blank" rel="noopener noreferrer me"><svg class="icon" viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-98.8-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.8 34z"/></svg> Twitter</a>
                 </div>
             </div>
-            
+
             <div class="copyright-bottom">
-                <p>© 2023<script>
-                    document.write("-", new Date().getFullYear());
-                </script> <noscript>2024</noscript> Çağan Efe Çalıdağ, All rights reserved.</p>
+                <p>© 2023-<span id="current-year">2026</span> Çağan Efe Çalıdağ, All rights reserved.</p>
             </div>
-        </div>
+        </footer>
     </body>
     <!-- at some point add some cool effects and animations like maybe flashlight effect in general container, or
-     matrix style raining characters for revalign divs etc. also maybe fish in the background? 
+     matrix style raining characters for revalign divs etc. also maybe fish in the background?
         looks like an ocean anyways. -->
 </html>

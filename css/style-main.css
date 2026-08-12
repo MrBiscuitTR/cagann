@@ -1,9 +1,18 @@
 @font-face {
     font-family: Inter;
-    src: url("fonts/Inter/static/Inter_18pt-Regular.ttf") format('truetype');
+    /* Subset of Inter_18pt-Regular.ttf: Latin + Latin-1 + Latin Ext-A (Turkish)
+       + punctuation/symbols. 335 KB -> 56 KB. Regenerate with tools/subset-font.py
+       if new scripts/glyphs are ever needed. */
+    src: url("fonts/Inter/Inter-Regular-subset.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    /* Show fallback text immediately instead of blocking paint on the font. */
+    font-display: swap;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat'); /*original one*/
+/* The Google Fonts @import used to sit here. It pulled Montserrat from a third
+   party, render-blocking, purely as a fallback behind Inter — so it was ~never
+   painted. Dropped: one less blocking request and one less external tracker. */
 
 :root{
     --body-bg-color: #111d1d;
@@ -24,6 +33,33 @@
 
 html {
     background-color: var(--header-footer-bg);
+    /* Must live on the scrolling element. It was on `body`, where it does
+       nothing for document-level scrolling. */
+    scroll-behavior: smooth;
+}
+
+/* Anchor targets clear the sticky header instead of hiding under it —
+   this replaces the old JS scroll-offset maths, which meant the nav links
+   couldn't have real href attributes (and so weren't crawlable). */
+#about,
+#skills,
+#projects,
+#certifications {
+    scroll-margin-top: calc(8vh + 60px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 /* general */
 
@@ -51,7 +87,6 @@ body {
     padding: 0;
     min-height: 100vh;
     height: auto;
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
@@ -166,7 +201,7 @@ a {
     font-weight: 500;
     line-height: 1;
     color: inherit;
-    cursor: default;
+    cursor: pointer; /* they're real links now, not onclick handlers */
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -312,7 +347,13 @@ a {
     z-index: 9; /* Behind the content */
     pointer-events: none; /* Add this to prevent clicks on the raining text */
   }
-  
+
+  /* Set by coolbg.js once the hero scrolls out of view — no point animating
+     44 elements nobody can see. */
+  .raining-text.paused .rain-text {
+    animation-play-state: paused;
+  }
+
   .contentwelcome {
     position: relative;
     z-index: 8; /* On top of the rain */
@@ -688,12 +729,25 @@ a {
     flex-direction: column;
 }
 
+.cert-item:focus-visible {
+    outline: 2px solid var(--selected-brighter);
+    outline-offset: 2px;
+}
+
 .cert-text h3 {
     font-size: 18px;
     font-weight: 400;
     margin-bottom: 0.4em;
     line-height: 1.4;
     min-height: 2.8em;
+}
+
+/* Sub-line inside a certificate heading. Was a <p> nested in an <h3>, which
+   isn't valid HTML — a <p> can't live inside a heading. */
+.cert-note {
+    display: block;
+    font-size: 12px;
+    font-weight: 300;
 }
 
 .cert-text p {
@@ -915,6 +969,36 @@ a {
     font-weight: 600 !important;
 }
 
+/* ── Inline SVG icons ─────────────────────────────────────────────────
+   The home page used to pull the whole Font Awesome kit (JS loader + 4
+   stylesheets + ~272 KB of webfonts) to draw five glyphs. These are those
+   five glyphs, inlined. Other pages still use the kit. */
+
+.footer-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.scroll-cue {
+    width: 1.6em;
+    height: 1.6em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    color: var(--selected-brighter);
+    margin-bottom: 0.4em;
+}
+
 /* ── Projects grid ────────────────────────────────────────────────── */
 
 .projects-grid-section {
@@ -952,6 +1036,25 @@ a {
     text-decoration: none;
 }
 
+/* One anchor wraps the whole card. Previously the image and the text were two
+   separate links to the same URL, which is a duplicate-link a11y/SEO smell and
+   doubles the tab stops. */
+.project-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    color: inherit;
+}
+
+.project-link:focus-visible {
+    outline: 2px solid var(--selected-brighter);
+    outline-offset: -4px;
+    border-radius: var(--border-radius-global);
+}
+
 @media (hover: hover) and (pointer: fine) {
     .project:hover {
         transform: translateY(-4px) !important;
@@ -983,17 +1086,8 @@ a {
     display: block;
 }
 
-.project .project-image a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-}
-
 @media (hover: hover) and (pointer: fine) {
-    .project .project-image a:hover img,
-    .project .project-image img:hover {
+    .project-link:hover .project-image img {
         opacity: 0.75;
         transform: scale(1.08);
     }

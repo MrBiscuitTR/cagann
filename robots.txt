@@ -1,7 +1,10 @@
 User-agent: *
 Disallow: /admin/
-Disallow: /pages/projects/n8n/uni-grades/
+# no trailing slash so it also covers the extensionless URL the home page links to
+Disallow: /pages/projects/n8n/uni-grades
 Disallow: /cdn-cgi/
+
+Sitemap: https://cagancalidag.com/sitemap.xml
 
 #        _
 #       [ ]
