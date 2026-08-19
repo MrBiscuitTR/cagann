@@ -7,7 +7,7 @@ body {
     height: fit-content;
     font-family: Inter, Montserrat, sans-serif;
     color: var(--text-main);
-    font-size: 18px !important;
+    font-size: var(--fs-md);
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
 }
@@ -28,19 +28,19 @@ body {
 
 /* ── project title ──────────────────────────────────────────────── */
 h1.projectname {
-    color: #fff;
-    font-size: 30px;
-    font-weight: 300;
+    color: var(--text-primary);
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-normal);
     text-align: center;
     margin: 0.4em 0 0;
-    text-shadow: rgba(17, 177, 177, 0.734) 0 0 18px, rgba(29, 128, 128, 0.45) 0 0 30px;
+    text-shadow: var(--accent) 0 0 18px, var(--border-strong) 0 0 30px;
     letter-spacing: 0.02em;
 }
 
 span.projectname {
     color: var(--selected-brighter);
     font-size: 1em;
-    font-weight: 500;
+    font-weight: var(--fw-medium);
     text-decoration: none !important;
 }
 
@@ -53,20 +53,20 @@ span.projectname {
 
 .screenshot-slider h2 {
     margin: 0;
-    font-size: 21px;
-    font-weight: 500;
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-medium);
     color: var(--text-main);
 }
 
 .screenshot-slider h3 {
     margin: 0;
-    font-size: 14px;
-    font-weight: 300;
-    color: #8ea29e;
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-normal);
+    color: var(--text-muted);
 }
 
 .screenshotswithbuttons {
-    --slider-accent: var(--selected-bg);
+    --slider-accent: var(--accent-dim);   /* borders + fills only, not text */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -74,9 +74,9 @@ span.projectname {
     height: 240px;
     border-radius: var(--border-radius-global);
     overflow: hidden;
-    background: linear-gradient(180deg, #031418 0%, var(--widget-bg) 100%);
+    background: linear-gradient(180deg, var(--surface-0) 0%, var(--widget-bg) 100%);
     border: var(--widget-border);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 14px 30px rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 1px 0 var(--border-subtle), 0 14px 30px var(--shadow-color);
 }
 
 .screenshots {
@@ -116,7 +116,7 @@ span.projectname {
     aspect-ratio: 16/9;
     object-fit: cover;
     border-radius: var(--border-radius-global);
-    border: 1px solid #104446;
+    border: 1px solid var(--surface-3);
     transition: transform 0.22s ease, opacity 0.22s ease, border-color 0.22s ease;
     display: block;
     scroll-snap-align: start;
@@ -128,7 +128,7 @@ span.projectname {
     .screenshots img:hover {
         opacity: 0.94;
         transform: translateY(-1px);
-        border-color: #3f3f3f;
+        border-color: var(--surface-3);
         cursor: grab;
     }
 }
@@ -143,14 +143,14 @@ span.projectname {
 
 button.prev,
 button.next {
-    background: linear-gradient(180deg, #133036 0%, #0a2126 100%);
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
     color: var(--text-main);
     border: var(--widget-border);
     border-radius: 999px;
     padding: 0;
     cursor: pointer;
-    font-size: 20px;
-    font-weight: 500;
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-medium);
     line-height: 1;
     transition: transform 0.18s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     width: 38px;
@@ -162,7 +162,7 @@ button.next {
     align-self: center;
     margin: 0 7px;
     z-index: 2;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.34);
+    box-shadow: 0 8px 22px var(--shadow-color);
 }
 
 button.prev {
@@ -176,11 +176,11 @@ button.next {
 @media (hover: hover) and (pointer: fine) {
     button.prev:hover,
     button.next:hover {
-        background: linear-gradient(180deg, #19414a 0%, #102f37 100%);
-        border-color: #4ca2af;
-        color: #fff;
+        background: linear-gradient(180deg, var(--surface-3) 0%, var(--surface-2) 100%);
+        border-color: var(--accent);
+        color: var(--text-primary);
         transform: translateY(-1px) scale(1.02);
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.42);
+        box-shadow: 0 12px 24px var(--shadow-color);
     }
 }
 
@@ -215,7 +215,7 @@ button.next:active {
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(1, 14, 18, 0.9);
+    background-color: var(--surface-0);
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -235,7 +235,7 @@ button.next:active {
     max-height: 92vh;
     border-radius: var(--border-radius-global);
     object-fit: contain;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.48);
+    box-shadow: 0 24px 60px var(--shadow-color);
     cursor: zoom-in;
     touch-action: none;
     will-change: transform;
@@ -258,12 +258,12 @@ button.next:active {
     left: 50%;
     top: 20px;
     transform: translateX(-50%);
-    background: rgba(2, 14, 16, 0.72);
-    border: 1px solid rgba(158, 222, 229, 0.35);
-    color: #d7ece8;
+    background: var(--surface-1);
+    border: 1px solid var(--border-strong);
+    color: var(--text-primary);
     padding: 8px 12px;
     border-radius: 999px;
-    font-size: 12px;
+    font-size: var(--fs-2xs);
     letter-spacing: 0.01em;
     z-index: 210;
     pointer-events: none;
@@ -279,9 +279,9 @@ button.next:active {
     aspect-ratio: 16 / 9;
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid rgba(158, 222, 229, 0.45);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.48);
-    background: rgba(2, 14, 16, 0.82);
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 10px 24px var(--shadow-color);
+    background: var(--surface-1);
     backdrop-filter: blur(4px);
     z-index: 210;
     opacity: 0;
@@ -305,10 +305,10 @@ button.next:active {
 
 .modal-zoom-map-viewport {
     position: absolute;
-    border: 2px solid #8ee6f6;
-    background: rgba(108, 220, 242, 0.16);
+    border: 2px solid var(--accent-hover);
+    background: var(--accent-dim);
     border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.32) inset;
+    box-shadow: 0 0 0 1px var(--shadow-color) inset;
 }
 
 @media (hover: none), (pointer: coarse) {
@@ -344,17 +344,21 @@ button.next:active {
 
 .info-panel h2 {
     margin: 0 0 0.5em;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--selected-bg);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-semibold);
+    /* was var(--selected-bg). That token is a BACKGROUND colour -- 16% alpha --
+       so this heading was rendering at 16% opacity on a dark panel, i.e. nearly
+       invisible. If I want the accent as text it's var(--accent).
+       Lesson: check what a token is FOR, not just what it's called. */
+    color: var(--accent);
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
 .info-panel p {
     margin: 0;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     line-height: 1.65;
     color: var(--text-main);
 }
@@ -362,8 +366,8 @@ button.next:active {
 .info-panel ul {
     margin: 0;
     padding-left: 1.2em;
-    font-size: 16px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     line-height: 1.8;
     color: var(--text-main);
 }
@@ -373,14 +377,15 @@ button.next:active {
 }
 
 .info-panel a {
-    color: var(--selected-bg);
+    /* same trap as .info-panel h2 above -- background token used as text */
+    color: var(--accent);
     text-decoration: underline;
     transition: color 0.15s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
     .info-panel a:hover {
-        color: #a8edff;
+        color: var(--accent-hover);
     }
 }
 
@@ -396,7 +401,7 @@ button.next:active {
     background-color: var(--widget-bg);
     color: var(--text-main);
     padding: 10px 14px;
-    font-size: 13px;
+    font-size: var(--fs-xs);
     text-align: left !important;
     box-sizing: border-box;
     cursor: pointer;
@@ -404,8 +409,8 @@ button.next:active {
 
 @media (hover: hover) and (pointer: fine) {
     .projectpreviewbutton:hover {
-        background-color: #2a2a2a;
-        color: #fff;
+        background-color: var(--surface-2);
+        color: var(--text-primary);
     }
 }
 
@@ -430,18 +435,18 @@ button.next:active {
 
 /* ── collapsible (shared) ────────────────────────────────────────── */
 .collapsible {
-    font-size: 13px;
+    font-size: var(--fs-xs);
     cursor: pointer;
     text-align: left;
     outline: none;
 }
 
 .expanded {
-    background-color: #2a2a2a;
+    background-color: var(--surface-2);
 }
 @media (hover: hover) and (pointer: fine) {
     .collapsible:hover {
-        background-color: #2a2a2a;
+        background-color: var(--surface-2);
     }
 }
 
@@ -459,7 +464,7 @@ button.next:active {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: #1e1e1e;
+    background-color: var(--surface-1);
     border-radius: var(--border-radius-global);
     margin-bottom: 0 !important;
 }

@@ -8,13 +8,23 @@
       <svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#github"></use></svg>
 
   Always absolute (/files/icons.svg) so it works from any depth, and always
-  aria-hidden -- the visible label next to it is what screen readers should read.
+  aria-hidden, because the visible label beside it is what screen readers
+  should be reading.
+
+  DO NOT put a double hyphen anywhere in this comment. SVG is XML, an XML
+  comment can't contain one, and a malformed sprite doesn't fail loudly:
+  it just silently stops resolving every #fragment, so every icon on every
+  page disappears at once. That exact typo cost me an afternoon.
   To add one: paste a new <symbol> with its own id and viewBox. Keep the paths
   using fill="currentColor" so they inherit the surrounding text colour.
 
   Brand marks are Font Awesome Free 6 (CC BY 4.0, fontawesome.com/license/free).
 -->
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<!-- no style="display:none" on this root. That trick is for sprites pasted
+     INLINE into a page; in an external file it does nothing useful (a
+     <symbol> never renders on its own anyway) and some engines refuse to
+     resolve <use> into a hidden root. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
 
   <symbol id="linkedin" viewBox="0 0 448 512">
     <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>

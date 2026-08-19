@@ -5,15 +5,12 @@
 
 User-agent: *
 Disallow: /admin/
-# no trailing slash, so it covers /uni-grades AND /uni-grades/ -- the home page
-# links to the extensionless one
+# no trailing slash, so it covers /uni-grades AND /uni-grades/ -- the home page links to the extensionless one
 Disallow: /pages/projects/n8n/uni-grades
 Disallow: /cdn-cgi/
 Disallow: /tools/
 
-# docs/ and tools/ are also excluded from the build in _config.yml, so they 404
-# outright. docs/ is intentionally NOT listed here -- this file is public, and
-# naming a sensitive path in it just tells people where to look.
+# /files/ deliberately not blocked -- see docs/seo.md. Blocking can't remove an already-indexed PDF, and it hides the images Google renders the page with.
 
 Sitemap: https://cagancalidag.com/sitemap.xml
 

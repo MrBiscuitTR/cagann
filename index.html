@@ -30,7 +30,7 @@
             upgrade-insecure-requests;
         ">
         <meta name="referrer" content="strict-origin-when-cross-origin">
-        <title>Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast</title>
+        <title>Çağan Efe Çalıdağ | CS Student, Developer &amp; Cybersecurity Enthusiast</title>
         <meta name="description" content="Çağan Efe Çalıdağ's Personal Website. Full-Stack Developer &amp; Technology Enthusiast.">
         <meta name="theme-color" content="#111d1d">
         <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="192x192">
@@ -41,7 +41,7 @@
 
         <!-- Collapses the HTML -> CSS -> font request chain by one hop, so the
              swap to Inter happens before first paint rather than after it. -->
-        <link rel="preload" href="/css/fonts/Inter/Inter-Regular-subset.ttf" as="font" type="font/ttf" crossorigin>
+        <link rel="preload" href="/css/fonts/Inter/Inter-var-subset.ttf" as="font" type="font/ttf" crossorigin>
 
         <!-- ============ SEO. READ THIS BEFORE CHANGING MY BIO ============
              The point of all this is that searching "cagan calidag", "cagan efe
@@ -64,7 +64,11 @@
                 is /482d0d93180e15d7286fd2a71b6b775b.txt and it must contain
                 exactly that key as its entire contents.
              6. Never add noindex here, and never Disallow /css/ or /js/ in
-                robots.txt -- Google renders the page before it ranks it. ======= -->
+                robots.txt -- Google renders the page before it ranks it.
+             7. The ProfilePage block below MUST use "mainEntity" to point at the
+                Person. I had "about" and Search Console rejected the whole rich
+                result with "mainEntity field missing" -- they look
+                interchangeable but Google only accepts mainEntity here. ======= -->
         <meta property='og:title' content='Çağan Efe Çalıdağ | Full-Stack Developer &amp; Technology Enthusiast'>
         <meta property='og:type' content='website'>
         <meta property="og:url" content="https://cagancalidag.com/">
@@ -129,7 +133,7 @@
               "url": "https://cagancalidag.com/",
               "name": "Çağan Efe Çalıdağ | Full-Stack Developer & Technology Enthusiast",
               "isPartOf": { "@id": "https://cagancalidag.com/#website" },
-              "about": { "@id": "https://cagancalidag.com/#person" }
+              "mainEntity": { "@id": "https://cagancalidag.com/#person" }
             }
           ]
         }
@@ -137,6 +141,7 @@
         <link rel="stylesheet" href="css/style-main.css">
         <script defer src="js/scrollReveal.js"></script>
         <script defer src="js/scramble.js"></script>
+        <script defer src="js/caret.js"></script>
         <script defer src="js/coolbg.js"></script>
         <script defer src="js/main.js"></script>
         <script defer src="js/dynamic-text.js"></script>
@@ -175,6 +180,13 @@
                                     <h1 data-value="Çağan Efe Çalıdağ">Çağan Efe Çalıdağ</h1>
                                     <div class="welcome-seperator-horizontal"><hr></div>
                                     <h2>Full-Stack Developer, <br> Technology Enthusiast. </h2>
+                                    <!-- ONE line goes here, in my own words. The h2 above is a job
+                                         title; this is the bit a stranger actually needs three
+                                         seconds after landing -- what I build and who for. Under
+                                         ~15 words or it stops being a hook.
+                                         Uncomment once I've written something I don't hate.
+                                    <p class="welcome-lede">...</p>
+                                    -->
 
                                 </div>
                             </div>
@@ -204,6 +216,13 @@
             <div class="reveal">
                 <div class="container" id="about">
                     <div class="container-text">
+                        <!-- These "01 / ..." labels are decorative chrome, nothing more.
+                             aria-hidden and OUTSIDE the <h2> on purpose: the heading text is
+                             what search engines index, and I don't want a number welded to
+                             the front of it. Uppercase in the markup as well as in CSS
+                             because the Courier Prime subset has no lowercase glyphs.
+                             Renumber by hand if I add a section. -->
+                        <span class="section-label" aria-hidden="true">01 / ABOUT</span>
                         <h2 data-value="About Me">About me</h2>
                     </div>
                 </div>
@@ -220,7 +239,7 @@
                             I have experience in various programming languages, frameworks and tools. I am also familiar with some design tools to help me with web development.
                             I am currently working on numerous projects, and I am looking for a potential collaboration or internship opportunities to gain experience and improve my skills.
                             I am a very curious person, and I love learning new things. Being a very hard-working and solution-oriented person, I love taking on challenges and solving problems. My innovative and creative thinking skills help me to come up with unique solutions to problems.
-                            Nowadays, I am mostly interested in automation and AI integrated full-stack and mobile app development. I also love data privacy, thus many of my recent projects (as of 2025)
+                            Nowadays, I am mostly interested in automation and AI integrated full-stack and mobile app development. I also believe in privacy as a right, so many of my recent projects (as of 2025)
                             prioritize little to no telemetry/data collection, local deployment, self-hostability (if online) and offline use. The project I am focused on as of 2026 is <a href="https://github.com/MrBiscuitTR/P.O.T.A.T.O" target="_blank" rel="noopener noreferrer">P.O.T.A.T.O </a>, A locally running and vocal AI tool operator with a web GUI and many useful tools.
                             It is also open-source!
                         </p>
@@ -231,13 +250,33 @@
             <div class="reveal">
                 <div class="container" id="skills">
                     <div class="container-text">
+                        <span class="section-label" aria-hidden="true">02 / SKILLS</span>
                         <h2 data-value="Skills">Skills</h2>
                     </div>
                 </div>
             </div>
             <section class="skills-grid-section" aria-label="Skills">
                 <div class="skills-grid">
-
+                    <!-- ORDER HERE IS THE ORDER ON THE PAGE. Security first now that
+                         that's the direction; move a card block to move it.
+                         The "+N more" groups reuse the same .collapsible / .content
+                         pair as the Python one -- js/main.js already handles the
+                         keyboard, aria-expanded and the height animation, so a new
+                         group needs no JS at all. Nothing is deleted, just folded. -->
+                    <div class="skill-category-card reveal">
+                        <h3 class="skill-cat-title">Infrastructure &amp; Security</h3>
+                        <div class="skill-cat-body">
+                            <div class="skill">Linux</div>
+                            <div class="skill">Windows</div>
+                            <div class="skill">OS Installation &amp; Configuration</div>
+                            <div class="skill">Server Hardening</div>
+                            <div class="skill">Networking &amp; VPNs</div>
+                            <div class="skill">Firewalls (ufw, iptables)</div>
+                            <div class="skill">Port Security</div>
+                            <div class="skill">Domain Management</div>
+                            <div class="skill">Cloud Services (Google)</div>
+                        </div>
+                    </div>
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Languages</h3>
                         <div class="skill-cat-body">
@@ -247,10 +286,11 @@
                             <div class="skill">CSS &amp; Tailwind</div>
                             <div class="skill">SQL</div>
                             <div class="skill">Java</div>
+                            <div class="skill collapsible">+4 more</div>
+                            <div class="content">
                             <div class="skill">C# &amp; Unity</div>
                             <div class="skill">C++</div>
                             <div class="skill">Rust (beginner)</div>
-                            <div class="skill collapsible">Python </div>
                             <div class="content">
                                 <div class="skill">flask</div>
                                 <div class="skill">pandas</div>
@@ -267,21 +307,10 @@
                                 <div class="skill">json</div>
                                 <div class="skill">Misc: random, datetime...</div>
                             </div>
+                            </div>
+                            <div class="skill collapsible">Python </div>
                         </div>
                     </div>
-
-                    <div class="skill-category-card reveal">
-                        <h3 class="skill-cat-title">Frameworks &amp; Runtime</h3>
-                        <div class="skill-cat-body">
-                            <div class="skill">React</div>
-                            <div class="skill">Svelte 5</div>
-                            <div class="skill">Flask</div>
-                            <div class="skill">Node.js</div>
-                            <div class="skill">REST APIs</div>
-                            <div class="skill">Modular Programming</div>
-                        </div>
-                    </div>
-
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">AI &amp; Automation</h3>
                         <div class="skill-cat-body">
@@ -302,7 +331,17 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="skill-category-card reveal">
+                        <h3 class="skill-cat-title">Frameworks &amp; Runtime</h3>
+                        <div class="skill-cat-body">
+                            <div class="skill">React</div>
+                            <div class="skill">Svelte 5</div>
+                            <div class="skill">Flask</div>
+                            <div class="skill">Node.js</div>
+                            <div class="skill">REST APIs</div>
+                            <div class="skill">Modular Programming</div>
+                        </div>
+                    </div>
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Tools &amp; Software</h3>
                         <div class="skill-cat-body">
@@ -312,40 +351,25 @@
                             <div class="skill">Caddy</div>
                             <div class="skill">Claude Code</div>
                             <div class="skill">OpenClaw</div>
+                            <div class="skill collapsible">+3 more</div>
+                            <div class="content">
                             <div class="skill">Figma</div>
                             <div class="skill">Adobe Photoshop (beginner)</div>
                             <div class="skill">Blender (beginner)</div>
+                            </div>
                         </div>
                     </div>
-
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Databases</h3>
                         <div class="skill-cat-body">
                             <div class="skill">MongoDB</div>
-                            <div class="skill">MySQL</div>
-                            <div class="skill">PostgreSQL</div>
-                            <div class="skill">Adminer</div>
+                            <div class="skill">SQLite3</div>
+                            <div class="skill">PostgreSQL & Adminer</div>
                             <div class="skill">Firebase (Firestore, storage, auth)</div>
                             <div class="skill">Pinecone</div>
                             <div class="skill">Weaviate</div>
                         </div>
                     </div>
-
-                    <div class="skill-category-card reveal">
-                        <h3 class="skill-cat-title">Infrastructure &amp; Security</h3>
-                        <div class="skill-cat-body">
-                            <div class="skill">Linux</div>
-                            <div class="skill">Windows</div>
-                            <div class="skill">OS Installation &amp; Configuration</div>
-                            <div class="skill">Server Hardening</div>
-                            <div class="skill">Networking &amp; VPNs</div>
-                            <div class="skill">Firewalls (ufw, iptables)</div>
-                            <div class="skill">Port Security</div>
-                            <div class="skill">Domain Management</div>
-                            <div class="skill">Cloud Services (Google)</div>
-                        </div>
-                    </div>
-
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Soft Skills</h3>
                         <div class="skill-cat-body">
@@ -355,18 +379,21 @@
                             <div class="skill">Analytical Thinking</div>
                             <div class="skill">Innovative Thinking</div>
                             <div class="skill"><span style="text-decoration: line-through;">Time Management</span>&nbsp;lmao no</div>
+                            <div class="skill collapsible">+3 more</div>
+                            <div class="content">
                             <div class="skill">Teamwork</div>
                             <div class="skill">Peer-to-Peer Learning</div>
                             <div class="skill">Teaching</div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
             <div class="reveal">
                 <div class="container" id="certifications">
                     <div class="container-text">
+                        <span class="section-label" aria-hidden="true">03 / CERTIFICATIONS</span>
                         <h2 data-value="Certifications">Certifications</h2>
 
                         <br>
@@ -453,6 +480,7 @@
             <div class="reveal">
                 <div class="container" id="projects">
                     <div class="container-text">
+                        <span class="section-label" aria-hidden="true">04 / PROJECTS</span>
                         <h2 data-value="Some of My Projects">Some of My Projects</h2>
                     </div>
                 </div>
@@ -466,7 +494,13 @@
             </div>
             <section class="projects-grid-section" aria-label="Projects">
                 <div class="projects-grid">
-                    <div class="project reveal">
+                    <!-- FEATURED = first blocks in this list. Adding `featured` makes a card
+                         span two columns, take a bigger icon and show more description; it's
+                         also the only place the accent colour appears on a card by default.
+                         To feature something else, move its block up here and move the class
+                         with it -- e.g. P.O.T.A.T.O, which my bio calls my current focus.
+                         Falls back to one column on narrow screens automatically. -->
+                    <div class="project reveal featured">
                         <a class="project-link" href="/pages/projects/Metaclass/index.html">
                             <div class="project-image">
                                 <img src="https://metaclass.cagancalidag.com/favicon-96x96.png?v=20260331" alt="Metaclass Education" width="96" height="96" loading="lazy" decoding="async" referrerpolicy="no-referrer"> <!--files/images/projects/metaclass/logo192-metaclass.png-->
@@ -478,7 +512,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="project reveal">
+                    <!-- <div class="project reveal featured">
                         <a class="project-link" href="/pages/projects/Hanımcılar/index.html">
                             <div class="project-image">
                                 <img src="/files/images/projects/hanimcilar/logo192-hanimcilar-120.webp" alt="Hanımcılar Logo" width="120" height="120" loading="lazy" decoding="async">
@@ -489,7 +523,7 @@
                                 <p>Hanımcılar is a website (which I made for my first, now ex gf) where you can create collaborative polaroid photo albums with changeable themes. It was originally static, but I later added a backend to allow for user accounts and collaboration.</p>
                             </div>
                         </a>
-                    </div>
+                    </div> -->
                     <div class="project reveal">
                         <a class="project-link" href="/pages/projects/MFINUE Connect/index.html">
                             <div class="project-image">
@@ -502,7 +536,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="project reveal">
+                    <div class="project reveal featured">
                         <a class="project-link" href="/pages/projects/Utilities/index.html">
                             <div class="project-image">
                                 <img src="/files/images/projects/Utilities/utilities-192-120.webp" alt="Independent Utilities" width="120" height="120" loading="lazy" decoding="async">
@@ -563,7 +597,7 @@
                             <div class="project-text">
                                 <h2>Multiple n8n Workflows</h2>
                                 <h3>All of which are useful</h3>
-                                <p>All these workflows have specific use scenarios and have saved me so much time, personally. I try to stay local, and privacy-focused.</p>
+                                <p>All these workflows have specific use scenarios and have saved me so much time, personally. I try to stay local, and dependency-free.</p>
                             </div>
                         </div>
                     </div>
@@ -579,7 +613,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="project reveal">
+                    <div class="project reveal featured">
                         <a class="project-link" href="https://bedroc.cagancalidag.com/" target="_blank" rel="noopener noreferrer">
                             <div class="project-image">
                                 <img src="/files/images/projects/Bedroc/apple-touch-icon-120.webp" alt="Bedroc" width="120" height="120" loading="lazy" decoding="async">
@@ -587,7 +621,7 @@
                             <div class="project-text">
                                 <h2>Bedroc</h2>
                                 <h3>E2EE, Self-hostable Synchronous Notes</h3>
-                                <p>An end-to-end encrypted, extra private and secure synchronous note taking app, that can be easily self hosted by anyone for free.</p>
+                                <p>An end-to-end encrypted, private and secure organized note taking app, that syncs and can be easily self hosted by anyone.</p>
                             </div>
                         </a>
                     </div>
@@ -631,6 +665,35 @@
                     </div>
                 </div>
             </section>
+
+            <!-- ===== 05 / SECURITY - stub, deliberately commented out =====
+                 Ready to switch on when I've actually written it. I'm not going to
+                 fill this with filler in the meantime: an empty-looking section under
+                 my name is worse than no section, and Google agrees.
+                 It's numbered 05 so uncommenting it doesn't renumber anything above.
+                 Same .container / .container-text pattern as every other block, so it
+                 inherits the width, the reveal animation and the type scale for free.
+
+            <div class="reveal">
+                <div class="container" id="security">
+                    <div class="container-text">
+                        <span class="section-label" aria-hidden="true">05 / SECURITY</span>
+                        <h2 data-value="Security">Security</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal">
+                <div class="container">
+                    <div class="container-text">
+                        <p>...what I'm actually doing in security, in my own words...</p>
+                    </div>
+                </div>
+            </div>
+
+                 When I turn this on, also:
+                   - add #security to the scroll-margin-top list in style-main.css
+                   - add a nav link, in the same order, to ALL pages (they share one header)
+                 ===== -->
 
         </div>
         </main>
