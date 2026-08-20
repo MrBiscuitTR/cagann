@@ -1001,6 +1001,10 @@ a {
     top: 0;
     width: 2px;
     border-radius: 2px;
+    /* behind the nodes. Without this the rail's glow painted OVER them: a
+       parent's ::after draws after its children, so the fill was sitting on
+       top of every node it passed. */
+    z-index: 0;
 }
 
 .timeline::before {
@@ -1015,12 +1019,19 @@ a {
 
 .timeline::after {
     height: calc(var(--timeline-progress, 0) * 100%);
-    background: var(--accent);
-    box-shadow: 0 0 14px var(--accent-glow), 0 0 4px var(--accent);
+    /* brightest at the bottom, which is the moving end, so it reads as a scan
+       head travelling down rather than a uniformly lit tube. The big glow that
+       used to be here is now on the node instead. */
+    background: linear-gradient(180deg,
+        var(--accent-dim) 0%,
+        var(--accent) 82%,
+        var(--accent-hover) 100%);
+    box-shadow: 0 0 6px var(--accent-glow);
 }
 
 .timeline-entry {
     position: relative;
+    z-index: 1;                /* keeps the node above the rail, see above */
     padding-left: calc(var(--rail-x) + 26px);
 }
 
@@ -1062,16 +1073,51 @@ a {
     transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.timeline-entry[open] > summary::before {
+/* NOTE: `open` lives on the <details>, NOT on the <li class="timeline-entry">,
+   and <summary> is a child of that <details> rather than of the li. So
+   `.timeline-entry[open]` and `.timeline-entry > summary` both match nothing.
+   Every state rule below has to go through `details[open]` and reach summary
+   as a descendant. Got this wrong once and the [+] never became [-]. */
+.timeline-entry details[open] summary::before {
     background: var(--accent);
     box-shadow: 0 0 0 4px var(--surface-0), 0 0 14px var(--accent-glow);
 }
 
-/* nearest the middle of the screen, set by js/timeline.js -- same rule the
-   heading caret uses, so the two agree about where you are */
-.timeline-entry.is-active > summary::before {
-    box-shadow: 0 0 0 4px var(--surface-0), 0 0 18px var(--accent);
-    transform: scale(1.15);
+/* Nearest the middle of the screen, set by js/timeline.js -- the same rule the
+   heading caret uses, so the two agree about where you are.
+   This is where the glow lives now: the node lights up as the rail fill reaches
+   it, instead of the rail glowing over everything the whole way down. */
+.timeline-entry.is-active summary::before {
+    transform: scale(1.28);
+    animation: timeline-node-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes timeline-node-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px var(--surface-0), 0 0 12px var(--accent-glow); }
+    50%      { box-shadow: 0 0 0 4px var(--surface-0), 0 0 22px var(--accent); }
+}
+
+/* soft halo bloom behind the active node. Separate pseudo so it can sit BEHIND
+   the node (z-index -1 inside the entry) and fade independently of it. */
+.timeline-entry summary::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--rail-x) - 16px);
+    top: calc(var(--sp-2) + 0.3em - 9px);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.timeline-entry.is-active summary::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -1116,7 +1162,7 @@ a {
    tools/subset-font.py, which reads CSS content values and will tell you if you
    pick something that isn't in the subset. */
 .timeline-entry summary .timeline-toggle::after { content: "[+]"; }
-.timeline-entry[open] summary .timeline-toggle::after { content: "[-]"; }
+.timeline-entry details[open] .timeline-toggle::after { content: "[-]"; }
 
 .timeline-entry summary .timeline-toggle {
     font-family: "Label Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -1126,7 +1172,7 @@ a {
     transition: color 0.2s ease;
 }
 
-.timeline-entry[open] summary .timeline-toggle { color: var(--accent); }
+.timeline-entry details[open] .timeline-toggle { color: var(--accent); }
 
 @media (hover: hover) and (pointer: fine) {
     .timeline-entry summary:hover .timeline-toggle { color: var(--accent); }
@@ -1148,12 +1194,12 @@ a {
    Everywhere else it snaps, which is better than fighting the element with
    JS height maths. */
 @supports selector(::details-content) {
-    .timeline-entry::details-content {
+    .timeline-entry details::details-content {
         block-size: 0;
         overflow: hidden;
         transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
     }
-    .timeline-entry[open]::details-content { block-size: auto; }
+    .timeline-entry details[open]::details-content { block-size: auto; }
 }
 
 @supports (interpolate-size: allow-keywords) {

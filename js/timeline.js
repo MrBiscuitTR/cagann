@@ -31,7 +31,10 @@
     applying = true;
     for (const entry of entries) {
       const d = entry.querySelector("details");
-      if (d) d.open = wide.matches;
+      if (!d) continue;
+      // data-always-open stays expanded at every width. It's on the newest
+      // entry, which is the one thing a visitor should never have to tap to see.
+      d.open = d.hasAttribute("data-always-open") ? true : wide.matches;
     }
     // setting .open fires `toggle` asynchronously, so clear the guard after
     // the events have drained rather than immediately
