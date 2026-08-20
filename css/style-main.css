@@ -980,6 +980,10 @@ a {
 
 .timeline {
     --rail-x: 9px;
+    /* vertical centre of a node, measured from the top of its entry. Lives here
+       because js/timeline.js reads it too, to work out how far down the rail
+       should fill. Change it in one place, not two. */
+    --node-center-y: 21px;
     list-style: none;
     position: relative;
     width: var(--content-w);
@@ -1018,7 +1022,18 @@ a {
 }
 
 .timeline::after {
-    height: calc(var(--timeline-progress, 0) * 100%);
+    /* A PIXEL height, set by js/timeline.js to reach the currently active node.
+       It used to be `calc(var(--timeline-progress) * 100%)`, where progress was
+       derived from the viewport centre -- which worked out to a fill whose
+       pixel height was always exactly (screen middle - list top). That welded
+       the glowing end to the middle of the screen: it never travelled with the
+       content, it stretched whenever the list height changed mid-animation
+       (it was a percentage of a moving number), and browser scroll anchoring
+       during an open/close nudged the list top, so the head drifted and then
+       snapped back to centre. Anchoring to the node in px kills all three.
+       The transition is what makes it glide between nodes instead of jumping. */
+    height: var(--timeline-fill, 0px);
+    transition: height 0.34s cubic-bezier(0.22, 0.61, 0.36, 1);
     /* brightest at the bottom, which is the moving end, so it reads as a scan
        head travelling down rather than a uniformly lit tube. The big glow that
        used to be here is now on the node instead. */
@@ -1062,7 +1077,7 @@ a {
     content: "";
     position: absolute;
     left: calc(var(--rail-x) - 6px);
-    top: calc(var(--sp-2) + 0.3em);
+    top: calc(var(--node-center-y) - 7px);
     width: 14px;
     height: 14px;
     box-sizing: border-box;
@@ -1103,7 +1118,7 @@ a {
     content: "";
     position: absolute;
     left: calc(var(--rail-x) - 16px);
-    top: calc(var(--sp-2) + 0.3em - 9px);
+    top: calc(var(--node-center-y) - 17px);
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -1190,21 +1205,12 @@ a {
 .timeline-body p:last-child { margin-bottom: 0; }
 .timeline-body .skill-cat-body { margin-top: var(--sp-3); }
 
-/* Smooth open/close only where the browser can animate a <details> natively.
-   Everywhere else it snaps, which is better than fighting the element with
-   JS height maths. */
-@supports selector(::details-content) {
-    .timeline-entry details::details-content {
-        block-size: 0;
-        overflow: hidden;
-        transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
-    }
-    .timeline-entry details[open]::details-content { block-size: auto; }
-}
-
-@supports (interpolate-size: allow-keywords) {
-    :root { interpolate-size: allow-keywords; }
-}
+/* The open/close animation lives in js/timeline.js, not here.
+   I did originally do it with ::details-content + interpolate-size, but that's
+   only in the newest Chrome, so everywhere else it snapped. The Web Animations
+   version in the JS works in every browser and lets the rail glow follow the
+   height frame by frame instead of jumping once at the end.
+   Nothing CSS-side may animate the details height now, or the two fight. */
 
 @media screen and (min-width: 760px) {
     .timeline { --rail-x: 11px; }
