@@ -176,6 +176,7 @@ html {
    did the maths itself, which meant the nav links had onclick and no href,
    so Google couldn't crawl them. one line of CSS does the same job. */
 #about,
+#timeline,
 #skills,
 #projects,
 #certifications {
@@ -959,6 +960,212 @@ a {
     .skills-grid {
         gap: 0.9em;
     }
+}
+
+/* ================= TIMELINE =================
+   Newest at the top. One straight rail on the left at EVERY width -- the
+   alternating zigzag needs a different layout on mobile, so you maintain two,
+   and the reading order zigzags. One rail means the mobile layout IS the
+   desktop layout; only the density changes.
+
+   Open/closed: every <details> ships with `open` in the HTML so the page reads
+   fine with JavaScript off. js/timeline.js then closes them on narrow screens
+   and leaves them open on wide ones, and backs off the moment you click one.
+   No name= attribute, so several can be open at once. */
+
+.timeline-section {
+    width: 100%;
+    max-width: 100vw;
+}
+
+.timeline {
+    --rail-x: 9px;
+    list-style: none;
+    position: relative;
+    width: var(--content-w);
+    max-width: var(--content-w);
+    margin: 0 auto;
+    padding: var(--sp-2) 0 var(--sp-4);
+    text-align: left;          /* .general-container centres everything */
+}
+
+/* the rail. Bright enough to read as a spine rather than a hairline: a solid
+   accent-tinted line, with the scroll-progress fill glowing over the top of it
+   (--timeline-progress comes from js/timeline.js; with no JS it stays 0 and
+   the plain rail is still perfectly visible). */
+.timeline::before,
+.timeline::after {
+    content: "";
+    position: absolute;
+    left: var(--rail-x);
+    top: 0;
+    width: 2px;
+    border-radius: 2px;
+}
+
+.timeline::before {
+    bottom: 0;
+    background: linear-gradient(180deg,
+        var(--accent) 0%,
+        var(--border-strong) 12%,
+        var(--border-strong) 88%,
+        transparent 100%);
+    opacity: 0.55;
+}
+
+.timeline::after {
+    height: calc(var(--timeline-progress, 0) * 100%);
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent-glow), 0 0 4px var(--accent);
+}
+
+.timeline-entry {
+    position: relative;
+    padding-left: calc(var(--rail-x) + 26px);
+}
+
+.timeline-entry + .timeline-entry {
+    margin-top: var(--sp-4);
+}
+
+.timeline-entry summary {
+    display: grid;
+    gap: 3px;
+    padding: var(--sp-2) 0;
+    min-height: 44px;          /* stays a comfortable tap target on a phone */
+    cursor: pointer;
+    list-style: none;          /* kill the default disclosure triangle */
+}
+
+.timeline-entry summary::-webkit-details-marker { display: none; }
+
+.timeline-entry summary:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+/* the node. Always accent-ringed so it reads as something you can press,
+   filled solid once the entry is open. */
+.timeline-entry summary::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--rail-x) - 6px);
+    top: calc(var(--sp-2) + 0.3em);
+    width: 14px;
+    height: 14px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: var(--surface-0);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 4px var(--surface-0);   /* punches a hole in the rail */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.timeline-entry[open] > summary::before {
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--surface-0), 0 0 14px var(--accent-glow);
+}
+
+/* nearest the middle of the screen, set by js/timeline.js -- same rule the
+   heading caret uses, so the two agree about where you are */
+.timeline-entry.is-active > summary::before {
+    box-shadow: 0 0 0 4px var(--surface-0), 0 0 18px var(--accent);
+    transform: scale(1.15);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .timeline-entry summary:hover::before { transform: scale(1.15); }
+    .timeline-entry summary:hover .timeline-title { color: var(--accent-hover); }
+}
+
+.timeline-date {
+    font-family: "Label Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+.timeline-title {
+    font-size: var(--fs-md);
+    font-weight: var(--fw-medium);
+    line-height: 1.35;
+    color: var(--text-primary);
+    text-wrap: pretty;
+    transition: color 0.2s ease;
+}
+
+/* the one-line summary. Hidden on phones: there, a collapsed entry should show
+   the date and the title and nothing else. */
+.timeline-lede {
+    display: none;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+}
+
+/* [+] / [-] marker.
+   The glyph lives in CSS content, not in the HTML, so it can actually change
+   when the entry opens -- as literal text in the markup it would have been
+   stuck on [+] forever.
+   These characters have to exist in the Courier Prime cut: see MONO_CHARS in
+   tools/subset-font.py, which reads CSS content values and will tell you if you
+   pick something that isn't in the subset. */
+.timeline-entry summary .timeline-toggle::after { content: "[+]"; }
+.timeline-entry[open] summary .timeline-toggle::after { content: "[-]"; }
+
+.timeline-entry summary .timeline-toggle {
+    font-family: "Label Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: var(--fs-2xs);
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.timeline-entry[open] summary .timeline-toggle { color: var(--accent); }
+
+@media (hover: hover) and (pointer: fine) {
+    .timeline-entry summary:hover .timeline-toggle { color: var(--accent); }
+}
+
+.timeline-body {
+    padding: var(--sp-1) 0 var(--sp-3);
+    font-size: var(--fs-sm);
+    line-height: 1.65;
+    color: var(--text-secondary);
+    border-left: 1px solid transparent;
+}
+
+.timeline-body p { margin: 0 0 var(--sp-3); }
+.timeline-body p:last-child { margin-bottom: 0; }
+.timeline-body .skill-cat-body { margin-top: var(--sp-3); }
+
+/* Smooth open/close only where the browser can animate a <details> natively.
+   Everywhere else it snaps, which is better than fighting the element with
+   JS height maths. */
+@supports selector(::details-content) {
+    .timeline-entry::details-content {
+        block-size: 0;
+        overflow: hidden;
+        transition: block-size 0.25s ease, content-visibility 0.25s allow-discrete;
+    }
+    .timeline-entry[open]::details-content { block-size: auto; }
+}
+
+@supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+}
+
+@media screen and (min-width: 760px) {
+    .timeline { --rail-x: 11px; }
+    .timeline-entry { padding-left: calc(var(--rail-x) + 34px); }
+    .timeline-entry + .timeline-entry { margin-top: var(--sp-6); }
+    .timeline-lede { display: block; }   /* room for it once there's room */
+    .timeline-title { font-size: var(--fs-lg); }
 }
 
 /* Certificates Section */

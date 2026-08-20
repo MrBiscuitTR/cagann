@@ -10,8 +10,8 @@
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const text = [
-    "<HTML>", "Artificial Intelligence", "Machine Learning", "Computer Vision", "JavaScript", "Python", "Java", "TypeScript", "React.JS", "Node.JS", "MongoDB", "SQL", "TSX", "CSS",
-    "Git", "Kali Linux", "Responsive design", "REST API", "Database", "Frontend", "Backend", "Full-Stack", "Web development", "Software development", "Computer Science", "Problem Solving", "Debugging", "Testing", "Code review", "Automation", "Bug Bounty", "Reverse Engineering", "Cybersecurity", "Penetration Testing", "Ethical Hacking", "CTF", "Hack The Box", "AI", "C & C++", "Docker", "Innovation", "Open Source", "Self-hosting", "Homelab", "Red Teaming", "Blue Teaming", "Linux", "Windows", "Networking"
+    "<HTML>", "Artificial Intelligence", "Applied AI", "Machine Learning", "JavaScript", "Python", "Java", "TypeScript", "React.JS", "Node.JS", "MongoDB", "SQL", "CSS",
+    "Git", "Kali Linux", "Ghidra", "C++", "Operating Systems", "Active Directory", "REST API", "Database", "Frontend", "Backend", "Full-Stack", "Web Development", "Software development", "Computer Science", "Debugging", "Testing", "Code Review", "Automation", "Bug Bounty", "Reverse Engineering", "Cybersecurity", "Penetration Testing", "Ethical Hacking", "CTF", "Hack The Box", "AI", "Assembly", "Docker", "Innovation", "Open Source", "Self-hosting", "Homelab", "Red Teaming", "Blue Teaming", "Linux", "Windows", "Networking", "Burp Suite", "Metasploit", "Wireshark", "Forensics" ,"Fuzzing"
   ];
 
   // Fisher-Yates — Array.sort with a random comparator is biased.

@@ -142,6 +142,7 @@
         <script defer src="js/scrollReveal.js"></script>
         <script defer src="js/scramble.js"></script>
         <script defer src="js/caret.js"></script>
+        <script defer src="js/timeline.js"></script>
         <script defer src="js/coolbg.js"></script>
         <script defer src="js/main.js"></script>
         <script defer src="js/dynamic-text.js"></script>
@@ -248,9 +249,235 @@
                 </div>
             </div>
             <div class="reveal">
+                <div class="container" id="timeline">
+                    <div class="container-text">
+                        <span class="section-label" aria-hidden="true">02 / TIMELINE</span>
+                        <h2 data-value="Timeline">Timeline</h2>
+                    </div>
+                </div>
+            </div>
+            <section class="timeline-section" aria-label="Timeline">
+                <!-- NEWEST FIRST. Adding an entry: copy one li to the top.
+                     Every details carries `open` in the markup on purpose, so with
+                     JavaScript off the whole thing is readable. js/timeline.js then
+                     collapses them on narrow screens and leaves them open on wide
+                     ones, and stops managing it the moment you click one yourself.
+                     No name= attribute: several can be open at once, which is the
+                     point on desktop.
+                     Tag chips reuse .skill / .skill-cat-body from the Skills
+                     section, so they need no styling of their own. -->
+                <ol class="timeline">
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">NOW</span>
+                                    <span class="timeline-title">Security tooling for an AI operator</span>
+                                    <span class="timeline-lede">Where the two threads meet.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>cybersecurity-tools — recon, enumeration and OSINT built to be driven by a local LLM over MCP, filling the gaps Kali leaves rather than cloning what it already does well. Read-only by default, standard library first, privacy-first DNS. CyberJarvis is the same idea as a CLI agent.</p>
+                                    <p>Open to offensive security internships.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">Python</div>
+                                        <div class="skill">MCP</div>
+                                        <div class="skill">OSINT</div>
+                                        <div class="skill">Recon</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">JUL 2026</span>
+                                    <span class="timeline-title">Certified Ethical Pentester · Certified Mobile Application Pentester</span>
+                                    <span class="timeline-lede">Earned in labs, not lectures.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Both came out of hands-on machines and flag captures under direct one-to-one mentorship rather than coursework. Penetration testing, web and mobile application security, and reverse engineering.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">Penetration Testing</div>
+                                        <div class="skill">Application Security</div>
+                                        <div class="skill">Android</div>
+                                        <div class="skill">Reverse Engineering</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">LATE 2025 —</span>
+                                    <span class="timeline-title">Into offensive security</span>
+                                    <span class="timeline-lede">The point it stopped being a side interest.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>I like the part where you reason, research, and keep finding workarounds until the flag falls out. CTFs, reverse engineering, and the low-level mechanics underneath — taking something apart purely to break it is, as far as I am concerned, a good way to spend an evening.</p>
+                                    <p>The turn had a specific cause: React2Shell (CVE-2025-55182), an unauthenticated RCE in React Server Components scored CVSS 10.0 and disclosed in December 2025. Watching a critical-10 land in the exact stack I had been building in made the gap between writing software and understanding it very hard to ignore.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">CTFs</div>
+                                        <div class="skill">Reverse Engineering</div>
+                                        <div class="skill">Vulnerability Research</div>
+                                        <div class="skill">Web Pentesting</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">2025 — 2026</span>
+                                    <span class="timeline-title">Building things that do not phone home</span>
+                                    <span class="timeline-lede">Local-first, self-hostable, offline where possible.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>A run of projects under one constraint: little to no telemetry, self-hostable by anyone, and working without a connection wherever that is possible.</p>
+                                    <p>P.O.T.A.T.O, a local voice-driven AI tool operator. Bedroc, end-to-end encrypted notes you can host yourself. Utilities, so I would stop handing random websites my data for things a browser can do on its own.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">Python</div>
+                                        <div class="skill">Svelte</div>
+                                        <div class="skill">Docker</div>
+                                        <div class="skill">Self-hosting</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">SEP 2025 —</span>
+                                    <span class="timeline-title">Université Paris-Saclay — BSc Computer Science</span>
+                                    <span class="timeline-lede">First year down, three to go.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Math-Info track, through 2028. The first year covered C++, operating systems, networking and Linux fundamentals — which turned out to be exactly the groundwork for where I went next.</p>
+                                    <p>Still early. This entry is going to keep growing.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">C++</div>
+                                        <div class="skill">Operating Systems</div>
+                                        <div class="skill">Networking</div>
+                                        <div class="skill">Linux</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">2023 — 2025</span>
+                                    <span class="timeline-title">MFINUE IT</span>
+                                    <span class="timeline-lede">Support for 400+ delegates, then the person Connect ran through.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>First year on the IT team, providing technical support across a conference of more than 400 delegates.</p>
+                                    <p>Second year I became the de facto maintainer of MFINUE Connect, the conference portal: new features, fixes and additions all went through me, and I finished the year with the highest commit share on the project. Not my official title — but it was the job.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">TypeScript</div>
+                                        <div class="skill">React</div>
+                                        <div class="skill">Maintainer</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">JUL — AUG 2023</span>
+                                    <span class="timeline-title">FMSS Bilişim — Developer Intern</span>
+                                    <span class="timeline-lede">Two months alongside a full-stack team.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Mostly watching rather than shipping, but it was the first time the pieces I had been learning separately — front end, back end, mobile — lined up into one picture of how software actually gets built.</p>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">JAN — FEB 2023</span>
+                                    <span class="timeline-title">Fibabanka — Web Development Intern</span>
+                                    <span class="timeline-lede">Built an internal Agile board end to end.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Two months building a task board the team actually used: a React front end with drag-and-drop cards, a Node.js and MongoDB back end, and WebSockets so everyone's view updated live instead of on refresh. I sat in on the UI design discussions too.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">React</div>
+                                        <div class="skill">Node.js</div>
+                                        <div class="skill">MongoDB</div>
+                                        <div class="skill">WebSockets</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">2021 — 2024</span>
+                                    <span class="timeline-title">Coding Club — member, then president</span>
+                                    <span class="timeline-lede">Plus a detour through game development.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Joined in 2021 and ran the club in 2023—24. Competed at UAA Codefest in 2022 as a duo.</p>
+                                    <p>Somewhere in here I also spent a while on game development with C# and Unity. Never seriously, but far enough in to understand what a frame budget is.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">C#</div>
+                                        <div class="skill">Unity</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">2020 — 2025</span>
+                                    <span class="timeline-title">Lycée Français Privé Saint-Joseph, Istanbul</span>
+                                    <span class="timeline-lede">Graduated 94.5/100, Certificate of Excellence all five years.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Five years on the French track, including the preparatory year, with a Certificate of Excellence in every one of them.</p>
+                                    <p>The school did not offer AP courses at all, so I took four of them on my own — Calculus BC, Computer Science A, Physics C: Mechanics and Physics 1 — preparing for all four alongside the ordinary academic year rather than instead of it. 5/5 on every one.</p>
+                                    <p>Certified C1 in both working languages over the same period: IELTS Academic 7.5 and DALF C1.</p>
+                                    <div class="skill-cat-body">
+                                        <div class="skill">AP Calculus BC 5</div>
+                                        <div class="skill">AP CS A 5</div>
+                                        <div class="skill">AP Physics C 5</div>
+                                        <div class="skill">AP Physics 1 5</div>
+                                        <div class="skill">IELTS 7.5</div>
+                                        <div class="skill">DALF C1</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </li>
+                        <li class="timeline-entry reveal">
+                            <details open>
+                                <summary>
+                                    <span class="timeline-date">2016 — 2019</span>
+                                    <span class="timeline-title">Notepad++, batch files, and the inspect panel</span>
+                                    <span class="timeline-lede">Where the curiosity started.</span>
+                                    <span class="timeline-toggle" aria-hidden="true"></span>
+                                </summary>
+                                <div class="timeline-body">
+                                    <p>Around ten years old, writing simple web pages and batch scripts in Notepad++ and pulling other people's pages apart in the browser inspector to see what would break. I also spent a while convinced I could take Google down with enough ping requests. I could not.</p>
+                                    <p>From 2018 it turned into something more deliberate — online courses on Python, web development and ethical hacking.</p>
+                                </div>
+                            </details>
+                        </li>
+                </ol>
+            </section>
+            <div class="reveal">
                 <div class="container" id="skills">
                     <div class="container-text">
-                        <span class="section-label" aria-hidden="true">02 / SKILLS</span>
+                        <span class="section-label" aria-hidden="true">03 / SKILLS</span>
                         <h2 data-value="Skills">Skills</h2>
                     </div>
                 </div>
@@ -398,7 +625,7 @@
             <div class="reveal">
                 <div class="container" id="certifications">
                     <div class="container-text">
-                        <span class="section-label" aria-hidden="true">03 / CERTIFICATIONS</span>
+                        <span class="section-label" aria-hidden="true">04 / CERTIFICATIONS</span>
                         <h2 data-value="Certifications">Certifications</h2>
 
                         <br>
@@ -485,7 +712,7 @@
             <div class="reveal">
                 <div class="container" id="projects">
                     <div class="container-text">
-                        <span class="section-label" aria-hidden="true">04 / PROJECTS</span>
+                        <span class="section-label" aria-hidden="true">05 / PROJECTS</span>
                         <h2 data-value="Some of My Projects">Some of My Projects</h2>
                     </div>
                 </div>
@@ -685,7 +912,7 @@
                 </div>
             </section>
 
-            <!-- ===== 05 / SECURITY - stub, deliberately commented out =====
+            <!-- ===== 06 / SECURITY - stub, deliberately commented out =====
                  Ready to switch on when I've actually written it. I'm not going to
                  fill this with filler in the meantime: an empty-looking section under
                  my name is worse than no section, and Google agrees.
@@ -696,7 +923,7 @@
             <div class="reveal">
                 <div class="container" id="security">
                     <div class="container-text">
-                        <span class="section-label" aria-hidden="true">05 / SECURITY</span>
+                        <span class="section-label" aria-hidden="true">06 / SECURITY</span>
                         <h2 data-value="Security">Security</h2>
                     </div>
                 </div>
