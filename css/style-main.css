@@ -556,6 +556,16 @@ a {
     font-weight: var(--fw-light);
     line-height: 1.5;
     color: var(--text-primary);
+    /* This used to be two lines held apart by a hard <br>, which meant the
+       break landed in a fixed place no matter how wide the screen was, and on a
+       phone you got a long line and then a stubby one.
+       Cap the measure and let the browser pick the break instead: text-wrap
+       balance evens the lines out at whatever width it ends up with, so it
+       never leaves a single orphan word on the second line.
+       (It's a flex item in a centred .wt-text, so max-width still centres it
+       even though the margin above is locked with !important.) */
+    max-width: 34ch;
+    text-wrap: balance;
 }
 
 /* the one-line hook under the hero tagline. Commented out in the HTML until I

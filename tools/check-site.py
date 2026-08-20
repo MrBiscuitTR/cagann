@@ -226,6 +226,47 @@ def check_sprite_refs(all_html):
                 fail(f"{page}: <use> #{frag} not in {path} (has: {sorted(ids)})")
 
 
+def check_mono_text(all_html):
+    """Anything rendered in Label Mono must exist in the Courier Prime subset.
+
+    The subset is tiny (uppercase, digits, a little punctuation), so one curly
+    quote or en dash in a section label or a timeline date silently falls back
+    to a different font for that single character. It looks almost right, which
+    is why it survived for a while: the timeline dates were using em and en
+    dashes, neither of which is in the cut.
+
+    Kept in sync by reading MONO_CHARS straight out of subset-font.py rather
+    than restating the ranges here.
+    """
+    tool = os.path.join(ROOT, "tools", "subset-font.py")
+    if not os.path.exists(tool):
+        return
+    src = io.open(tool, encoding="utf-8").read()
+    m = re.search(r'MONO_CHARS = "([^"]+)"', src)
+    if not m:
+        fail("tools/subset-font.py: could not read MONO_CHARS")
+        return
+
+    allowed = set()
+    for part in m.group(1).split(","):
+        part = part.strip().replace("U+", "")
+        if "-" in part:
+            lo, hi = part.split("-")
+            allowed.update(range(int(lo, 16), int(hi, 16) + 1))
+        else:
+            allowed.add(int(part, 16))
+
+    for page, html in all_html.items():
+        for cls in ("section-label", "timeline-date"):
+            for text in re.findall(r'class="' + cls + r'"[^>]*>([^<]+)<', html):
+                bad = sorted({c for c in text if ord(c) not in allowed})
+                if bad:
+                    fail("%s: .%s text %r uses %s, which is not in the mono "
+                         "subset and will fall back to another font"
+                         % (page, cls, text.strip(), bad))
+
+
+
 def check_shared_nav(all_html):
     navs = {}
     for page, html in all_html.items():
@@ -251,6 +292,7 @@ def main():
             check_links(base, page, html)
         check_shared_nav(all_html)
         check_sprite_refs(all_html)
+        check_mono_text(all_html)
         check_xml()
         check_css()
         print(f"checked {len(all_html)} pages")
