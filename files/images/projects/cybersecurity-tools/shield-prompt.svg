@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Card icon for the cybersecurity-tools project.
+
+  Drawn rather than hotlinked: that repo has no logo, and GitHub's og-image is
+  1200x600 social-card furniture, useless at 60px.
+
+  Used through <img src>, so it renders as its OWN document. CSS from the page
+  does not reach inside it, which is why the accent colour is hard-coded below
+  instead of currentColor. Change the accent token in style-main.css and this
+  file has to change with it. The footer icons in /files/icons.svg are the
+  opposite case: they go through <use>, inherit colour, and must stay
+  currentColor.
+
+  Careful: no double hyphen anywhere in this comment. SVG is XML, and that
+  includes writing a CSS custom property name out in full, which is what broke
+  it the first time I wrote this file.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Cybersecurity tools">
+  <path d="M32 4 56 13v20c0 14-10 24-24 27C18 57 8 47 8 33V13Z"
+        fill="none" stroke="#4fd1e0" stroke-width="3.2" stroke-linejoin="round"/>
+  <path d="M22 27l7 6-7 6" fill="none" stroke="#4fd1e0" stroke-width="3.4"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M35 39h9" fill="none" stroke="#4fd1e0" stroke-width="3.4"
+        stroke-linecap="round"/>
+</svg>
