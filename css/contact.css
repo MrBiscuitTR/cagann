@@ -24,15 +24,15 @@
 }
 
 .contact-text h1 {
-    font-size: 30px;
-    font-weight: 300;
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-light);
     color: var(--text-main);
     margin: 0 0 0.4em;
 }
 
 .contact-text p {
-    font-size: 16px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     color: var(--text-main);
     line-height: 1.6;
     margin: 0;
@@ -47,7 +47,7 @@
 
 @media (hover: hover) and (pointer: fine) {
     .contact-text a:hover {
-        color: #a8edff;
+        color: var(--accent-hover);
     }
 }
 
@@ -72,8 +72,8 @@
 }
 
 .contact-form-cool label {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-medium);
     color: var(--selected-brighter);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -84,26 +84,26 @@
 .contact-form-cool form textarea {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid rgba(0, 128, 128, 0.3);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--border-radius-global);
     background-color: var(--body-bg-color);
     color: var(--text-main);
     font-family: Inter, Montserrat, sans-serif;
-    font-size: 15px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 }
 
 .contact-form-cool form input:focus,
 .contact-form-cool form textarea:focus {
-    border-color: teal;
+    border-color: var(--accent);
     outline: none;
 }
 
 .contact-form-cool form input::placeholder,
 .contact-form-cool form textarea::placeholder {
-    color: rgba(218, 223, 221, 0.35);
+    color: var(--text-muted);
 }
 
 .contact-form-cool form textarea {
@@ -118,11 +118,11 @@
     padding: 12px;
     border: none;
     border-radius: var(--border-radius-global);
-    background-color: teal;
-    color: var(--header-footer-bg);
+    background-color: var(--accent);
+    color: var(--surface-0);
     font-family: Inter, Montserrat, sans-serif;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
     letter-spacing: 0.04em;
     cursor: pointer;
     transition: background-color 0.2s ease;
@@ -131,7 +131,7 @@
 
 @media (hover: hover) and (pointer: fine) {
     .contact-form-cool form button[type="submit"]:hover {
-        background-color: #009090;
+        background-color: var(--accent-hover);
     }
 }
 

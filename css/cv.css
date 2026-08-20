@@ -27,15 +27,15 @@ body {
 }
 
 .cv-header-text h1 {
-    font-size: 30px;
-    font-weight: 300;
+    font-size: var(--fs-2xl);
+    font-weight: var(--fw-light);
     color: var(--text-main);
     margin: 0 0 0.3em;
 }
 
 .cv-header-text p {
-    font-size: 15px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     color: var(--text-main);
     opacity: 0.6;
     margin: 0;
@@ -66,8 +66,8 @@ body {
 }
 
 .old-cvs h2 {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: var(--fs-2xs);
+    font-weight: var(--fw-semibold);
     color: var(--selected-brighter);
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -80,8 +80,8 @@ body {
 }
 
 .old-cvs li {
-    font-size: 15px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     color: var(--text-main);
     line-height: 1.7;
 }
@@ -94,7 +94,7 @@ body {
 @media (hover: hover) and (pointer: fine) {
     .old-cvs a:hover {
         text-decoration: underline;
-        color: #a8edff;
+        color: var(--accent-hover);
     }
 }
 
@@ -104,8 +104,8 @@ body {
     width: 92vw;
     max-width: 960px;
     margin: -0.6em 0 0;
-    font-size: 14px;
-    font-weight: 300;
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-normal);
     color: var(--text-main);
     opacity: 0.7;
     text-align: center;

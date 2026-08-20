@@ -34,8 +34,11 @@
 (() => {
   const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
   const MAX_LEN = 32;        // longer than this reads as broken, not stylish
-  const TICK_MS = 30;
-  const REVEAL_RATE = 1 / 3; // characters locked in per tick
+  const TICK_MS = 28;
+  const TOTAL_TICKS = 14;    // see below -- this is what makes it length-independent
+  const CARET_GAP_MS = 500;  // breathing room between the letters settling and
+                             // caret.js putting a cursor there. Without it the
+                             // two effectively overlap and it reads as busy.
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
@@ -64,7 +67,25 @@
     el.append(ghost, live);
     el.classList.add("scramble-lock");
 
-    return { live, ghost, text };
+    return { host: el, live, ghost, text };
+  }
+
+  // Tell the world this heading has finished resolving. caret.js waits for it:
+  // a cursor blinking beside text that's still churning through random letters
+  // reads as two effects fighting each other, so the caret holds off.
+  // Called on the bail-out path too -- if the scramble never runs, the caret
+  // must not stay blocked forever.
+  function settle(target) {
+    const host = target.host;
+    if (!host || !host.classList.contains("scramble-pending")) return;
+    // The delay lives here rather than in caret.js on purpose: .scramble-pending
+    // is what gates the caret, so the gate has to stay shut for the whole gap.
+    // If caret.js just deferred its own timer instead, any scroll during those
+    // 500ms would call pick(), find nothing pending, and pop the caret in early.
+    setTimeout(() => {
+      host.classList.remove("scramble-pending");
+      host.dispatchEvent(new CustomEvent("scramble:done", { bubbles: true }));
+    }, CARET_GAP_MS);
   }
 
   function scramble(target) {
@@ -78,10 +99,19 @@
     // line. Reading this forces layout, but only once per scramble, not per tick.
     if (ghost.getClientRects().length > 1) {
       live.textContent = text;
+      settle(target);
       return;
     }
 
     clearInterval(running.get(live));
+
+    // Duration is FIXED at ~TOTAL_TICKS * TICK_MS (about 400ms), whatever the
+    // length. It used to be a fixed 1/3 of a character per tick, which meant the
+    // run time scaled with the text: "Skills" took ~0.5s but "Some of My
+    // Projects" took 1.7s and just felt broken. Deriving the rate from the
+    // length instead means every heading resolves in the same beat -- long ones
+    // simply lock in more characters per tick.
+    const rate = text.length / TOTAL_TICKS;
 
     let frame = 0;
     const id = setInterval(() => {
@@ -99,8 +129,9 @@
         clearInterval(running.get(live));
         running.delete(live);
         live.textContent = text; // always finish on the real string
+        settle(target);
       }
-      frame += REVEAL_RATE;
+      frame += rate;
     }, TICK_MS);
 
     running.set(live, id);
@@ -161,6 +192,9 @@
   headings.forEach((h) => {
     const target = prepare(h);
     if (!target) return;
+    // caret.js won't put a cursor on anything still carrying this class.
+    // Headings only -- nav links scramble on hover and never host a caret.
+    h.classList.add("scramble-pending");
     h._scramble = target;
     observer.observe(h);
   });
