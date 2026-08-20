@@ -58,7 +58,9 @@ OPSZ_PIN = 16             # pinning the optical-size axis saves ~12 KB gzipped
 # --- mono, only for the small uppercase section labels ---------------------
 MONO_SRC = os.path.join(ROOT, "css/fonts/Courier_Prime/CourierPrime-Regular.ttf")
 MONO_DST = os.path.join(ROOT, "css/fonts/Courier_Prime/CourierPrime-labels-subset.ttf")
-MONO_CHARS = "U+0020,U+002D-002F,U+0030-0039,U+003A,U+0041-005A,U+005F"
+# space, plus, hyphen, dot, slash, digits, colon, A-Z, brackets, underscore
+# the brackets and plus are for the timeline's [+] / [-] expand markers
+MONO_CHARS = "U+0020,U+002B,U+002D-002F,U+0030-0039,U+003A,U+0041-005A,U+005B-005F"
 
 # Latin + Latin-1 (French accents, the tremas, (c) (r)) + Latin Ext-A (Turkish
 # g-breve, dotted/dotless i, s-cedilla) + only the punctuation and symbols I'd
@@ -151,7 +153,13 @@ def rendered_chars():
                         pass
 
             elif name.endswith(".js"):
-                for m in re.finditer(r'(["\'`])(.*?)\1', text, re.S):
+                # strip // and \* *\ first. Without this the scan reads
+                # comments as if they were rendered output, and a note-to-self that
+                # merely NAMES a character it deliberately avoids (the block cursor
+                # glyph in caret.js) gets reported as a missing glyph.
+                code = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+                code = re.sub(r"^\s*//.*$", "", code, flags=re.M)
+                for m in re.finditer(r'(["\'`])(.*?)\1', code, re.S):
                     for ch in m.group(2):
                         note(ch, rel)
 
