@@ -158,6 +158,11 @@
       // entry, which is the one thing a visitor should never have to tap open.
       details.open = details.hasAttribute("data-always-open") ? true : wide.matches;
     }
+    // .timeline-ready tells the CSS the initial state is settled. Until it's
+    // there, narrow screens hide the bodies outright: the markup ships every
+    // entry `open` for the no-JS case, so without this a phone would paint all
+    // eleven expanded and then jump as they collapsed.
+    list.classList.add("timeline-ready");
     // setting .open fires `toggle` asynchronously, so clear the guard after the
     // events have drained rather than immediately
     requestAnimationFrame(() => { applying = false; });

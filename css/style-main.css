@@ -986,14 +986,17 @@ a {
 .timeline-section {
     width: 100%;
     max-width: 100vw;
+    /* --rail-x lives HERE, not on .timeline, because .timeline-cta is a sibling
+       of the list rather than a child. Declared on .timeline it resolved to
+       nothing in the CTA, which made its padding-left invalid and collapsed the
+       indent to zero. Custom properties inherit, siblings don't share. */
+    --rail-x: 9px;
+    /* vertical centre of a node, measured from the top of its entry. js/timeline.js
+       reads this too, to work out how far down the rail should fill. One place. */
+    --node-center-y: 21px;
 }
 
 .timeline {
-    --rail-x: 9px;
-    /* vertical centre of a node, measured from the top of its entry. Lives here
-       because js/timeline.js reads it too, to work out how far down the rail
-       should fill. Change it in one place, not two. */
-    --node-center-y: 21px;
     list-style: none;
     position: relative;
     width: var(--content-w);
@@ -1160,6 +1163,10 @@ a {
 }
 
 .timeline-title {
+    /* an <h3> now, not a span, so the section shows up in heading navigation.
+       <summary> is allowed to contain a heading; it just brings default margins
+       and a browser font-size with it, both killed here. */
+    margin: 0;
     font-size: var(--fs-md);
     font-weight: var(--fw-medium);
     line-height: 1.35;
@@ -1222,12 +1229,55 @@ a {
    height frame by frame instead of jumping once at the end.
    Nothing CSS-side may animate the details height now, or the two fight. */
 
+/* The one line on the page that asks the reader to do something, so it does not
+   live inside a collapsed accordion where a phone user has to tap to find it.
+   The $ is CSS rather than text: `content: "$" / ""` gives it an empty alt
+   string, so it draws as a prompt but screen readers don't read out "dollar". */
+.timeline-cta {
+    width: var(--content-w);
+    max-width: var(--content-w);
+    margin: var(--sp-4) auto 0;
+    padding-left: calc(var(--rail-x) + 26px);
+    font-size: var(--fs-sm);
+    color: var(--text-primary);
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.timeline-cta::before {
+    content: "$";
+    font-family: "Label Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--accent);
+    margin-right: 0.6em;
+}
+
+/* The `/ ""` gives the prompt an empty alt string so screen readers don't read
+   out "dollar". It's newer syntax, and an unsupported content value drops the
+   whole declaration, so the plain "$" above stays as the fallback. */
+@supports (content: "a" / "b") {
+    .timeline-cta::before { content: "$" / ""; }
+}
+
+/* Stops the flash on phones. Every details ships with `open` so the page works
+   with JS off, which means a narrow screen would paint all eleven expanded and
+   then have js/timeline.js collapse them a moment later: a big jump.
+   While .js is present and .timeline-ready is not, hide the bodies. timeline.js
+   adds .timeline-ready straight after it sets the initial state, and from then
+   on <details> handles visibility normally.
+   JS off means no .js class, so nothing here applies and everything stays open. */
+@media screen and (max-width: 759px) {
+    .js .timeline:not(.timeline-ready) .timeline-entry details:not([data-always-open]) > .timeline-body {
+        display: none;
+    }
+}
+
 @media screen and (min-width: 760px) {
-    .timeline { --rail-x: 11px; }
+    .timeline-section { --rail-x: 11px; }
     .timeline-entry { padding-left: calc(var(--rail-x) + 34px); }
     .timeline-entry + .timeline-entry { margin-top: var(--sp-6); }
     .timeline-lede { display: block; }   /* room for it once there's room */
     .timeline-title { font-size: var(--fs-lg); }
+    .timeline-cta { padding-left: calc(var(--rail-x) + 34px); }
 }
 
 /* Certificates Section */

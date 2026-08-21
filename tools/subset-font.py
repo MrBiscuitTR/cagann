@@ -58,9 +58,10 @@ OPSZ_PIN = 16             # pinning the optical-size axis saves ~12 KB gzipped
 # --- mono, only for the small uppercase section labels ---------------------
 MONO_SRC = os.path.join(ROOT, "css/fonts/Courier_Prime/CourierPrime-Regular.ttf")
 MONO_DST = os.path.join(ROOT, "css/fonts/Courier_Prime/CourierPrime-labels-subset.ttf")
-# space, plus, hyphen, dot, slash, digits, colon, A-Z, brackets, underscore
+# space, dollar, plus, hyphen, dot, slash, digits, colon, A-Z, brackets, underscore
+# the dollar is the prompt on .timeline-cta
 # the brackets and plus are for the timeline's [+] / [-] expand markers
-MONO_CHARS = "U+0020,U+002B,U+002D-002F,U+0030-0039,U+003A,U+0041-005A,U+005B-005F"
+MONO_CHARS = "U+0020,U+0024,U+002B,U+002D-002F,U+0030-0039,U+003A,U+0041-005A,U+005B-005F"
 
 # Latin + Latin-1 (French accents, the tremas, (c) (r)) + Latin Ext-A (Turkish
 # g-breve, dotted/dotless i, s-cedilla) + only the punctuation and symbols I'd
