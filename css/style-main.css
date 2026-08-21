@@ -284,6 +284,46 @@ a {
     text-decoration: none;
 }
 
+/* Skip link. Off-screen until focused, so it changes nothing visually but gives
+   a keyboard user a way past the nav and the very tall hero. */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+    padding: var(--sp-2) var(--sp-4);
+    background: var(--surface-2);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-sm);
+}
+
+.skip-link:focus {
+    left: var(--sp-4);
+    top: var(--sp-2);
+}
+
+/* The no-JS notice. Used to be a <noscript> in <head> carrying an inline style,
+   which is invalid twice over: <noscript> in the head may only contain link,
+   style and meta, and that style attribute was the last thing forcing
+   style-src 'unsafe-inline' into the CSP. A class in the body instead. */
+.noscript-note {
+    display: block;
+    width: var(--content-w);
+    max-width: var(--content-w);
+    margin: 0 auto var(--sp-4);
+    padding: var(--sp-3) var(--sp-4);
+    box-sizing: border-box;
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    background: var(--surface-1);
+    color: var(--text-secondary);
+    font-size: var(--fs-sm);
+    text-align: left;
+}
+
 .header {
     position: sticky;
     top: 0;
@@ -869,6 +909,13 @@ a {
     }
 }
 
+html:not(.js) .collapsible:after { content: none; }
+
+/* "+N more" is nonsense when the N are already on screen, so it goes away
+   entirely without JS. The named triggers (Python, Python AI libs) stay,
+   because those are real skill labels, they just lose the arrow. */
+html:not(.js) .skill.more-toggle { display: none; }
+
 .collapsible:after {
     content: '\00a0\00a0\25B6';
 }
@@ -877,11 +924,17 @@ a {
     content: "\00a0\00a0\25BC";
 }
 
-.content {
-    padding: 0;
+/* Collapsed only when JS is around to expand it again. Without the .js class
+   the group is simply open, so every skill is readable with scripting off.
+   main.js sets an inline max-height when expanding, which beats this. */
+.js .content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+.content {
+    padding: 0;
     background: var(--surface-2);
     border-radius: var(--border-radius-global);
     border: none;
@@ -1863,7 +1916,7 @@ a {
     min-width: 0;
 }
 
-.project .project-text h2 {
+.project .project-text h3 {
     margin: 0 0 4px;
     font-size: var(--fs-md);
     font-weight: var(--fw-medium);
@@ -1877,7 +1930,7 @@ a {
     flex-shrink: 0;
 }
 
-.project .project-text h3 {
+.project .project-text h4 {
     margin: 0 0 8px;
     font-size: var(--fs-sm);
     font-weight: var(--fw-normal);

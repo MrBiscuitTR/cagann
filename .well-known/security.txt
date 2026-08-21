@@ -1,8 +1,7 @@
 # RFC 9116. Standard place for someone to tell me they found a hole in one of my
-# things. Costs nothing and it's the first thing a researcher looks for.
+# things.
 #
-# MAINTENANCE: Expires is mandatory and browsers/scanners treat an expired file
-# as invalid. Push the date out once a year -- put a calendar reminder on it.
+# MAINTENANCE: Expires is mandatory and browsers/scanners treat an expired file as invalid. Push the date out once a year.
 
 Contact: mailto:contact@cagancalidag.com
 Contact: https://cagancalidag.com/pages/contact.html

@@ -2,46 +2,67 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <script>document.documentElement.classList.add("js");</script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- CSP. GitHub Pages can't send real response headers, so a meta tag is
-             the only way to get one from the repo, and it only covers THIS page.
-             The proper site-wide version (plus HSTS, COOP, X-Frame-Options) is a
-             Cloudflare rule -- see docs/security-headers.md.
+        <!-- CSP FIRST, before the inline script below. A meta policy does not
+             apply to anything that precedes it, so with the script above the meta
+             the sha256 hash was decorative: the script was never governed by the
+             policy at all. Order matters here, don't shuffle it.
 
-             The sha256 below is the hash of that one-line inline script above.
-             If I ever touch that line, even the whitespace, this stops matching
-             and the script silently gets blocked. Recompute with:
+             GitHub Pages can't send real response headers, so a meta tag is the
+             only way to get a policy from the repo, and it only covers THIS page.
+             The site-wide version (HSTS, COOP, frame-ancestors, nosniff,
+             Permissions-Policy) is a Cloudflare rule, see docs/security-headers.md.
+
+             The sha256 is the hash of that one-line script. If I touch that line,
+             even the whitespace, it stops matching and the script gets blocked.
                printf '%s' 'document.documentElement.classList.add("js");' | openssl dgst -sha256 -binary | openssl base64
 
+             style-src has no 'unsafe-inline': there are no style="" attributes
+             left on the page. Keep it that way. Note that js/coolbg.js setting
+             span.style.* is CSSOM, which style-src does not govern, so that's
+             fine -- it's markup attributes that would need the escape hatch.
+
              img-src is a broad `https:` deliberately. I hotlink project icons off
-             my own subdomains so they update when I rebrand something; an
-             enumerated allowlist would break every time I add one, silently. -->
+             MY OWN subdomains so they update when I rebrand something; an
+             enumerated allowlist would break every time I add one, silently.
+             The CyberExam and College Board icons used to be hotlinked too, and
+             those aren't mine: every visitor's IP was hitting someone else's
+             server, and the College Board path had a version number in it that
+             would have 404'd the day they shipped 4.7.2. Both are local now. -->
         <meta http-equiv="Content-Security-Policy" content="
             default-src 'self';
             base-uri 'self';
             form-action 'self';
             object-src 'none';
             script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk=' https://static.cloudflareinsights.com;
-            style-src 'self' 'unsafe-inline';
+            style-src 'self';
             img-src 'self' data: https:;
             font-src 'self';
             connect-src 'self' https://cloudflareinsights.com;
             upgrade-insecure-requests;
         ">
-        <meta name="referrer" content="strict-origin-when-cross-origin">
-        <title>Çağan Efe Çalıdağ | CS Student, Developer &amp; Cybersecurity Enthusiast</title>
-        <meta name="description" content="Çağan Efe Çalıdağ — Computer Science student at Paris-Saclay, working in offensive security: reverse engineering, vulnerability research and pentesting.">
-        <meta name="theme-color" content="#111d1d">
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="192x192">
-        <link rel="apple-touch-icon" type="image/png" href="/files/images/icon-192.png" sizes="192x192">
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="manifest" href="/manifest.json">
-        <link rel="canonical" href="https://cagancalidag.com/">
+        <script>document.documentElement.classList.add("js");</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <!-- Stylesheet up here so the preload scanner finds it in the first few
+             hundred bytes instead of after ninety lines of meta and JSON-LD.
+             Absolute path: this header block is copied across every page, and a
+             relative one only resolves correctly from the site root. -->
+        <link rel="stylesheet" href="/css/style-main.css">
         <!-- Collapses the HTML -> CSS -> font request chain by one hop, so the
              swap to Inter happens before first paint rather than after it. -->
         <link rel="preload" href="/css/fonts/Inter/Inter-var-subset.ttf" as="font" type="font/ttf" crossorigin>
+
+        <title>Çağan Efe Çalıdağ | CS Student, Developer &amp; Cybersecurity Enthusiast</title>
+        <meta name="description" content="Çağan Efe Çalıdağ — Computer Science student at Paris-Saclay, working in offensive security: reverse engineering, vulnerability research and pentesting.">
+        <meta name="theme-color" content="#111d1d">
+        <!-- one icon line. `rel="shortcut icon"` has been legacy for a decade and
+             was pointing at the same file, and `sizes` on an .ico is meaningless. -->
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" type="image/png" href="/files/images/icon-192.png" sizes="192x192">
+        <link rel="manifest" href="/manifest.json">
+        <link rel="canonical" href="https://cagancalidag.com/">
+
+        <meta name="referrer" content="strict-origin-when-cross-origin">
 
         <!-- ============ SEO. READ THIS BEFORE CHANGING MY BIO ============
              The point of all this is that searching "cagan calidag", "cagan efe
@@ -89,8 +110,6 @@
         <meta name="keywords" content="Çağan Efe Çalıdağ, Cagan Efe Calidag, offensive security, reverse engineering, vulnerability research, penetration testing, CTF, full-stack developer, portfolio, cv">
         <meta name="author" content="Çağan Efe Çalıdağ">
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-        <meta name="distribution" content="global">
-        <meta name="google" content="translate">
         <script type="application/ld+json">
         {
           "@context": "https://schema.org",
@@ -114,17 +133,38 @@
               "jobTitle": "Computer Science Student",
               "description": "Computer Science undergraduate at Université Paris-Saclay working in offensive security: reverse engineering, vulnerability research and web application pentesting. Previously focused on full-stack web development, and still building local-first, self-hostable software.",
               "knowsLanguage": ["en", "tr", "fr"],
-              "alumniOf": {
+              "affiliation": {
                 "@type": "CollegeOrUniversity",
                 "name": "Université Paris-Saclay",
                 "url": "https://www.universite-paris-saclay.fr/en"
               },
+              "alumniOf": {
+                "@type": "HighSchool",
+                "name": "Lycée Français Privé Saint-Joseph",
+                "address": { "@type": "PostalAddress", "addressLocality": "Istanbul", "addressCountry": "TR" }
+              },
+              "hasCredential": [
+                {
+                  "@type": "EducationalOccupationalCredential",
+                  "name": "Certified Ethical Pentester",
+                  "credentialCategory": "certificate",
+                  "url": "https://certs.cyberexam.io/verify/820dea8e-db32-434f-9349-05d41ead5fb0",
+                  "recognizedBy": { "@type": "Organization", "name": "CyberExam", "url": "https://certs.cyberexam.io/" }
+                },
+                {
+                  "@type": "EducationalOccupationalCredential",
+                  "name": "Certified Mobile Application Pentester",
+                  "credentialCategory": "certificate",
+                  "url": "https://certs.cyberexam.io/verify/bd32f1f6-2eb9-4486-93c4-60d9f7661da8",
+                  "recognizedBy": { "@type": "Organization", "name": "CyberExam", "url": "https://certs.cyberexam.io/" }
+                }
+              ],
               "knowsAbout": ["Offensive Security", "Reverse Engineering", "Vulnerability Research", "Penetration Testing", "Ethical Hacking", "Capture The Flag", "Web Application Security", "Network Security", "Full-Stack Development", "Web Development", "Automation", "Self-Hosting", "Data Privacy", "Software Development"],
               "sameAs": [
                 "https://github.com/MrBiscuitTR",
-                "https://www.linkedin.com/in/çağanefeçalıdağ",
+                "https://www.linkedin.com/in/cagancalidag",
                 "https://www.instagram.com/cagancalidag/",
-                "https://www.twitter.com/Caganefe1"
+                "https://x.com/Caganefe1"
               ]
             },
             {
@@ -138,7 +178,6 @@
           ]
         }
         </script>
-        <link rel="stylesheet" href="css/style-main.css">
         <script defer src="js/scrollReveal.js"></script>
         <script defer src="js/scramble.js"></script>
         <script defer src="js/caret.js"></script>
@@ -146,10 +185,10 @@
         <script defer src="js/coolbg.js"></script>
         <script defer src="js/main.js"></script>
         <script defer src="js/dynamic-text.js"></script>
-        <noscript><span style="background-color: rgb(201, 13, 10); width: 100%; min-height: 40px; margin: 0 auto 0 auto; text-align: center; display: block; border-radius: 0;">JavaScript is disabled. Content remains visible, but animations and interactive effects are turned off.</span></noscript>
 
     </head>
     <body class="body">
+        <a class="skip-link" href="#main">Skip to content</a>
         <header class="header" id="header">
             <div class="header-image">
                 <a href="/" aria-label="Home">
@@ -166,7 +205,7 @@
                 </nav>
             </div>
         </header>
-        <main>
+        <main id="main">
         <section>
             <div class="welcome-bg">
                 <div class="background-container">
@@ -181,13 +220,11 @@
                                     <h1 data-value="Çağan Efe Çalıdağ">Çağan Efe Çalıdağ</h1>
                                     <div class="welcome-seperator-horizontal"><hr></div>
                                     <h2>Offensive Security, Developer, Computer Science Student.</h2>
-                                    <!-- ONE line goes here, in my own words. The h2 above is a job
-                                         title; this is the bit a stranger actually needs three
-                                         seconds after landing -- what I build and who for. Under
-                                         ~15 words or it stops being a hook.
-                                         Uncomment once I've written something I don't hate.
-                                    <p class="welcome-lede">...</p>
-                                    -->
+                                    <!-- this is the bit a stranger actually needs three
+                                         seconds after landing: what I build and who for. Under
+                                         ~15 words or it stops being a hook. Uncomment once I've written something I don't hate. -->
+                                         
+                                    <p class="welcome-lede">I build software that runs where you are, and I take other people's apart to see how it breaks</p>
 
                                 </div>
                             </div>
@@ -212,7 +249,7 @@
 
         </section>
         <div class="general-container">
-            <noscript>JavaScript is disabled. Content is visible without animated reveal effects.</noscript>
+            <noscript class="noscript-note">JavaScript is disabled. Everything is still readable; only the animations are off.</noscript>
             <svg class="scroll-cue" aria-hidden="true" focusable="false"><use href="/files/icons.svg#chevron-down"></use></svg>
             <div class="reveal">
                 <div class="container" id="about">
@@ -235,7 +272,7 @@
                     </div> -->
                     <div class="container-text aboutme">
                             <p>Hello! My name is Çağan Efe Çalıdağ, but I prefer to be called Çağan. I am a <span id="age">19</span>
-                                year old Computer Science undergraduate at <a href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener noreferrer">Université Paris-Saclay</a>,
+                                year old Computer Science undergraduate at <a href="https://www.universite-paris-saclay.fr/en" target="_blank" rel="noopener noreferrer"><span lang="fr">Université Paris-Saclay</span></a>,
                                 working towards offensive security: reverse engineering, vulnerability research and web application pentesting.
                                 (You can also browse <a href="/pages/projects/n8n/uni-grades" target="_blank" rel="noopener noreferrer nofollow">my university grades, updated automatically through n8n every few days</a>.)</p>
                             <p>What pulls me in is how software breaks. Tracing execution flow, taking compiled code apart,
@@ -255,11 +292,11 @@
                 <div class="container" id="timeline">
                     <div class="container-text">
                         <span class="section-label" aria-hidden="true">02 / TIMELINE</span>
-                        <h2 data-value="Timeline">Timeline</h2>
+                        <h2 id="timeline-heading" data-value="Timeline">Timeline</h2>
                     </div>
                 </div>
             </div>
-            <section class="timeline-section" aria-label="Timeline">
+            <section class="timeline-section" aria-labelledby="timeline-heading">
                 <!-- NEWEST FIRST. Add an entry: copy one li to the top.
                      Every details carries `open` in the markup on purpose, so with
                      js off the whole thing is readable. js/timeline.js then
@@ -267,6 +304,8 @@
                      ones, and stops managing it the moment you click one yourself.
                      No name= attribute: several can be open at once, which is the
                      point on desktop.
+                     data-always-open on an entry means it stays expanded at every
+                     width. It's on NOW, the one thing nobody should have to tap.
                      Tag chips reuse .skill / .skill-cat-body from the Skills
                      section, so they need no styling of their own -->
                 <ol class="timeline" reversed>
@@ -279,7 +318,7 @@
                                     <span class="timeline-toggle" aria-hidden="true"></span>
                                 </summary>
                                 <div class="timeline-body">
-                                    <p>cybersecurity-tools: recon, enumeration, OSINT and exploitation tooling built to be driven by a local LLM over MCP that runs on a Kali machine, filling the gaps Kali leaves rather than cloning what it already does well. Standard library first, few dependencies beyond Python itself.</p>
+                                    <p>cybersecurity-tools: recon, enumeration, OSINT and exploitation tooling built to be driven by a local LLM over MCP, running on a Kali machine, filling the gaps Kali leaves rather than cloning what it already does well. Standard library first, few dependencies beyond Python itself.</p>
                                     <p>Read-only by default. Anything that touches a target actively sits behind an explicit flag and is still non-destructive.</p>
                                     <div class="skill-cat-body">
                                         <div class="skill">Python</div>
@@ -497,11 +536,11 @@
                 <div class="container" id="skills">
                     <div class="container-text">
                         <span class="section-label" aria-hidden="true">03 / SKILLS</span>
-                        <h2 data-value="Skills">Skills</h2>
+                        <h2 id="skills-heading" data-value="Skills">Skills</h2>
                     </div>
                 </div>
             </div>
-            <section class="skills-grid-section" aria-label="Skills">
+            <section class="skills-grid-section" aria-labelledby="skills-heading">
                 <div class="skills-grid">
                     <!-- ORDER HERE IS THE ORDER ON THE PAGE. Security first now that
                          that's the direction; move a card block to move it.
@@ -509,6 +548,20 @@
                          pair as the Python one -- js/main.js already handles the
                          keyboard, aria-expanded and the height animation, so a new
                          group needs no JS at all. Nothing is deleted, just folded. -->
+
+                    <div class="skill-category-card reveal">
+                        <h3 class="skill-cat-title">Offensive Security</h3>
+                        <div class="skill-cat-body">
+                            <div class="skill">Burp Suite &amp; curl</div>
+                            <div class="skill">Metasploit</div>
+                            <div class="skill">Aircrack-ng</div>
+                            <div class="skill">Wireshark</div>
+                            <div class="skill">Ghidra</div>
+                            <div class="skill">Jadx &amp; Frida</div>
+                            <div class="skill">sqlmap</div>
+                        </div>
+                    </div>
+
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Infrastructure &amp; Security</h3>
                         <div class="skill-cat-body">
@@ -523,27 +576,16 @@
                             <div class="skill">Cloud Services (Google)</div>
                         </div>
                     </div>
-                    <div class="skill-category-card reveal">
-                        <h3 class="skill-cat-title">Offensive Security & More</h3>
-                        <div class="skill-cat-body">
-                            <div class="skill">Burp Suite & curl</div>
-                            <div class="skill">Metasploit</div>
-                            <div class="skill">Aircrack-ng</div>
-                            <div class="skill">Wireshark</div>
-                            <div class="skill">Ghidra</div>
-                            <div class="skill">Jadx & Frida</div>
-                            <div class="skill">Many Other Kali Linux Tools</div> <!-- I dont even know which are worth listing, too many... -->
-                        </div>
-                    </div>
+                    
                     <div class="skill-category-card reveal">
                         <h3 class="skill-cat-title">Languages</h3>
                         <div class="skill-cat-body">
                             <div class="skill">JavaScript &amp; TypeScript</div>
-                            <div class="skill">C & Assembly</div>
+                            <div class="skill">C &amp; Assembly</div>
                             <div class="skill">C++</div>
                             <div class="skill">SQL</div>
                             <div class="skill">Java</div>
-                            <div class="skill collapsible">+4 more</div>
+                            <div class="skill collapsible more-toggle">+4 more</div>
                             <div class="content">
                             <div class="skill">C# &amp; Unity</div>
                             <div class="skill">HTML</div>
@@ -614,7 +656,7 @@
                             <div class="skill">Caddy</div>
                             <div class="skill">Claude Code</div>
                             <div class="skill">OpenClaw</div>
-                            <div class="skill collapsible">+3 more</div>
+                            <div class="skill collapsible more-toggle">+3 more</div>
                             <div class="content">
                             <div class="skill">Figma</div>
                             <div class="skill">Adobe Photoshop (beginner)</div>
@@ -643,7 +685,7 @@
                             <div class="skill">Analytical Thinking</div>
                             <div class="skill">Innovative Thinking</div>
                             <div class="skill"><span style="text-decoration: line-through;">Time Management</span>&nbsp;lmao no</div>
-                            <div class="skill collapsible">+3 more</div>
+                            <div class="skill collapsible more-toggle">+3 more</div>
                             <div class="content">
                             <div class="skill">Teamwork</div>
                             <div class="skill">Peer-to-Peer Learning</div>
@@ -675,18 +717,18 @@
                                  on purpose; move the blocks to reorder, nothing else. -->
                             <div class="cert-item reveal">
                                     <a class="cert-main" href="/files/pdfs/CyberExam-Certificate-Certified-Ethical-Pentester-1.pdf" target="_blank" rel="noopener noreferrer">
-                                        <img src="https://certs.cyberexam.io/icon.png" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <img src="/files/images/certs/cyberexam-96.webp" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>Certified Ethical Pentester</h3>
                                     </a>
-                                    <p class="cert-note"><i>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer">Besim Altınok</a> — Cybersecurity researcher, trainer and speaker, founder of CyberExam &amp; CyberPath</i></p>
+                                    <p class="cert-note"><em>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer" hreflang="tr" lang="tr">Besim Altınok</a> — Cybersecurity researcher, trainer and speaker, founder of CyberExam &amp; CyberPath</em></p>
                                     <p class="cert-by">By <a href="https://cyberexam.io/" target="_blank" rel="noopener noreferrer">CyberExam</a></p>
                             </div>
                             <div class="cert-item reveal">
                                     <a class="cert-main" href="/files/pdfs/CyberExam-Certificate-Certified-Mobile-Application-Pentester.pdf" target="_blank" rel="noopener noreferrer">
-                                        <img src="https://certs.cyberexam.io/icon.png" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <img src="/files/images/certs/cyberexam-96.webp" alt="CyberExam logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>Certified Mobile Application Pentester</h3>
                                     </a>
-                                    <p class="cert-note"><i>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer">Besim Altınok</a> — Cybersecurity researcher, trainer and speaker, founder of CyberExam &amp; CyberPath</i></p>
+                                    <p class="cert-note"><em>Under direct mentorship of <a href="https://www.google.com/search?q=Besim+Alt%C4%B1nok" target="_blank" rel="noopener noreferrer">Besim Altınok</a> — Cybersecurity researcher, trainer and speaker, founder of CyberExam &amp; CyberPath</em></p>
                                     <p class="cert-by">By <a href="https://cyberexam.io/" target="_blank" rel="noopener noreferrer">CyberExam</a></p>
                             </div>
                             <div class="cert-item reveal">
@@ -701,7 +743,7 @@
                                         <img src="/files/images/MFINUE1-96.webp" alt="MFINUE logo" width="96" height="96" loading="lazy" decoding="async">
                                         <h3>MFINUE 2024 IT Team Member</h3>
                                     </a>
-                                    <p class="cert-note"><i>Further Developed and Led Development of MFINUE Connect</i></p>
+                                    <p class="cert-note"><em>Further Developed and Led Development of MFINUE Connect</em></p>
                                     <p class="cert-by">By <a href="https://mfinue.org" target="_blank" rel="noopener noreferrer">MFINUE</a></p>
                             </div>
                             <div class="cert-item reveal">
@@ -709,23 +751,23 @@
                                         <img src="/files/images/France_Éducation_international_logo_2024.svg" alt="France Éducation international logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>DALF C1 Level French</h3>
                                     </a>
-                                    <p class="cert-note"><i>Full Professional Proficiency</i></p>
-                                    <p class="cert-by">By <a href="https://www.france-education-international.fr/" target="_blank" rel="noopener noreferrer">France Éducation international</a></p>
+                                    <p class="cert-note"><em>Full Professional Proficiency</em></p>
+                                    <p class="cert-by">By <a href="https://www.france-education-international.fr/" target="_blank" rel="noopener noreferrer"><span lang="fr">France Éducation international</span></a></p>
                             </div>
                             <div class="cert-item reveal">
                                     <a class="cert-main" href="/files/pdfs/Cagan_Efe_Calidag_IELTS_TRF_noid_censored.pdf" target="_blank" rel="noopener noreferrer">
                                         <img src="/files/images/IELTS_logo.svg" alt="IELTS logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>IELTS C1+ Level English</h3>
                                     </a>
-                                    <p class="cert-note"><i>Fluent / Full Professional Proficiency</i></p>
+                                    <p class="cert-note"><em>Fluent / Full Professional Proficiency</em></p>
                                     <p class="cert-by">By <a href="https://www.britishcouncil.org" target="_blank" rel="noopener noreferrer">British Council</a></p>
                             </div>
                             <div class="cert-item reveal">
                                     <a class="cert-main" href="/files/pdfs/AP_Scholar_with_honor.pdf" target="_blank" rel="noopener noreferrer">
-                                        <img src="https://atlas.collegeboard.org/apricot/prod/4.7.1/assets/apple-touch-icon.png" alt="College Board logo" width="48" height="48" loading="lazy" decoding="async" referrerpolicy="no-referrer">
+                                        <img src="/files/images/certs/collegeboard-96.webp" alt="College Board logo" width="48" height="48" loading="lazy" decoding="async">
                                         <h3>AP® Scholar with Honor Award</h3>
                                     </a>
-                                    <p class="cert-note"><i>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</i></p>
+                                    <p class="cert-note"><em>4 x 5's In a Single Year: CS A, Calc BC, Physics C, Physics 1</em></p>
                                     <p class="cert-by">By <a href="https://ap.collegeboard.org/" target="_blank" rel="noopener noreferrer">College Board</a></p>
                             </div>
                         </div>
@@ -745,7 +787,7 @@
                 <div class="container" id="projects">
                     <div class="container-text">
                         <span class="section-label" aria-hidden="true">05 / PROJECTS</span>
-                        <h2 data-value="Some of My Projects">Some of My Projects</h2>
+                        <h2 id="projects-heading" data-value="Some of My Projects">Some of My Projects</h2>
                     </div>
                 </div>
             </div>
@@ -756,7 +798,7 @@
                     </div>
                 </div>
             </div>
-            <section class="projects-grid-section" aria-label="Projects">
+            <section class="projects-grid-section" aria-labelledby="projects-heading">
                 <div class="projects-grid">
                     <!-- Order in this list is roughly chronological, oldest first. Keep it
                          that way when adding one.
@@ -770,20 +812,20 @@
                                 <img src="https://metaclass.cagancalidag.com/favicon-96x96.png?v=20260331" alt="Metaclass Education" width="96" height="96" loading="lazy" decoding="async" referrerpolicy="no-referrer"> <!--files/images/projects/metaclass/logo192-metaclass.png-->
                             </div>
                             <div class="project-text">
-                                <h2>Metaclass</h2>
-                                <h3>Organized Education App</h3>
-                                <p>Metaclass is a website that I made for my school to utilize. It helps teachers organize lesson materials and serve them to students.</p>
+                                <h3>Metaclass</h3>
+                                <h4>Organized Education App</h4>
+                                <p>Metaclass is a website I made for my school. It helps teachers organize lesson materials and serve them to students.</p>
                             </div>
                         </a>
                     </div>
-                    <!-- <div class="project reveal featured">
+                    <!-- <div class="project reveal">
                         <a class="project-link" href="/pages/projects/Hanımcılar/index.html">
                             <div class="project-image">
                                 <img src="/files/images/projects/hanimcilar/logo192-hanimcilar-120.webp" alt="Hanımcılar Logo" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Hanımcılar</h2>
-                                <h3>Polaroid Photo Album</h3>
+                                <h3>Hanımcılar</h3>
+                                <h4>Polaroid Photo Album</h4>
                                 <p>Hanımcılar is a website (which I made for my first, now ex gf) where you can create collaborative polaroid photo albums with changeable themes. It was originally static, but I later added a backend to allow for user accounts and collaboration.</p>
                             </div>
                         </a>
@@ -794,8 +836,8 @@
                                 <img src="https://connect.mfinue.org/apple-touch-icon.png" data-fallback="/files/images/subject-connect-120.webp" alt="MFINUE Connect" width="120" height="74" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>MFINUE Connect</h2>
-                                <h3>MUN Conference Portal</h3>
+                                <h3>MFINUE Connect</h3>
+                                <h4>MUN Conference Portal</h4>
                                 <p>MFINUE Connect is a portal that all the organizers, participants and advisors of a french MUN conference use during the conference to make life easier.</p>
                             </div>
                         </a>
@@ -806,8 +848,8 @@
                                 <img src="/files/images/projects/Utilities/utilities-192-120.webp" alt="Independent Utilities" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Utilities</h2>
-                                <h3>Independent Utilities for Personal Use</h3>
+                                <h3>Utilities</h3>
+                                <h4>Independent Utilities for Personal Use</h4>
                                 <p>I started developing these tools (more incoming!) in order to never need 3rd party websites for things that can be done independently.</p>
                             </div>
                         </a>
@@ -818,8 +860,8 @@
                                 <img src="/files/images/projects/TwoPlace/twoplace-192-120.webp" alt="TwoPlace - Innovative Video Call Platform" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>TwoPlace</h2>
-                                <h3>Innovative Video Call Platform</h3>
+                                <h3>TwoPlace</h3>
+                                <h4>Innovative Video Call Platform</h4>
                                 <p>TwoPlace is a web-based video call app designed primarily for couples who want a secure, minimal, data-friendly and intimate long-distance video chat app.</p>
                             </div>
                         </a>
@@ -830,9 +872,9 @@
                                 <img src="/files/images/projects/ConsultEd/png/consulted_favicon-192-120.webp" alt="ConsultED" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>ConsultED</h2>
-                                <h3>Organized &amp; AI Integrated Consultancy</h3>
-                                <p>An all-inclusive website for consulting experienced consultants to apply to EU universities, from turkey. It is supported by AI (Gemini) and is organized with subscription plans.</p>
+                                <h3>ConsultED</h3>
+                                <h4>Organized &amp; AI Integrated Consultancy</h4>
+                                <p>A consultancy platform connecting students in Turkey with experienced consultants for EU university applications. It is supported by AI (Gemini) for both students and consultants and is organized with subscription plans.</p>
                             </div>
                         </a>
                     </div>
@@ -842,9 +884,9 @@
                                 <img src="/files/images/projects/POTATO/favicon-120.webp" alt="P.O.T.A.T.O" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>P.O.T.A.T.O</h2>
-                                <h3>Local AI Agent</h3>
-                                <p>A <u>local</u> and vocal AI tool operator with a GUI and many useful tools, both online and offline. Requires good hardware with high VRAM.</p>
+                                <h3>P.O.T.A.T.O</h3>
+                                <h4>Local AI Agent</h4>
+                                <p>A local and vocal AI tool operator with a GUI and many useful tools, both online and offline. Requires good hardware with high VRAM.</p>
                             </div>
                         </a>
                     </div>
@@ -859,8 +901,8 @@
                                 <img src="/files/images/projects/n8n/n8n-120.webp" alt="n8n Workflows" width="120" height="63" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Multiple n8n Workflows</h2>
-                                <h3>All of which are useful</h3>
+                                <h3>Multiple n8n Workflows</h3>
+                                <h4>All of which are useful</h4>
                                 <p>All these workflows have specific use scenarios and have saved me so much time, personally. I try to stay local, and dependency-free.</p>
                             </div>
                         </div>
@@ -871,8 +913,8 @@
                                 <img src="/files/images/projects/mcserver/minecrafticon-120.webp" alt="Minecraft Server" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Hosting a Minecraft Server</h2>
-                                <h3>Hardening, VPN tunnel, ufw, careful forwarding</h3>
+                                <h3>Hosting a Minecraft Server</h3>
+                                <h4>Hardening, VPN tunnel, ufw, careful forwarding</h4>
                                 <p>I port forwarded to a Raspberry Pi, hardened it, then connected it to my laptop using a WireGuard VPN tunnel. Redirected all connections through to where the server runs. Learned a lot in the process.</p>
                             </div>
                         </div>
@@ -883,8 +925,8 @@
                                 <img src="/files/images/projects/Bedroc/apple-touch-icon-120.webp" alt="Bedroc" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Bedroc</h2>
-                                <h3>E2EE, Self-hostable Synchronous Notes</h3>
+                                <h3>Bedroc</h3>
+                                <h4>E2EE, Self-hostable Synchronous Notes</h4>
                                 <p>An end-to-end encrypted, private and secure organized note taking app, that syncs and can be easily self hosted by anyone.</p>
                             </div>
                         </a>
@@ -895,9 +937,9 @@
                                 <img src="/files/images/projects/Simple-Web-Games/favicon-games-120.webp" alt="Offline Web Games" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Offline Web Games for Hangouts</h2>
-                                <h3>Bunch of simple games, playable offline</h3>
-                                <p>This all-inclusive, no CDN website provides numerous simple games that are playable either ONLINE OR OFFLINE by adding the site to home screen as a standalone app. Site works offline after intitial load! All these games are meant to be played with friends.</p>
+                                <h3>Offline Web Games for Hangouts</h3>
+                                <h4>Bunch of simple games, playable offline</h4>
+                                <p>This all-inclusive, no CDN website provides numerous simple games that are playable either ONLINE OR OFFLINE by adding the site to home screen as a standalone app. Site works offline after initial load! All these games are meant to be played with friends.</p>
                             </div>
                         </a>
                     </div>
@@ -908,8 +950,8 @@
                                 <img src="/files/images/question-mark-circle-outline-192-120.webp" alt="Listify" width="120" height="120" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Listify</h2>
-                                <h3>AI Playlist Organizer for Spotify</h3>
+                                <h3>Listify</h3>
+                                <h4>AI Playlist Organizer for Spotify</h4>
                                 <p>An app that organizes your Spotify playlists based on your specifications, using your metadata and AI to classify your favorite songs.</p>
                             </div>
                         </div>
@@ -922,9 +964,9 @@
                                 <img src="https://blogs.cagancalidag.com/favicon.ico" alt="Blogs" width="120" height="120" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                             </div>
                             <div class="project-text">
-                                <h2>Blogs (Tech Diary)</h2>
-                                <h3>Yapping about what I've done</h3>
-                                <p>Just a personal blog where I journal my tech journey, how I set up and configure my tools, how I develop my products and what I learnt.</p>
+                                <h3>Blogs (Tech Diary)</h3>
+                                <h4>Build logs and setup notes</h4>
+                                <p>A personal blog where I write up my tech journey: how I set up and configure my tools, how the projects come together, and what I learn doing it.</p>
                             </div>
                         </a>
                     </div>
@@ -935,9 +977,9 @@
                                 <img src="/files/images/projects/cybersecurity-tools/shield-prompt.svg" alt="Cybersecurity Tools" width="64" height="64" loading="lazy" decoding="async">
                             </div>
                             <div class="project-text">
-                                <h2>Cybersecurity Tools</h2>
-                                <h3>AI-operated security tooling</h3>
-                                <p>Enumeration, recon and various exploitation tools built to be driven by a local LLM over MCP — filling the gaps Kali leaves rather than cloning what it already does. Mostly compatible with default kali installations. <br> <i>Also easily usable by humans. All tools prioritize producing clean, summary-style outputs.</i> </p>
+                                <h3>Cybersecurity Tools</h3>
+                                <h4>AI-operated security tooling</h4>
+                                <p>Enumeration, recon and various exploitation tools built to be driven by a local LLM over MCP — filling the gaps Kali leaves rather than cloning what it already does. Mostly compatible with default kali installations. <br> <em>Also easily usable by humans. All tools prioritize producing clean, summary-style outputs.</em> </p>
                             </div>
                         </a>
                     </div>
@@ -948,7 +990,7 @@
                  Ready to switch on when I've actually written it. I'm not going to
                  fill this with filler in the meantime: an empty-looking section under
                  my name is worse than no section, and Google agrees.
-                 It's numbered 05 so uncommenting it doesn't renumber anything above.
+                 It's numbered 06 so uncommenting it doesn't renumber anything above.
                  Same .container / .container-text pattern as every other block, so it
                  inherits the width, the reveal animation and the type scale for free.
 
@@ -981,7 +1023,7 @@
                     <a href="https://www.linkedin.com/in/cagancalidag" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#linkedin"></use></svg> LinkedIn</a>
                     <a href="https://github.com/MrBiscuitTR" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#github"></use></svg> GitHub</a>
                     <a href="https://www.instagram.com/cagancalidag/" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#instagram"></use></svg> Instagram</a>
-                    <a href="https://www.twitter.com/Caganefe1" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#twitter"></use></svg> Twitter</a>
+                    <a href="https://x.com/Caganefe1" target="_blank" rel="noopener noreferrer me"><svg class="icon" aria-hidden="true" focusable="false"><use href="/files/icons.svg#twitter"></use></svg> Twitter</a>
                 </div>
             </div>
 
